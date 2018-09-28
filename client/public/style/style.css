@@ -1,0 +1,68 @@
+body {
+    position: relative;
+    margin-top: 70px;
+}
+
+a.orderStart {
+    position:absolute;
+    margin-top:20px;
+    /* top:50%;
+    left:50%; */
+    background: lightblue;
+    transform:translate(-50%,-50%);
+    width:150px;
+    /* height:50px; */
+    /* padding:0 1rem; */
+    /* line-height:60px; */
+    text-align:center;
+    border:2px solid lightblue;
+    font-size:15px;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:sans-serif;
+    color:lightcoral;
+    overflow:hidden;
+}
+a.orderStart span  {
+    display:inline-block;
+    transition:0.5s;
+}
+a.orderStart span:nth-child(odd):before {
+    content:attr(data-text);
+    position:absolute;
+    transform:translateY(100%);
+}
+a.orderStart span:nth-child(odd){
+    transform:translateY(-100%);
+}
+a.orderStart:hover span:nth-child(odd){
+    transform:translateY(0);
+    color:darkred;
+}
+a.orderStart span:nth-child(even):before {
+    content:attr(data-text);
+    position:absolute;
+    transform:translateY(-100%);
+}
+
+a.orderStart span:nth-child(even){
+    transform:translateY(100%);
+}
+a.orderStart:hover span:nth-child(even){
+    transform:translateY(0);
+    color: darkred;
+}
+
+.blink{
+    /* font-size: 240px; */
+    color: rgb (0, 137, 226);
+    
+    animation: blink 1s infinite;
+ }
+ 
+ @keyframes blink{
+    0%{opacity: 1;}
+    75%{opacity: 1;}
+    76%{ opacity: 0;}
+    100%{opacity: 0;}
+ }
