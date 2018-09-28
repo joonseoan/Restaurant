@@ -23,7 +23,9 @@ const ThankYouAndGuestbook = (props) => {
 				</div>
 
 			</Link>
+
 			<br />
+			
 			<Link to = '/'>
 
 				<div> 

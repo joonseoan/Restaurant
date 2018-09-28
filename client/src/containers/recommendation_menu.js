@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+// import _ from 'lodash';
 
-import SetCurrentRecommendation from '../components/set_current_recommendation';
-
-function roundData (weather) {
-   
-    return (_.round(weather));
-
-}
+import SetCurrentRecommendation from '../components/Set_current_recommendation';
+import { roundData } from '../utils/other_weathers';
 
 function RecommendationMenu (props) {
 

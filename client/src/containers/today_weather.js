@@ -3,32 +3,10 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import WOW from 'wow.js';
 
-import GoogleMap from '../components/google_map';
-import { regexFilter } from  '../utils/mainWeather';
-
-
-function roundData (weather) {
-   
-    return (_.round(weather));
-
-}
-
-function weatherImage(mainWeather) {
-
-    const image = regexFilter(mainWeather);
-
-    const src = `../images/${ image }.PNG`;
-    
-    return <img className = "img img-fluid" src = { src } alt = { image } />
-
-}
+import { roundData, weatherImage } from '../utils/other_weathers';
+import GoogleMap from '../components/Google_map';
 
 class TodayWeather extends Component {
-
-    constructor(props)  {
-
-        super(props)
-    }
 
     componentDidMount() {
 
@@ -68,7 +46,7 @@ class TodayWeather extends Component {
                         </div>
                         <div className="col col-md border border-danger ml-1 mr-1 mb-2 wow flipInY" data-wow-offset="50" data-wow-delay="0.9s">
                             <div className="bg-danger"> Present </div>
-                            <div className="my-4">{ roundData((additionalWeather.main.temp_min) - 273) } &#8451;</div>
+                            <div className="my-4">{ roundData((additionalWeather.main.temp) - 273) } &#8451;</div>
                         </div>
                         <div className="col col-md border border-warning ml-1 mr-1 mb-2 wow flipInY" data-wow-offset="50" data-wow-delay="1.1s">
                             <div className="bg-warning"> Lowest </div>

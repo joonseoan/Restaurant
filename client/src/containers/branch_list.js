@@ -5,7 +5,7 @@ import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
 
 import { location, additionalTodayWeatherInfo } from '../actions';
-import DateTimeDisplay from '../components/date_time_display';
+import DateTimeDisplay from '../components/Date_time_display';
 // import LocationCoordinate from './location_coordinate';
 
 const options = [ 

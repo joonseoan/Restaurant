@@ -1,7 +1,7 @@
 import React from 'react';
-import _ from 'lodash';
 
-import RecommendedMenu from './recommended_menu';
+
+import RecommendedMenu from './Recommended_menu';
 import { regexFilter, setWeather } from '../utils/mainWeather';
 
 export default function SetCurrentRecommendation(props) {
@@ -9,10 +9,6 @@ export default function SetCurrentRecommendation(props) {
         const { inputMenus, temperature, mainWeather } = props;
 
         const getWeather = regexFilter(mainWeather);
-        console.log(mainWeather);
-
-        let feelTemp = _.round((temperature - 32) / 1.8);
-        feelTemp = Number(feelTemp);
        
         const indexValue = setWeather(getWeather);
     
@@ -20,7 +16,7 @@ export default function SetCurrentRecommendation(props) {
                 
             <RecommendedMenu 
                 menu = { inputMenus } 
-                temp = { feelTemp }
+                temp = { temperature }
                 value = { indexValue }
             />
                             

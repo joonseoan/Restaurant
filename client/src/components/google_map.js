@@ -12,7 +12,6 @@ class GoogleMAP extends Component{
 
       zoom: 12, //zoom level that will be displayed 
 
-      //"this" is required as this is an object of GoogleMap class
       center: {  
            //Where googlemap centers on..
           lat: coordinate.lat,

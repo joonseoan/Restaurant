@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { Link, Redirect } from 'react-router-dom';
 
-import Bill from '../components/bill/bill';
+import Bill from '../components/Bill/Bill';
 
 
 function removeSpace(name) {

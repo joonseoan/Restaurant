@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { storeOrders } from '../../actions/index'
+import { storeOrders } from '../../actions'
 
 Modal.setAppElement('#root');
 

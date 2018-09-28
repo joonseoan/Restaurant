@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-const weatherCategories = [ 'Storm', 'Blizzard', 'Thunderstorms', 'Hail', 'Shower', 
-    'Dust', 'Whirls', 'Sand', 'Squalls', 'Tornado', 'Windy', 'Hurricane', 'Ash', 
-    'Overcast', 'Sleet', 'windBearing', 'Clear', 'Cloudy','Clouds', 'Drizzle', 'Mist', 
-    'Rain', 'Snow', 'Haze', 'Thunderstorm', 'windBearing', 'Breezy', 'Smoke', 'Fog', 'Humi',
-     'Humid', 'Humidy'];
+const weatherCategories = [ 'Clear', 'Cloudy', 'Clouds', 'Overcast', 'Rain', 'Drizzle', 'Mist', 
+    'Haze', 'Sleet', 'Snow', 'Storm', 'Shower', 'Thunderstorms','Breezy', 'Smoke', 'Fog', 'Humid', 
+    'Humidy', 'Blizzard', 'Dust', 'Whirls', 'Sand', 'Squalls', 'Tornado', 'Windy', 
+    'Hurricane', 'Ash', 'windBearing', 'Thunderstorm', 'Humi',
+     'Hail'];
 
 export function regexFilter(weather) {
 
@@ -28,6 +28,7 @@ export function regexFilter(weather) {
 export function setWeather (getWeather) {
 
     let indexValue
+
     _.each(weatherCategories, weather => {
 
         if (getWeather === weather) {
