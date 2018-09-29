@@ -22,4 +22,5 @@ yarn-error.log*
 
 process.env
 
-recommendation_engine
+recommendation_engine.js
+cities.js

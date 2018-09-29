@@ -4,8 +4,8 @@ export default function (state = null, action) {
 
         switch (action.type) {
 
-            case FETCH_LOCATION:           
-	
+            case FETCH_LOCATION:    
+            
 	            return action.payload.data;
 
             default :
@@ -13,7 +13,5 @@ export default function (state = null, action) {
                 return state;
                  
         }
-
-       
 
 }

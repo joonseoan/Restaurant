@@ -42,8 +42,6 @@ export default class RecommendedMenu extends Component {
 
     componentDidMount() {
 
-        console.log('this.props(recommended menu): ', this.props);
-
         this.setCurrentMenu();
 
        //  if (typeof window !== 'undefined') { const wow = new WOW(); wow.init(); }

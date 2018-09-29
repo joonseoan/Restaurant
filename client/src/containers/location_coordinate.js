@@ -1,36 +1,40 @@
-// import React from 'react';
-// import { connect } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 
-// // import TodayWeatherCoordinate from './today_weather_coordinate';
+// import TodayWeatherCoordinate from './today_weather_coordinate';
+import TodayWeather from '../components/Today_weather';
 
-// const LocationCoordinate = (props) => {
+const LocationCoordinate = (props) => {
     
-//     if(!props.branchLocation)
-//     return <div>Loading...</div>;
+    if(!props.branchLocation)
+    return <div>Loading...</div>;
 
-//     const { lat, lng } = props.branchLocation.results[0].geometry.location;
+    const { location } = props.branchLocation.results[0].geometry;
     
-//     return(
+    return(
 
-//         <div>
+        <div>
 
-//             <div>
+            <div>
+                {/*
+                    <TodayWeatherCoordinate
+                    
+                        lat = { lat }
+                        lng = { lng }
+                    />
+                */}
 
-//                 <TodayWeatherCoordinate
-                
-//                     lat = { lat }
-//                     lng = { lng }
-//                 />
-            
-//             </div>
+                <TodayWeather area = { location } />
 
-//         </div>
-//     );
-// }
+            </div>
 
-// function mapsPropsToState({ branchLocation }) {
+        </div>
+    );
+}
 
-//     return { branchLocation };
-// }
+function mapsPropsToState({ branchLocation }) {
 
-// export default connect(mapsPropsToState)(LocationCoordinate);
+    return { branchLocation };
+}
+
+export default connect(mapsPropsToState)(LocationCoordinate);

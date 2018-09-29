@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-
 import _ from 'lodash';
-
 import { Link, Redirect } from 'react-router-dom';
 
-import Bill from '../components/Bill/Bill';
+import Bill from '../components/bill/Bill';
 
 
 function removeSpace(name) {
@@ -296,7 +293,7 @@ class MenuList extends Component {
     
                 return (
                     
-                    <div>
+                    <div className="btn-group">
                         
                         <span 
                             className="btn btn-sm mr-1 mb-1 btn-primary"
@@ -484,8 +481,6 @@ class MenuList extends Component {
 
         if(!this.props) return <div/>; 
         if(!this.props.recomMenu)  return<div/>;
-        
-        console.log('this.props.recoMenu: ', this.props.recomMenu);
 
         if(this.state.newPage) 
             return <Redirect to = 'thankyouAndGuestbook' menuChecked = { this.state.name_price } />;

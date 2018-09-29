@@ -9,7 +9,7 @@ import App from './components/App';
 import GuestbookAllPosted from './guestbooks/guestbook_all_posted';
 import GuestbookNewCreated from './guestbooks/guestbook_new_created';
 import RecommendationDescriptions from './components/current_recommendations/Recommendation_descriptions';
-import ThankYouAndGuestbook from './components/Thankyou/Thank_you_and_guestbook';
+import ThankYouAndGuestbook from './components/thankyou/Thank_you_and_guestbook';
 import GuestbookPosted from './guestbooks/guestbook_posted';
 import EmailPasswordInput from './guestbooks/email_password_input';
 

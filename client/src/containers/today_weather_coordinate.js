@@ -2,7 +2,7 @@
 // import { connect } from 'react-redux';
 
 // // import { todayWeatherInfo } from '../actions';
-// import TodayWeather from './today_weather';
+// import TodayWeather from '../components/Today_weather';
 
 // let startInterval;
 
@@ -10,32 +10,32 @@
 
 //     setTodayWeather(weatherInfo) {
 
-//         const { lat, lng } = weatherInfo;
+//        // const { lat, lng } = weatherInfo;
 
 // //        this.props.todayWeatherInfo(lat, lng);
 
-//         if (startInterval) clearInterval(startInterval);
+// //         if (startInterval) clearInterval(startInterval);
 
-//             startInterval = setInterval(() => {
+// //             startInterval = setInterval(() => {
 
-// //            this.props.todayWeatherInfo(lat, lng);
+// // //            this.props.todayWeatherInfo(lat, lng);
             
-//         }, 300000); 
+// //         }, 300000); 
 
 //     }
 
 //     componentDidMount() {
 
-//         if(this.props)
+//         // if(this.props)
 
-//         console.log(this.props);
-//         this.setTodayWeather(this.props);
+//         // console.log(this.props);
+//         // this.setTodayWeather(this.props);
 
 //     }
     
 //     componentWillReceiveProps(nextProps) {
 
-//         this.setTodayWeather(nextProps);
+//         // this.setTodayWeather(nextProps);
 
 //     }
 
@@ -47,7 +47,7 @@
 //         return (
 //             <div>
 
-//                 <TodayWeather />
+//         {/*  <TodayWeather /> */}
                 
 //             </div>
                 
@@ -56,5 +56,8 @@
 //     }
 
 // }
+
+// export default TodayWeatherCoordinate;
+
  
-// export default connect(null, { todayWeatherInfo })(TodayWeatherCoordinate);
+// //export default connect(null, { todayWeatherInfo })(TodayWeatherCoordinate);

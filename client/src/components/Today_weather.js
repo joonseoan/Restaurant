@@ -4,26 +4,27 @@ import _ from 'lodash';
 import WOW from 'wow.js';
 
 import { roundData, weatherImage } from '../utils/other_weathers';
-import GoogleMap from '../components/Google_map';
+import GoogleMap from './Google_map';
 
 class TodayWeather extends Component {
 
-    componentDidMount() {
+    // componentDidMount() {
 
-        if (typeof window !== 'undefined') { const wow = new WOW(); wow.init(); }
+    //     if (typeof window !== 'undefined') { const wow = new WOW(); wow.init(); }
 
-    }
+    // }
 
     render() {
 
         // if (!this.props.todayWeather || !this.props.additionalTodayWeather)
         if (!this.props.additionalTodayWeather)
             return (<div>Loading...</div>);
-    
+
         // const weather = this.props.todayWeather;
         const additionalWeather = this.props.additionalTodayWeather;
-        const { lat, lng } = this.props.branchLocation.results[0].geometry.location;
+        const { lat, lng } = this.props.area
 
+    
         return(
         
             <div className="container">
@@ -61,7 +62,6 @@ class TodayWeather extends Component {
                             <div className="text-capitalize my-4">{ additionalWeather.weather[0].description }</div>
                         </div>
 
-
                         {/*
                             <div className="col col-md border border-danger ml-1 mr-1 mb-2 wow flipInY" data-wow-offset="50" data-wow-delay="1.5s">
                                 <div className="bg-danger"> Present </div>
@@ -87,10 +87,10 @@ class TodayWeather extends Component {
 }
 
 // function mapStateToProps ({ todayWeather, additionalTodayWeather, branchLocation }) {
-function mapStateToProps ({ additionalTodayWeather, branchLocation }) {
+function mapStateToProps ({ additionalTodayWeather }) {
 
    // return({ todayWeather, additionalTodayWeather, branchLocation });
-    return({ additionalTodayWeather, branchLocation });
+    return({ additionalTodayWeather });
 
 }
 

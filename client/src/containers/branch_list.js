@@ -6,15 +6,9 @@ import 'react-select-me/lib/ReactSelectMe.css';
 
 import { location, additionalTodayWeatherInfo } from '../actions';
 import DateTimeDisplay from '../components/Date_time_display';
-// import LocationCoordinate from './location_coordinate';
+import LocationCoordinate from './location_coordinate';
+import { options } from '../utils/cities';
 
-const options = [ 
-    
-    { value: 'Toronto', label: 'Toronto' },
-    { value: 'Vancouver', label: 'Vancouver' },
-    { value: 'Ottawa', label: 'Ottawa' }
-
-];
 
 let startInterval;
 
@@ -28,7 +22,7 @@ class BranchList extends Component {
     
     };
     
-    setTodayWeatherInfo(branch_city) {
+    setTodayWeatherInfo = branch_city => {
 
         this.setState({ value : branch_city});
 
@@ -46,34 +40,50 @@ class BranchList extends Component {
 
     }
 
-    
     componentDidMount() {
 
-        if (!branch_city) {
+        if (!branch_city && !sessionStorage.branch_city) {
 
             branch_city = options[0].value;
 
-           // window.localStorage.setItem('branch_city', branch_city);
+            // window.localSession.setItem('branch_city', branch_city);
 
+        } else if (sessionStorage.branch_city) {
+
+            branch_city = sessionStorage.branch_city
+        
         }
 
-       //  branch_city = window.localStorage.branch_city
 
         this.setTodayWeatherInfo(branch_city);
 
     }
 
-    onInputChange = () => {
-        
-       // window.localStorage.setItem('branch_city', value.value);
+    handleOnClick = e => {
 
-       // branch_city = window.localStorage.branch_city;
+        sessionStorage.setItem('branch_city', e.target.value);
+
+        // branch_city = window.localStorage.branch_city;
         
-        this.setTodayWeatherInfo(branch_city);
+        console.log(e.target.value);
+        this.setTodayWeatherInfo(e.target.value);
 
     }
+
+    // freshup = e => {
+
+    //     console.log('eeeeeeeeeeeeee', e);
+    //    // e.persist();
+    //      // e.preventDefault();
+    //      // e.reset();
+
+        
+
+    // }
 
     render() {
+
+        //console.log(Select);
 
         if(!this.state.value)
         return (<div>Loading...</div>);
@@ -88,29 +98,73 @@ class BranchList extends Component {
                     </div>
 
                     <div className="d-block-inline w-50">
-                    
-                        <form className="form-group pt-3 pr-5">
-                        
-                            <Select className="form-control" 
 
-                                options = { options }
-                                value = { this.state.value }
-                                onChange = { this.onInputChange }
-
-                            />
+                    <label>Bracn Restaurant</label>
+                    {/* onSubmit={ this.freshup } */}
                     
-                        </form>
+                     <form className="pt-3 pr-5">   
+
+                          
+                        <button onClick={ this.handleOnClick } value="Toronto">Toronto</button>
+
+                        <button onClick={ this.handleOnClick } type="submit" value="Vancouver">Vancouver</button>
+                        <br></br><br></br>
+
+
+                        {/*  
+                            <button type="submit" value = "Toronto">Toronto</button>
+    
+                            <button type = "submit" value="Vancouver">Vancouver</button>
+                        */}
+                                    {/*
+                                        <select
+                                            className="form-control"
+                                            // option = { options }
+                                           // value = { this.state.value }
+                                          //  onChange = { this.onInputChange }
+    
+                                        >
+                                        <option value = "Toronto">Toronto</option>
+                                        <option value = "Vancouver">Vancouver</option>
+    
+                                        
+                                                options.map(city => (
+     
+                                                    <option key = {city.value} 
+                                                            value = {city.value}>
+    
+                                                        { city.value }
+    
+                                                    </option>
+                                                
+                                                )) 
+                                                
+    
+                                        </select>
+                                    */}
+                               
+
+                            {/*
+
+                                <Select className="form-control" 
+    
+                                    options = { options }
+                                    value = { this.state.value }
+                                    onChange = { this.onInputChange }
+    
+                                />
+                            */}
+                    
+                       </form>  
 
                     </div>
                 </nav>
 
-                 {/* 
                     <div className="mt-5">
     
                         <LocationCoordinate />
                   
                     </div>
-                */}
 
                 <div>
                 
@@ -126,4 +180,4 @@ class BranchList extends Component {
 
 }
 
-export default connect (null, { location, additionalTodayWeatherInfo } )(BranchList);
+export default connect (null, { location, additionalTodayWeatherInfo })(BranchList);

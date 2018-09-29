@@ -11,10 +11,9 @@ function RecommendationMenu (props) {
     if (!props.menu || !props.additionalTodayWeather)
         return <div>Loading....</div>
 
+        const { menu } = props; 
         const { main } = props.additionalTodayWeather.weather[0];
         const { temp } = props.additionalTodayWeather.main;
-
-       // const { apparentTemperature } = props.todayWeather;
 
         return (
         
@@ -26,7 +25,7 @@ function RecommendationMenu (props) {
                         
                     <SetCurrentRecommendation
                             
-                            inputMenus = { props.menu }
+                            inputMenus = { menu }
                             mainWeather = { main }
                             temperature = { roundData(temp - 273) }
                             
@@ -37,9 +36,15 @@ function RecommendationMenu (props) {
         );
 }
 
-function mapsPropsToState ({ menu, todayWeather, additionalTodayWeather,  }) {
+// function mapsPropsToState ({ menu, todayWeather, additionalTodayWeather,  }) {
 
-    return ({ menu, todayWeather, additionalTodayWeather,  });
+//     return ({ menu, todayWeather, additionalTodayWeather,  });
+
+// }
+
+function mapsPropsToState ({ menu, additionalTodayWeather,  }) {
+
+    return ({ menu, additionalTodayWeather  });
 
 }
 

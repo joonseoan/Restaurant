@@ -51,7 +51,7 @@ export default class DateTimeDisplay extends Component {
 
         return (
 
-            <blockquote className="blockquote text-right">
+            <blockquote className="blockquote text-right container">
             
                 Date : { this.state.date.toDateString()} 
                 , Time : { hours < 10 ? `0${hours}` : hours } 
