@@ -17,25 +17,71 @@ class MenuList extends Component {
     state = {
 
         name_price: [],
-        showModal : false
+        menu_names: [],
+        showModal : false,
+        city: ''
+
         
     };
 
-
     displayRecommendation = (menus) => {
 
-        const { recomMenu } = menus;
+       // console.log(this.props.branchLocation)
 
-        if(!recomMenu) return;
+        const { recomMenu, menu, branchLocation } = menus;
+        const{ menu_names, city } = this.state;
+
+        const soup_name = menu.soup.map(names => names.name);
+        const main_name = menu.main.map(names => names.name);
+        const drink_name = menu.drink.map(names => names.name);
+        const side_name = menu.side.map(names => names.name);
+
+        if(this.state.menu_names.length === 0) {
+
+            this.setState({
+                menu_names : _.concat(this.state.menu_names, soup_name, main_name, drink_name, side_name )             
+            })
+            
+        }
         
-        const nameList = recomMenu.map(menu => menu.name);
+        if(!recomMenu) return;
+
+            _.each(menu_names, name => {
+                
+                document.querySelector(`p#${removeSpace(name)}`).style.visibility = 'hidden';
+
+        });
+        
+
+        const nameList = recomMenu.map(menu => (menu.name));
 
         nameList.forEach(names => {
 
             document.querySelector(`p#${removeSpace(names)}`).style.visibility = 'visible';
             document.querySelector(`p#${removeSpace(names)}`).style.color = 'red';
 
-        });       
+        });
+        
+        if(city !== branchLocation) {
+
+            this.setState({
+
+                name_price: []
+
+            });
+
+            _.each(menu_names, name => {
+            
+                document.querySelector(`div.${removeSpace(name)}Button`).style.display = 'none';
+                document.querySelector(`div.${removeSpace(name)}BgColor`).style.backgroundColor = '';
+                document.querySelector(`i#${removeSpace(name)}`).style.visibility= 'visible';
+                document.querySelector(`input[name="${removeSpace(name)}"]`).checked = false;
+                document.querySelector(`input.${removeSpace(name)}`).disabled= false;
+                document.querySelector('#order').style.display = 'none';
+    
+            });
+
+        }
 
     }
 
@@ -534,9 +580,9 @@ class MenuList extends Component {
 
 } 
 
-function mapStateToProps ({ menu }) {
+function mapStateToProps ({ menu, branchLocation }) {
 
-    return { menu };
+    return { menu, branchLocation };
 
 }
 

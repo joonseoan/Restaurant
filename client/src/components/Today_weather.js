@@ -18,7 +18,7 @@ class TodayWeather extends Component {
 
         // if (!this.props.todayWeather || !this.props.additionalTodayWeather)
         if (!this.props.additionalTodayWeather)
-            return (<div>Loading...</div>);
+            return <div/>;
 
         // const weather = this.props.todayWeather;
         const additionalWeather = this.props.additionalTodayWeather;

@@ -7,7 +7,7 @@ import TodayWeather from '../components/Today_weather';
 const LocationCoordinate = (props) => {
     
     if(!props.branchLocation)
-    return <div>Loading...</div>;
+    return <div/>;
 
     const { location } = props.branchLocation.results[0].geometry;
     

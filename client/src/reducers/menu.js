@@ -7,7 +7,7 @@ export default function() {
             { id : 0, name : 'Gamja Soup', description : 'Boiled Pork Bone Soup with Pork Fillet', price : 11.99, file : 'GamjaSoup_6.PNG', spicy : 'Medium.PNG', carlorie: 378 },
             { id : 1, name : 'Gom Soup', description : 'Boiled Beef Bone Soup with Beef Fillet', price : 12.99, file : 'GomSoup_8.PNG', spicy : 'notSpicy.PNG', carlorie: 398 },
             { id : 2, name : 'Sundae Soup', description : 'Boiled Pork Bone Soup with Noodles inside Pork Saussage', price : 13.99, file : 'SundaeSoup_5.PNG', spicy : 'Medium.PNG', carlorie: 475 },
-            { id : 3, name : 'Squid Mashroom Soup', description : 'Boiled Mushroom Soup with Seafoods', price : 14.99, file : 'Oujinguh Mashroom Soup_19.PNG', spicy : 'Hot.PNG', carlorie: 293 }
+            { id : 3, name : 'Squid Soup', description : 'Boiled Mushroom Soup with Seafoods', price : 14.99, file : 'Oujinguh Mashroom Soup_19.PNG', spicy : 'Hot.PNG', carlorie: 293 }
 
         ],
 

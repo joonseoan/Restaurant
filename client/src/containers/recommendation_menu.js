@@ -9,7 +9,7 @@ function RecommendationMenu (props) {
 
     //if (!props.menu || !props.todayWeather || !props.additionalTodayWeather)
     if (!props.menu || !props.additionalTodayWeather)
-        return <div>Loading....</div>
+        return <div/>;
 
         const { menu } = props; 
         const { main } = props.additionalTodayWeather.weather[0];

@@ -3,6 +3,7 @@
     import BranchList from '../containers/branch_list';
     import RecommendationMenu from '../containers/recommendation_menu';
     import MenuList from '../containers/menu_list';
+    import { scrollspy } from '../utils/scrollspy';
 
     class App extends Component {
 
@@ -17,6 +18,9 @@
             return (
             
             <div>
+            {/* 
+                { scrollspy() }
+            */}
                 
                 <div className="mt-5">  
                     <BranchList />

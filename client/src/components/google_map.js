@@ -22,11 +22,11 @@ class GoogleMAP extends Component{
     
   }
 
-  // componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
 
-  //   this.initMap(nextProps);
+    this.initMap(nextProps);
     
-  // }
+  }
 
   initMap = coordinate => {
 

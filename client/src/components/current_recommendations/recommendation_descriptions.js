@@ -7,12 +7,23 @@ import { fetchGuesbookLists } from '../../actions';
 
 class RecommendationDescriptions extends Component {
 
+    state = {
+
+        foodId:''
+
+    }
+
 
     componentDidMount() {
 
         this.props.fetchGuesbookLists();
 
     }
+
+    // componentWillUpdate(nextProps) {
+
+    //     console.log(nextProps)
+    // }
 
     picList() {
 
@@ -86,119 +97,196 @@ class RecommendationDescriptions extends Component {
 
     }
 
+    displayDescription = (selectedMenu, menu) => {
+
+        const menuList = _.mapKeys(menu, menu => menu);
+        console.log(menuList);
+        
+        // _.each(menu, menuType => {
+
+        //     _.each(menuType, menuItem => {
+
+        //         let selectedMenu;
+        //         let selectedMenuType;
+                
+        //         if (menuItem.name === name) {
+                                        
+        //                 selectedMenu = menuItem;
+        //                 selectedMenuType = menuType;
+
+        //         }
+
+        //     });
+
+        // });
+
+        console.log(selectedMenu, menu);
+
+
+    }
+
     render() {
 
-        if(!this.props.guestbooks) return <div>Loading....</div>
+        if(!this.props.guestbooks) return <div/>
 
-        const { guestbooks } = this.props;
+        const { guestbooks, foodName, menu } = this.props;
+
+        console.log(foodName);
 
         const path = '../images/';
 
-        const { name, description, file, price, spicy, carlorie } = this.props.selectedMenu;
+        return <div>
+            { this.props.foodName }
 
-        return (
+            { this.displayDescription(foodName, menu) }
+        </div>
 
-            <div>
+
+       // const { name, description, file, price, spicy, carlorie } = this.props.selectedMenu;
+
+        // return (
+
+        //     <div>
         
-                <div>
+        //         <div>
 
-                    <h3>
-                        { name } (${ price })
-                    </h3> 
+        //             <h3>
+        //                 { name } (${ price })
+        //             </h3> 
                     
-                    <img src = { path + file } alt = { spicy } width = '500' height = '300'/>
+        //             <img src = { path + file } alt = { spicy } width = '500' height = '300'/>
             
-                    <p>
+        //             <p>
                     
-                        { description } ({ carlorie } cal) { this.isSpicy() }                      
+        //                 { description } ({ carlorie } cal) { this.isSpicy() }                      
 
-                    </p>
+        //             </p>
 
-                    <div>
+        //             <div>
 
-                        <h4> 
+        //                 <h4> 
                             
-                            CUSTOMER'S REVIEW 
+        //                     CUSTOMER'S REVIEW 
                         
-                        </h4>
+        //                 </h4>
 
-                        <ul>
+        //                 <ul>
 
-                            { this.foodGuestbooks(guestbooks) }
+        //                     { this.foodGuestbooks(guestbooks) }
 
-                        </ul>
+        //                 </ul>
 
-                    </div>
+        //             </div>
                                 
-                </div>
+        //         </div>
                     
-                    <div>
+        //             <div>
 
-                        <div>
+        //                 <div>
 
-                            <div>
-                                <h3>Other Choices</h3>
-                            </div>
+        //                     <div>
+        //                         <h3>Other Choices</h3>
+        //                     </div>
                         
-                        </div>
-                        <table>
+        //                 </div>
+        //                 <table>
 
-                            <tbody>
+        //                     <tbody>
 
-                                <tr>
-                                    { this.picList() }
-                                </tr>
+        //                         <tr>
+        //                             { this.picList() }
+        //                         </tr>
                                     
-                            </tbody>
+        //                     </tbody>
                         
-                        </table>    
+        //                 </table>    
                         
-                    </div>
+        //             </div>
 
-                    <div>
+        //             <div>
             
-                        <Link to = {'/'} >
+        //                 <Link to = {'/'} >
             
-                            Back to the main page
+        //                     Back to the main page
             
-                        </Link>
+        //                 </Link>
             
-                    </div>
+        //             </div>
         
-                </div>
+        //         </div>
 
-            );
+        //     );
 
     }
 
 }
 
-function mapStateToProps ({ menu, guestbooks }, ownProps) {
+// function mapStateToProps ({ menu, guestbooks }, ownProps) {
 
-    let selectedMenu;
-    let selectedMenuType;
+//     //console.log('desc 00000000000000', this.props)
+
+//     console.log(this.ownProps);
+
+//     let selectedMenu;
+//     let selectedMenuType;
     
-    _.each(menu, menuType => {
+//     _.each(menu, menuType => {
 
-        _.each(menuType, menuItem => {
+//         _.each(menuType, menuItem => {
             
-            if (menuItem.name === ownProps.match.params.id) {
+//          // if (menuItem.name === ownProps.match.params.id) {
                                 
-                selectedMenuType = menuType;
-                selectedMenu = menuItem;
+//                 selectedMenu = menuItem;
+//                 selectedMenuType = menuType;
 
-            }
+//          //}
 
-        });
+//         });
 
-    });
+//     });
 
-    const theOthers = selectedMenuType.filter(item => item !== selectedMenu);
+//     const theOthers = selectedMenuType.filter(item => item !== selectedMenu);
+    
+//     return { 
+        
+//         selectedMenu,
+//         theOthers,
+//         guestbooks
+        
+//     };
+
+// }
+
+function mapStateToProps ({ guestbooks }) {
+
+    //console.log('desc 00000000000000', this.props)
+
+   //  console.log(this.ownProps);
+
+    // let selectedMenu;
+    // let selectedMenuType;
+    
+    // _.each(menu, menuType => {
+
+    //     _.each(menuType, menuItem => {
+            
+    //      // if (menuItem.name === ownProps.match.params.id) {
+                                
+    //             selectedMenu = menuItem;
+    //             selectedMenuType = menuType;
+
+    //      //}
+
+    //     });
+
+    // });
+
+ //   console.log(selectedMenu);
+
+    //const theOthers = selectedMenuType.filter(item => item !== selectedMenu);
     
     return { 
         
-        selectedMenu,
-        theOthers,
         guestbooks
         
     };
