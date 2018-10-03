@@ -1,8 +1,6 @@
 import axios from 'axios';
-// import DarkSkyApi from 'dark-sky-api';
 
 import { FETCH_LOCATION, 
-         // FETCH_TODAY_WEATHER,
          FETCH_ADDITIONAL_TODAY_WEATHER } from './fetch_weather';
 
 import { FETCH_GUESTBOOKS,
@@ -13,8 +11,9 @@ import { FETCH_GUESTBOOKS,
          USER_LOGIN,
          FETCH_LOGIN_GUESTBOOK } from './fetch_guestbooks';
 
-
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${ process.env.REACT_APP_OPEN_WEATHER_KEY }`;
+
+// gota change it.
 const GoogleURL = 'https://maps.googleapis.com/maps/api/geocode/json?address';
 
 export function location(branch_city) {
@@ -30,28 +29,6 @@ export function location(branch_city) {
     });
 
 }
-
-// export function todayWeatherInfo (lat, lng) {
-    
-//     const position = { 
-    
-//             latitude: lat, 
-//             longitude: lng
-    
-//     };
-
-//     DarkSkyApi.apiKey = process.env.REACT_APP_DARKSKY_WEATHER_KEY;
-//     const request = DarkSkyApi.loadCurrent(position);
-    
-//     return ({
-
-//         type: FETCH_TODAY_WEATHER,
-        
-//         payload: request
-        
-//     });
-                        
-// }
 
 export function additionalTodayWeatherInfo (branch_city) {
 

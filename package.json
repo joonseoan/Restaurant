@@ -23,10 +23,12 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "cors": "^2.8.4",
+    "dompurify": "^1.0.8",
     "express": "^4.16.3",
     "lodash": "^4.17.11",
     "mongodb": "^3.1.6",
     "mongoose": "^5.2.17",
+    "react-bootstrap": "^0.32.4",
     "validator": "^10.7.1"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-/* global google */
+///* global google */
 
 function loadJS(src) {
   var ref = window.document.getElementsByTagName("script")[0];
@@ -13,8 +13,6 @@ class GoogleMAP extends Component{
 
 
   componentDidMount() {
-
-    // this.setMap();
 
         window.initMap = this.initMap;
         // Asynchronously load the Google Maps script, passing in the callback reference

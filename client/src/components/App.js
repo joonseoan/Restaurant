@@ -1,44 +1,49 @@
-    import React, { Component } from 'react';
+import WOW from 'wow.js';
 
-    import BranchList from '../containers/branch_list';
-    import RecommendationMenu from '../containers/recommendation_menu';
-    import MenuList from '../containers/menu_list';
-    import { scrollspy } from '../utils/scrollspy';
+import React, { Component } from 'react';
+import BranchList from './Branch/Branch_list';
+import LocationCoordinate from './Weather/Location_coordinate';
+import RecommendationMenu from './MenuRecommendation/Recommendation_menu';
+import MenuAndOrder from './Menu_order/Menu_and_order';
 
-    class App extends Component {
+class App extends Component {
 
-        componentDidMount = () => {
+    componentDidMount = () => {
 
-            sessionStorage.clear();
+      sessionStorage.clear();
 
-        }
-
-        render () {
-
-            return (
-            
-            <div>
-            {/* 
-                { scrollspy() }
-            */}
-                
-                <div className="mt-5">  
-                    <BranchList />
-                </div>
-
-                <div className="mb-5">
-                    <RecommendationMenu />
-                </div>
-                <div className="mt-5">
-                    <MenuList className="mt-5" />
-                </div>
-
-            </div>
-            
-            );
-
-        }
+      if (typeof window !== 'undefined') { const wow = new WOW(); wow.init(); }
 
     }
+
+    render () {
+
+        return (
+        
+        <div>
+            
+            <div className="mt-5">  
+                <BranchList />
+            </div>
+
+            <div>
+                <LocationCoordinate className="mt-5"/>
+            </div>
+
+            <div className="mb-5">
+                <RecommendationMenu />
+            </div>
+
+            <div className="mt-5">
+                <MenuAndOrder className="mt-5" />
+            </div>
+
+        </div>
+        
+        );
+
+    }
+
+}
 
 export default App;

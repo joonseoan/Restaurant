@@ -1,45 +1,43 @@
 import React, { Component } from 'react';
 
-let startInverval;
-
 export default class DateTimeDisplay extends Component {
     
+    startInverval;
+
     state = {
 
         date : new Date()
 
     }
 
-    setClock = ( branch_city ) => {
+    componentDidMount () {
 
-        if (branch_city === undefined)
-        branch_city = this.props.branch_city;
-
-        startInverval = setInterval (() => {
+        this.startInverval = setInterval (() => {
 
             const dateTime = new Date();
-            const vancouverTime = dateTime.getTime() - 10800000; 
-
-            branch_city !== 'Vancouver' ? this.setState({ date : dateTime }) 
-            : this.setState({ date : new Date(vancouverTime) }) ;
+           
+            this.setState({ date : new Date(dateTime) }) ;
 
         }, 1000);
 
     }
 
-    componentDidMount () {
-
-        this.setClock();
-
-    }
-
     componentWillReceiveProps (nextProps) {
 
-        clearInterval(startInverval);
+        clearInterval(this.startInverval);
 
-        const { branch_city } = nextProps;
-        
-        this.setClock(branch_city);
+        const { city } = nextProps;
+
+        this.startInverval = setInterval (() => {
+
+            const dateTime = new Date();
+            const vancouverTime = dateTime.getTime() - 10800000; 
+
+            city !== 'Vancouver' ? this.setState({ date : dateTime }) 
+            : this.setState({ date : new Date(vancouverTime) }) ;
+
+        }, 1000);
+    
 
     }
 
@@ -60,9 +58,7 @@ export default class DateTimeDisplay extends Component {
         
             </blockquote> 
             
-
         );
-
 
     }
 

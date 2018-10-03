@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-import Bill from '../components/bill/Bill';
-
+import Bill from '../Bill/Bill';
+import RecommendationDescriptions from '../Current_recommendations/Recommendation_descriptions';
 
 function removeSpace(name) {
 
@@ -19,16 +19,19 @@ class MenuList extends Component {
         name_price: [],
         menu_names: [],
         showModal : false,
-        city: ''
-
+        city: '',
+        toDescription:''
         
     };
 
     displayRecommendation = (menus) => {
 
+        console.log(this.props);
+
        // console.log(this.props.branchLocation)
 
         const { recomMenu, menu, branchLocation } = menus;
+
         const{ menu_names, city } = this.state;
 
         const soup_name = menu.soup.map(names => names.name);
@@ -46,9 +49,11 @@ class MenuList extends Component {
         
         if(!recomMenu) return;
 
-            _.each(menu_names, name => {
+        _.each(menu_names, name => {
+
+           //  console.log(menu_names);
                 
-                document.querySelector(`p#${removeSpace(name)}`).style.visibility = 'hidden';
+            document.querySelector(`p#${removeSpace(name)}`).style.visibility = 'hidden';
 
         });
         
@@ -96,6 +101,16 @@ class MenuList extends Component {
         this.displayRecommendation(nextProps);
 
     }
+
+    // componentDidUpdate(prevProps) {
+        
+    //     if(this.props.recomMenu !== prevProps.recomMenu) {
+
+    //         this.displayRecommendation(this.props);    
+        
+    //     }
+          
+    // }
     
     menuOnChange = (event) => {
 
@@ -147,7 +162,7 @@ class MenuList extends Component {
 
         this.setState({  
             
-            name_price: [ ...this.state.name_price, { name, value, number, checked }]
+            name_price: [ ...this.state.name_price, { name, value, number, checked } ]
 
         });
 
@@ -277,6 +292,14 @@ class MenuList extends Component {
 
         }
         
+    }
+
+    handleDescription = e => {
+     
+        this.setState({ toDescription: e.target.value });
+
+        e.preventDefault();
+
     }
 
     allMenuContents = () => {
@@ -414,23 +437,49 @@ class MenuList extends Component {
                     <div className="mr-2 pl-2">
 
                         <div key = { item.name } className = { class_name_4 } id = "all-pictures" width = '120'>
-                            <Link to = { `/description/${item.name}`} key = { item.id }>
-
-                                <div className="mt-3 mr-3 btn btn-sm btn-info ml-3">
-
-                                        <span>
-                                            Check Detail
-                                        </span>                                   
-                                    
+                            
+                            <button className="btn btn-sm btn-info mt-3" 
+                                data-toggle="modal" 
+                                data-target="#allMenu"
+                                onClick={ this.handleDescription }
+                                value = { item.name }
+                            >
+                                        
+                                Check Detail
+                                            
+                            </button>
+                
+                            <div className="modal" id="allMenu">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title"></h5>
+                                            <button className="close btn btn-danger" data-dismiss="modal">&times;</button>
+                                        </div>
+                
+                                        <div className="modal-body">
+                                               
+                                            <RecommendationDescriptions
+                                                foodName = { this.state.toDescription }
+                                            />
+                
+                                        </div>
+                                            
+                                        <div className="modal-footer">
+                                            <button className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                
+                                    </div>
                                 </div>
-                                    
-                                <img
-                                    style={ style } 
-                                    className="img img-fluid img-thumbnail mt-3" 
-                                    src = { path + item.file }
-                                    alt = { item.name } 
-                                />
-                            </Link>
+                            </div>                
+                         
+                            <img
+                                style={ style } 
+                                className="img img-fluid img-thumbnail mt-3" 
+                                src = { path + item.file }
+                                alt = { item.name } 
+                            />
+                           
                         </div>
 
                         <div className="mt-3">
@@ -526,7 +575,7 @@ class MenuList extends Component {
     render () {
 
         if(!this.props) return <div/>; 
-        if(!this.props.recomMenu)  return<div/>;
+        // if(!this.props.recomMenu)  return<div/>;
 
         if(this.state.newPage) 
             return <Redirect to = 'thankyouAndGuestbook' menuChecked = { this.state.name_price } />;
@@ -586,4 +635,4 @@ function mapStateToProps ({ menu, branchLocation }) {
 
 }
 
-export default connect (mapStateToProps)(MenuList);
+export default connect(mapStateToProps)(MenuList);

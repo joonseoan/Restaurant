@@ -70,7 +70,7 @@ class Bill extends Component {
 
     }
 
-    eventClick() {
+    eventClick = e => {
 
         // will send this data to DB later on.
         const menuOrdered = this.props.menuChecked;
@@ -79,7 +79,7 @@ class Bill extends Component {
 
         // From children object
         //this.props.children._self.state.newPage = true;
-        this.props.newPageStatus();
+       this.props.newPageStatus();
 
         // this.props.children._self.handleCloseModal();
 
@@ -89,35 +89,35 @@ class Bill extends Component {
 
         if(!this.props) return <div>Loading...</div>
 
-        if(this.props.menuChecked.length === 0) {
+        // if(this.props.menuChecked.length === 0) {
 
-            return (
+        //     return (
 
-                <Modal isOpen = { this.props.openStatus }>
+        //         <Modal isOpen = { this.props.openStatus }>
 
-                    <div>
-                        <center>
-                            <div>
+        //             <div>
+        //                 <center>
+        //                     <div>
                             
-                            <h3>Sorry, customer.</h3>
-                            <h3>You have not chosen the menu yet.</h3>
+        //                     <h3>Sorry, customer.</h3>
+        //                     <h3>You have not chosen the menu yet.</h3>
                             
-                            </div>
+        //                     </div>
 
-                            <div> 
+        //                     <div> 
 
-                                    { this.props.children }
+        //                             { this.props.children }
 
-                            </div>
-                        </center>
+        //                     </div>
+        //                 </center>
 
-                    </div>
+        //             </div>
 
-                </Modal>
+        //         </Modal>
 
-            );
+        //     );
 
-        }
+        // }
 
         return (            
                         
@@ -153,7 +153,7 @@ class Bill extends Component {
                         <p>Total Payable: ${ rounding(this.totalAmount() * 1.15) }</p>
 
                         <button type = 'submit' value = 'Submit Your Orders' 
-                        onClick = { this.eventClick.bind(this)}>
+                            onClick = { this.eventClick }>
 
                                 Submit Order
                         </button>
