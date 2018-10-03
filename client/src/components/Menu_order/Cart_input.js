@@ -1,34 +1,21 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
-import { removeSpace } from '../../utils/uIControl';
+import { removeSpace, initUI } from '../../utils/uIControl';
+// import {} from '../../utils/uIControl';
 
 
 class CartInput extends Component {
 
-    allMenuContents = () => {
+    /* 
+        allMenuContents = () => {
 
-        // const path = './images/';
 
         const menuPrices = (item) => {
-
-            // const class_name_1 = `${removeSpace(item.name)}BgColor border 
-            //     border-danger 
-            //     justify-content-center 
-            //     col
-            //     ml-2
-            //     mr-2`;
-
-            const class_name_2 = `${removeSpace(item.name)} ml-1`;
 
             const class_name_3 = `${removeSpace(item.name)}Button`;
 
             const class_name_4 = `${removeSpace(item.name)} mx-50 my-50`;
-
-            // const style = {
-
-            //     width: '200px',
-            //     height: '150px'
-            // }
 
             const buttonDisplay = () => {
                 
@@ -77,25 +64,7 @@ class CartInput extends Component {
                 <div id={ item.name } key = { item.name } className = { class_name_1 } >
 
                     <div>
-                    {/* 
-                        <div className='icons'>
-                        
-                            <i className="fa fa-cart-arrow-down text-danger float-right"
-                                id = { removeSpace(item.name) }
-                                style={{ fontSize: '24px'}} >
-                            
-                                <input type = "checkbox" 
-                                name = { removeSpace(item.name) } 
-                                className = { class_name_2 }
-                                value = { item.price }  
-                                onChange = { this.menuOnChange }
-                                />
-                            </i>  
-
-                        </div>
-                                    
-                     */}
-                    
+        
                         <p className='blink text-danger font-italic font-weight-bold d-inline' id = {removeSpace(item.name)}
                             style={{ visibility : 'hidden' }}> 
 
@@ -168,22 +137,129 @@ class CartInput extends Component {
         }
     
     }
+    
+    
+    */
+
+    /* 
+      menuItems = { this.props.menuItems }
+        currentItems = { this.props.currentItems }
+        checkingItems = { this.props.checkingItems  } 
+        orderButton = { this.props.orderButton }
+
+    
+    */
+
+    state = {
+
+        visibility: 'visible',
+        disabled: false,
+        display: 'none'
+
+    }
+
+    menuOnChange = event => {
+ 
+        const { name, value, checked } = event.target;
+
+        // const { currentItems, checkingItems, orderButton } = this.props;
+
+        // const { currentItems, bgColor } = currentItems;
+
+        console.log(this.props.currentItems);
+
+        // please change this one to state
+        // const label = document.querySelector(`label.${removeSpace(name)}`);
+        // let number = Number(label.innerHTML);
+
+        // orderButton('none');
+
+        // if (currentItems.length > 0) {
+
+        //     const cleanCart = _.each(currentItems, orders => {
+
+        //         if (orders.number === 0) {
+
+        //             initUI();
+
+        //             const index = currentItems.indexOf(orders);
+
+        //             return currentItems.splice(index, 1); 
+    
+        //         }
+
+        //     });
+
+        //     checkingItems(cleanCart);
+
+            
+        //     // this.setState({
+    
+        //     //     name_price: this.state.name_price.forEach(menu => {
+
+        //     //         if(menu.number === 0) {
+
+        //     //             const index = this.state.name_price.indexOf(menu);
+    
+        //     //             this.state.name_price.splice(index, 1);
+
+        //     //         }
+
+        //     //     })
+    
+        //     // });
+
+        // }
+
+        // // number!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // const newItems = [ ...currentItems, { name, value, checked } ];
+
+        // checkingItems(newItems); 
+
+        // console.log(currentItems);
+
+
+        // // this.setState({  
+            
+        // //     name_price: [ ...this.state.name_price, { name, value, number, checked } ]
+
+        // // });
+
+        // // document.querySelector(`i#${name}`).style.visibility = 'hidden';
+
+        // // document.querySelector(`input.${name}`).disabled = true;
+
+        // const color = !checked ? '' : '#FAFAD2';
+
+        // // document.querySelectorAll(`div.${removeSpace(name)}BgColor`)[0]
+        //      //   .style.backgroundColor = color;
+
+        // bgColor(color)
+
+        // document.querySelector(`div.${removeSpace(name)}Button`).style.display = `${!checked ? 'none' : 'block'}`;
+
+    }
 
     render() {
 
+        if(!this.props) return <div/>;
+
+        const { name, price } = this.props.menuItems;
+        
         return(
 
             <div className='icons'>
                             
                 <i className="fa fa-cart-arrow-down text-danger float-right"
-                    id = { removeSpace(item.name) }
-                    style={{ fontSize: '24px'}} >
+                    id = { removeSpace(name) }
+                    style={{ fontSize: '24px', visibility: `${ this.state.visibility }`}} 
+                    disabled={ this.state.disabled }>
                 
                     <input type = "checkbox" 
-                    name = { removeSpace(item.name) } 
-                    className = { class_name_2 }
-                    value = { item.price }  
-                    onChange = { this.menuOnChange }
+                        name = { removeSpace(name) } 
+                        className = { `${removeSpace(name)} ml-1` }
+                        value = { price }  
+                        onChange = { this.menuOnChange }
                     />
                 </i>
 

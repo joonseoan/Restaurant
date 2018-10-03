@@ -8,6 +8,8 @@ class Main extends Component {
 
         if(!this.props) return <div/>;
 
+        console.log(this.props)
+
         const { name, price, description, file } = this.props.menuItems;
 
         const style = {
@@ -31,8 +33,14 @@ class Main extends Component {
                         (${ price }):
                     </span>
 
+                    <CartInput 
+                    
+                        // menuItems = { this.props.menuItems }
+                        // currentItems = { this.props.currentItems }
+                        // checkingItems = { this.props.checkingItems  } 
+                        // orderButton = { this.props.orderButton }
 
-                    <CartInput menuItems = { this.props.menuItems }/>
+                    />
 
                             
                 </label>

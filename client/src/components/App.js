@@ -12,7 +12,7 @@ class App extends Component {
 
       sessionStorage.clear();
 
-      if (typeof window !== 'undefined') { const wow = new WOW(); wow.init(); }
+     // if (typeof window !== 'undefined') { const wow = new WOW(); wow.init(); }
 
     }
 

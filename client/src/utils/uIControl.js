@@ -19,6 +19,7 @@ export const initUI = (menuChecked) => _.each(menuChecked, orders => {
         document.querySelector(`i#${orders.name}`).style.visibility= 'visible';
         
         document.querySelector(`input.${orders.name}`).disabled= false;
+
     }
 
 });

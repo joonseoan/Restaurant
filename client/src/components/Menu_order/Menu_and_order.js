@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import MenuList from './Menu_list';
+import Main from './Main';
 import Bill from '../Bill/Bill';
 import { initUI } from '../../utils/uIControl';
 
@@ -9,9 +10,9 @@ class MenuAndOrder extends Component {
 
     state = {
         
-        //name_price: [],
-        name_price: [{name: 'Gamja Soup', price: 19.99, number: 3 }],
         showModal : false,
+        name_price: [],
+        orderButton: 'none'
         
     };
     
@@ -49,7 +50,13 @@ class MenuAndOrder extends Component {
         if(this.state.newPage) 
             return <Redirect to = 'thankyouAndGuestbook' menuChecked = { this.state.name_price } />;
 
-        const display = { display: !this.state.showModal ? 'block' : 'none' }
+        const data = {
+
+            items : this.state.name_price,
+            toCheckItems: (menus) => { this.setState({ name_price: menus }) },
+            orderButton: (control) => { this.setState({ orderButton: control }); }
+
+        }
 
         return(
 
@@ -67,14 +74,18 @@ class MenuAndOrder extends Component {
 
                     <div>
                     
-                        <MenuList />
+                        <MenuList> 
+
+                           <Main controlData = { data } />
+
+                        </MenuList>
                     
                     </div>
 
                     <div className = "btn btn-danger mt-3 mx-auto fixed-bottom w-50" 
                         onClick = { this.handleOpenModal }
-                        style = { display }
-                        id = 'order'
+                        style = { { display: `${this.state.orderButton}`} }
+                        id = "order"
                     >
                 
                         Place an Order

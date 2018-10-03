@@ -9,86 +9,10 @@ import { removeSpace } from '../../utils/uIControl';
 import Main from './Main';
 
 
-
 class MenuList extends Component {
-        
-    state = {
-
-        name_price: [],
-        menu_names: [],
-        showModal : false,
-        city: '',
-        toDescription:'',
-
-
-        
-    };
-
     
     // menuOnChange = (event) => {
 
-    //     const { name, value, checked } = event.target;
-
-    //     const label = document.querySelector(`label.${removeSpace(name)}`);
-
-    //     let number = Number(label.innerHTML);
-
-    //     document.querySelector('#order').style.display = 'none';
-
-    //     if (this.state.name_price.length > 0) {
-
-    //         this.state.name_price.forEach(orders => {
-            
-    //             if (orders.number === 0) {
-    
-    //                 document.querySelector(`input[name="${removeSpace(orders.name)}"]`).checked = false;
-    
-    //                 document.querySelector(`div.${removeSpace(orders.name)}BgColor`).style.backgroundColor = '';
-    
-    //                 document.querySelector(`div.${removeSpace(orders.name)}Button`).style.display = 'none';
-    
-    //                 document.querySelector(`i#${orders.name}`).style.visibility= 'visible';
-    
-    //                 document.querySelector(`input.${orders.name}`).disabled= false;
-    
-    //             }
-    
-    //         });
-
-    //         this.setState({
-    
-    //             name_price: this.state.name_price.forEach(menu => {
-
-    //                 if(menu.number === 0) {
-
-    //                     const index = this.state.name_price.indexOf(menu);
-    
-    //                     this.state.name_price.splice(index, 1);
-
-    //                 }
-
-    //             })
-    
-    //         });
-
-    //     }
-
-    //     this.setState({  
-            
-    //         name_price: [ ...this.state.name_price, { name, value, number, checked } ]
-
-    //     });
-
-    //     document.querySelector(`i#${name}`).style.visibility = 'hidden';
-
-    //     document.querySelector(`input.${name}`).disabled = true;
-
-    //     const color = !checked ? '' : '#FAFAD2';
-
-    //     document.querySelectorAll(`div.${removeSpace(name)}BgColor`)[0]
-    //             .style.backgroundColor = color;
-
-    //     document.querySelector(`div.${removeSpace(name)}Button`).style.display = `${!checked ? 'none' : 'block'}`;
 
     // }
     
@@ -215,7 +139,11 @@ class MenuList extends Component {
 
     // }
 
+    state = {
 
+        bgColor: ""
+
+    }
 
     shouldComponentUpdate(nextProps) {
         
@@ -227,18 +155,24 @@ class MenuList extends Component {
 
     menuBoard = (menu) => {
  
-       return _.map(menu, menuItem => {
+       return _.map(menu, menuItems => {
 
-            const { id, name } = menuItem;
+            const { id, name } = menuItems;
 
             const className = `col ${removeSpace(name)}BgColor border 
                border-danger justify-content-center ml-2 mr-2 round`;
-                            
+
             return(
 
-                <div key = { id } id = { name } className={ className }>
+                <div key = { id } id = { name } className={ className }
+                    style = {{ backgroundColor: `${ this.state.bgColor }`}}>
                                                     
-                    <Main menuItems = { menuItem } />
+                    <Main 
+                        
+                        menuItems = { menuItems } 
+                        checkedColor = { (color) => { this.setState({ bgColor: color}); }}    
+                    />
+
 
                 </div>
 
