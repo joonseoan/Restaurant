@@ -5,132 +5,11 @@ import _ from 'lodash';
 import { Redirect } from 'react-router-dom';
 
 import RecommendationDescriptions from '../Current_recommendations/Recommendation_descriptions';
-import { removeSpace } from '../../utils/uIControl';
+import { removeSpace, initUI } from '../../utils/uIControl';
 import Main from './Main';
-
 
 class MenuList extends Component {
     
-    // menuOnChange = (event) => {
-
-
-    // }
-    
-    // numberOnChange = (event) => {
-
-    //     const CurrentMenuName = event.target.id;
-        
-    //     let buttonValues = event.target.innerHTML;
-
-    //     const label = document.querySelector(`label.${CurrentMenuName}`);
-
-    //     let labelValues = Number(label.innerHTML);
-        
-    //     const spans = document.querySelectorAll(`span#${CurrentMenuName}`);
-        
-    //     const buttons = [ 1, 2, 3, 4 ];
-
-    //     if (buttonValues !== '+') {
-
-    //         buttonValues = Number(buttonValues);
-
-    //         const disPlayButtons = buttons.filter( buttonNumber => buttonNumber !== buttonValues);
-                
-    //         _.each(disPlayButtons, button => {
-
-    //             spans[button].style.visibility = 'visible';
-              
-    //         });
-
-    //         spans[buttonValues].style.visibility = 'hidden';
-
-    //         if(buttonValues === 0) {
-
-    //             this.state.name_price.forEach(menu => {
-
-    //                 if (menu.name === CurrentMenuName) {
-    
-    //                     const index = this.state.name_price.indexOf(menu);
-    
-    //                     this.state.name_price.splice(index, 1);
-    
-    //                 }
-    
-    //             });
-    
-    //             document.querySelector(`input[name="${removeSpace(CurrentMenuName)}"]`).checked = false;
-
-    //             document.querySelector(`div.${removeSpace(CurrentMenuName)}BgColor`).style.backgroundColor = '';
-
-    //             document.querySelector(`div.${removeSpace(CurrentMenuName)}Button`).style.display = 'none';
-
-    //             document.querySelector(`i#${CurrentMenuName}`).style.visibility= 'visible';
-
-    //             document.querySelector(`input.${CurrentMenuName}`).disabled= false;
-    //         }
-
-    //     } else {
-
-    //         labelValues++;
-            
-    //         buttonValues = labelValues;
-            
-    //         if(buttonValues > 4) {
-
-    //             _.each(buttons, button => {
-
-    //                 spans[button].style.visibility = 'visible';
-    
-    //             });
-
-    //         }
-
-    //     }
-
-    //     spans[0].style.visibility ='visible';
-        
-    //     const displayNumber = document.createTextNode(buttonValues);
-
-    //     if (label.firstChild) label.removeChild(label.firstChild);
-        
-    //     label.appendChild(displayNumber);
-
-    //     _.each(this.state.name_price, find => {
-
-    //         const alias = removeSpace(find.name);
-
-    //         if (alias === CurrentMenuName) {
-                
-    //             find.number = buttonValues;
-
-    //         }
-
-    //     });
-
-    //     if(this.state.name_price.length > 0) {
-
-    //         let count;
-
-    //         this.state.name_price.forEach(order => {
-                
-    //             count =+ order.number;
-
-    //         });
-
-    //         if(count > 0) {
-
-    //             document.querySelector('#order').style.display = 'block';
-
-    //          }
-
-    //     } else {
-
-    //         document.querySelector('#order').style.display = 'none';
-
-    //     }
-        
-    // }
-
     // handleDescription = e => {
      
     //     this.setState({ toDescription: e.target.value });
@@ -139,48 +18,65 @@ class MenuList extends Component {
 
     // }
 
-    state = {
-
-        bgColor: ""
-
-    }
-
-    shouldComponentUpdate(nextProps) {
-        
-        if(this.props.totalMenu === nextProps.totalMenu) return false;
-        
-        return true;
-
-    }
-
     menuBoard = (menu) => {
+
+        const { items } = this.props.controlData;
  
-       return _.map(menu, menuItems => {
+        return _.map(menu, menuItems => {
 
             const { id, name } = menuItems;
 
-            const className = `col ${removeSpace(name)}BgColor border 
+            const className = `col ${ removeSpace(name) }BgColor border 
                border-danger justify-content-center ml-2 mr-2 round`;
+            
+            const menuColor = {
 
+                menuItems: menuItems,
+
+            };
+
+            let backgroundColor = '';
+
+            _.each(items, item => {
+
+                if(item.name === removeSpace(name)) {
+
+                    backgroundColor = '#FAFAD2';
+
+                }
+
+            });
+                  
             return(
-
+                
                 <div key = { id } id = { name } className={ className }
-                    style = {{ backgroundColor: `${ this.state.bgColor }`}}>
+                style = { { backgroundColor: `${ backgroundColor }`} } >
                                                     
                     <Main 
                         
-                        menuItems = { menuItems } 
-                        checkedColor = { (color) => { this.setState({ bgColor: color}); }}    
-                    />
+                        dataControl = { this.props.controlData } 
+                        menuColorControl = { menuColor } 
 
+                    />
 
                 </div>
 
             );
 
-        })
+        });
 
     }
+
+    // shouldComponentUpdate(nextProps) {
+
+    //     if(this.props.firstRow === nextProps.firstRow) return false;
+    //     if(this.props.secondRow === nextProps.secondRow) return false;
+    //     if(this.props.thirdRow === nextProps.thirdRow) return false;
+    //     if(this.props.forthRow === nextProps.forthRow) return false;
+
+    //     return true;
+
+    // }
 
     render () {
 
@@ -190,7 +86,7 @@ class MenuList extends Component {
         
         return (
 
-                <div className="row justify-content-center mb-2 mt-3 border border-success">
+                <div className="row justify-content-center mb-2 mt-3 border border-success text-center">
 
                     { this.menuBoard(firstRow) }
                     

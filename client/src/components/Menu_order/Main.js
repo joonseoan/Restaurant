@@ -1,16 +1,46 @@
+// props값 재 정리 필요.....하하...
+
+
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import CartInput from './Cart_input';
+import Orders from './Orders';
 
 class Main extends Component {
 
+// Test it for better performance     
+/*     nameValues = [];
+
+    componentDidMount() {
+
+        if(!this.props) return;
+
+        this.nameValues = [ ...this.nameValues, this.props.menuColorControl.menuItems.name ];
+
+    }
+    
+    shouldComponentUpdate(nextProps) {
+
+        if(this.nameValues[0] === nextProps.menuColorControl.menuItems.name) return false;
+
+        return true;
+
+    }
+ */
+    
     render() {
 
         if(!this.props) return <div/>;
 
-        console.log(this.props)
+        const { name, price, description, file } = this.props.menuColorControl.menuItems;
 
-        const { name, price, description, file } = this.props.menuItems;
+        const data = { 
+                
+            name,
+            items: this.props.dataControl
+                    
+        }
 
         const style = {
 
@@ -24,7 +54,6 @@ class Main extends Component {
 
             <div>
 
-
                 <label className="d-block clearfix mt-2">
                                 
                     <span className="float-left text-muted d-block" 
@@ -35,15 +64,17 @@ class Main extends Component {
 
                     <CartInput 
                     
-                        // menuItems = { this.props.menuItems }
-                        // currentItems = { this.props.currentItems }
-                        // checkingItems = { this.props.checkingItems  } 
-                        // orderButton = { this.props.orderButton }
-
+                        controlFunction = { this.props }
+                    
                     />
-
-                            
+        
                 </label>
+
+                <Orders
+
+                    cartAndButton = { data }
+
+                />
 
                 <img
                     style={ style } 

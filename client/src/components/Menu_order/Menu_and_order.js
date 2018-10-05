@@ -10,7 +10,7 @@ class MenuAndOrder extends Component {
 
     state = {
         
-        showModal : false,
+        showModal: false,
         name_price: [],
         orderButton: 'none'
         
@@ -27,11 +27,10 @@ class MenuAndOrder extends Component {
          }); 
 
           // need to test it if it is necessary
-
           // initUI(this.state.name_price);
             
     }
- 
+
     handleCloseModal = () => {
  
          this.setState ({ 
@@ -41,8 +40,20 @@ class MenuAndOrder extends Component {
          });
   
     }
+
+    shouldComponentUpdate(nextState) {
+
+        if(this.state.showModal === nextState.showModal) return false;
+        if(this.state.name_price === nextState.name_price) return false;
+        if(this.state.orderButton === nextState.orderButton) return false;
+        
+        return true;
+
+    }
  
     render() {
+
+        console.log(this.state.name_price)
 
         if(!this.props) return <div/>; 
         // if(!this.props.recomMenu)  return<div/>;
@@ -52,7 +63,7 @@ class MenuAndOrder extends Component {
 
         const data = {
 
-            items : this.state.name_price,
+            items: this.state.name_price,
             toCheckItems: (menus) => { this.setState({ name_price: menus }) },
             orderButton: (control) => { this.setState({ orderButton: control }); }
 
@@ -67,34 +78,23 @@ class MenuAndOrder extends Component {
                 </h4>
                 
                 <div className="mt-5">
-                    
-                    {/* 
-                        <form onSubmit = { this.submitValue }> 
-                     */}
 
                     <div>
                     
-                        <MenuList> 
+                        <MenuList controlData = { data } /> 
 
-                           <Main controlData = { data } />
-
-                        </MenuList>
-                    
                     </div>
-
+                {/* `${this.state.orderButton}` */}
                     <div className = "btn btn-danger mt-3 mx-auto fixed-bottom w-50" 
                         onClick = { this.handleOpenModal }
-                        style = { { display: `${this.state.orderButton}`} }
+                        style = { { display: 'block' }  }
                         id = "order"
                     >
                 
                         Place an Order
                 
                     </div>
-                {/* 
-                    </form> 
-                 */}
-                    
+            
                 </div>
             
                 <Bill openStatus = { this.state.showModal } menuChecked = { this.state.name_price } 

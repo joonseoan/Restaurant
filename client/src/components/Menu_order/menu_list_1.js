@@ -230,6 +230,7 @@ class MenuList extends Component {
                 document.querySelector(`i#${CurrentMenuName}`).style.visibility= 'visible';
 
                 document.querySelector(`input.${CurrentMenuName}`).disabled= false;
+                
             }
 
         } else {
@@ -420,7 +421,8 @@ class MenuList extends Component {
 
                             Special for you!
 
-                        </p>        
+                        </p>    
+
                         <div className = { class_name_3 } id="number-input" style={{display: 'none'}}>
 
                             <div className="mt-3">
