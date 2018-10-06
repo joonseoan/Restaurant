@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 import { FETCH_LOCATION, 
-         FETCH_ADDITIONAL_TODAY_WEATHER } from './fetch_weather';
+         FETCH_ADDITIONAL_TODAY_WEATHER,
+         RECOMMENDED_MENUS,
+         REFRESH_MENU,
+         REFRESH_BUTTON } from './fetch_weather';
 
 import { FETCH_GUESTBOOKS,
          CREATE_GUESTBOOK,
@@ -15,6 +18,7 @@ const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${ proce
 
 // gota change it.
 const GoogleURL = 'https://maps.googleapis.com/maps/api/geocode/json?address';
+
 
 export function location(branch_city) {
 
@@ -43,6 +47,37 @@ export function additionalTodayWeatherInfo (branch_city) {
 
     });
                         
+}
+
+export function fetchRecommendedMenus(menus) {
+
+    return ({
+
+        type: RECOMMENDED_MENUS,
+        payload: menus
+
+    });
+
+}
+
+export function refreshMenu(refresh={}) {
+
+    return({
+
+        type: REFRESH_MENU,
+        payload: refresh
+
+    })
+}
+
+export function refreshButton (number) {
+
+    return({
+
+        type : REFRESH_BUTTON,
+        payload: number
+
+    });
 }
 
 export function fetchGuesbookLists() {

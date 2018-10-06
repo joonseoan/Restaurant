@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import MenuList from './Menu_list';
-import Main from './Main';
 import Bill from '../Bill/Bill';
-import { initUI } from '../../utils/uIControl';
+import { refreshMenu } from '../../actions/';
 
 class MenuAndOrder extends Component {
 
@@ -15,7 +15,40 @@ class MenuAndOrder extends Component {
         orderButton: 'none'
         
     };
-    
+
+    refresh = false;
+
+    componentDidUpdate(prevProps, prevState) {
+        
+        if(this.state.name_price !== prevState.name_price) {
+
+            const refresh = {
+
+                refreshData: () => { 
+                
+                    this.setState({
+            
+                        name_price: [],
+                        orderButton: 'none'
+                       
+                    });
+        
+                },
+
+                refreshUI: this.state.name_price
+                
+            }
+                        
+            this.props.refreshMenu(refresh);
+
+            this.refresh = true;
+
+        }
+
+     
+          
+    }
+
     handleOpenModal = () => {
 
         this.setState ({ 
@@ -53,8 +86,6 @@ class MenuAndOrder extends Component {
  
     render() {
 
-        console.log(this.state.name_price)
-
         if(!this.props) return <div/>; 
         // if(!this.props.recomMenu)  return<div/>;
 
@@ -81,13 +112,16 @@ class MenuAndOrder extends Component {
 
                     <div>
                     
-                        <MenuList controlData = { data } /> 
+                        <MenuList 
+                            controlData = { data }
+                            refresh = { this.refresh }
+                        /> 
 
                     </div>
                 {/* `${this.state.orderButton}` */}
                     <div className = "btn btn-danger mt-3 mx-auto fixed-bottom w-50" 
                         onClick = { this.handleOpenModal }
-                        style = { { display: 'block' }  }
+                        style = { { display: `${this.state.orderButton}` }  }
                         id = "order"
                     >
                 
@@ -114,4 +148,4 @@ class MenuAndOrder extends Component {
 
 }
 
-export default MenuAndOrder;
+export default connect (null, { refreshMenu })(MenuAndOrder);

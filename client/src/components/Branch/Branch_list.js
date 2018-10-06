@@ -7,7 +7,6 @@ import LocationCoordinate from '../Weather/Location_coordinate';
 import SelectCity from './SelectCity';
 import { options } from '../../utils/cities';
 
-
 class BranchList extends Component {
 
     startInterval;

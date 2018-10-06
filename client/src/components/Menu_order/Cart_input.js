@@ -5,27 +5,14 @@ import { removeSpace, initUI } from '../../utils/uIControl';
 
 class CartInput extends Component {
 
-    state = {
-
-        visibility: 'visible',
-        disabled: false,
-        // display: 'none',
-        number: 0
-
-    }
-
     menuOnChange = event => {
- 
-        const { name, value, checked } = event.target;
 
+        const { name, value, checked } = event.target;
+        
         const { items, toCheckItems, orderButton } = this.props.controlFunction.dataControl;
         
-        const { checkedColor } = this.props.controlFunction.menuColorControl;
-
-        const { number } = this.state;
-
         orderButton('none');
-
+        
         if (items.length > 0) {
 
             const cleanCart = _.each(items, orders => {
@@ -44,11 +31,9 @@ class CartInput extends Component {
 
         }
 
-        const newItems = [ ...items, { name, value, checked, number } ];
+        const newItems = [ ...items, { name, value, checked, number:0 } ];
         
         toCheckItems(newItems); 
-
-        //document.querySelector(`div.${removeSpace(name)}Button`).style.display = `${!checked ? 'none' : 'block'}`;
 
     }
 
@@ -57,27 +42,47 @@ class CartInput extends Component {
       if(!this.props) return <div/>;
 
         const { name, price } = this.props.controlFunction.menuColorControl.menuItems;
-        
+        const { items } = this.props.controlFunction.dataControl;
+
+        let visibility = 'visible';
+        let disabled = false;
+        let checked = false;
+
+        _.each(items, item => {
+
+            if(item.name === removeSpace(name)) {
+
+                visibility = 'hidden';
+                disabled = true;
+                checked = false;
+
+            }
+
+        });        
+
         return(
 
             <div className='icons'>
                             
                 <i className="fa fa-cart-arrow-down text-danger float-right"
                     id = { removeSpace(name) }
-                    style={{ fontSize: '24px', visibility: `${ this.state.visibility }`}} 
-                    disabled={ this.state.disabled }>
+                    style={{ fontSize: '24px', visibility: `${ visibility }`}} 
+                >
                 
                     <input type = "checkbox" 
                         name = { removeSpace(name) } 
                         className = { `${removeSpace(name)} ml-1` }
                         value = { price }  
                         onChange = { this.menuOnChange }
+                        disabled = { disabled }
+                        checked = { checked }
                     />
                 </i>
 
             </div>
             
         );
+        
     }
 
 }

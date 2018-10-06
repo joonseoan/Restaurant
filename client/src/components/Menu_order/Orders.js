@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import { removeSpace, initUI } from '../../utils/uIControl';
+import { refreshButton } from '../../actions';
 
 class Orders extends Component {
 
@@ -16,16 +18,7 @@ class Orders extends Component {
              
                 <div id={ item.name } key = { item.name } className = { class_name_1 } >
 
-                    <div>
-        
-                        <p className='blink text-danger font-italic font-weight-bold d-inline' id = {removeSpace(item.name)}
-                            style={{ visibility : 'hidden' }}> 
-
-                            Special for you!
-
-                        </p>        
-    
-                    </div>
+                    
 
                     <div className="mr-2 pl-2">
 
@@ -93,13 +86,13 @@ class Orders extends Component {
 
     numberOnChange = e => {
         
-        const { items } = this.props.cartAndButton.items;
+        const { items, orderButton } = this.props.cartAndButton.items;
 
         const CurrentMenuName = e.target.id;
 
         let buttonValues;
 
-        if (e.target.value !== '+') {
+        if(e.target.value !== '+') {
 
             buttonValues = Number(e.target.value);
     
@@ -139,30 +132,6 @@ class Orders extends Component {
 
         }
 
-        // if(this.state.name_price.length > 0) {
-
-        //     let count;
-
-        //     this.state.name_price.forEach(order => {
-                
-        //         count =+ order.number;
-
-        //     });
-
-        //     if(count > 0) {
-
-        //         document.querySelector('#order').style.display = 'block';
-
-        //      }
-
-        // } else {
-
-        //     document.querySelector('#order').style.display = 'none';
-
-        // }
-
-
-
         _.each(items, item => {
 
             if(CurrentMenuName === item.name) {
@@ -172,14 +141,39 @@ class Orders extends Component {
             }
 
         });
+
+  
+        if(items.length > 0) {
+
+            let count;
+
+            items.forEach(order => {
+                
+                count =+ order.number;
+
+            });
+
+            if(count > 0) {
+
+                orderButton('block');
+
+             }
+
+        } else {
+
+            orderButton('none');
+
+        } 
         
     }
 
     buttonDisplay = () => {
 
         const { name } = this.props.cartAndButton;
-        
-         return this.buttons.map(button => {
+
+        return this.buttons.map(button => {
+
+            console.log(name + '        ' + this.state.number);
              
             const visibility = Number(button) === this.state.number ? 'hidden' : 'visible';
 
@@ -222,15 +216,18 @@ class Orders extends Component {
             if(removeSpace(name) === item.name) display = 'block';
             
         });
-        
-        return(
 
+        return(
+            
             <div>
 
-                <div className = { className } id="number-input" style={{ display: `${ display }` }}>
+            {/*  
+                // 
+            */}
+                <div className = { className} style={{ display: `${ display }` }} id="number-input" >
 
+                {/* */}
                     <div className="mt-3">
-
                         Number of Orders: <label className = { removeSpace(name) }>{ this.state.number}</label>
                     
                     </div>
@@ -240,7 +237,7 @@ class Orders extends Component {
                         <button 
                             className="btn btn-sm mr-1 mb-1 btn-primary"
                             onClick = { this.numberOnChange }
-                            value = {0} 
+                            value = { 0 } 
                             id = { removeSpace(name) }>0</button>
 
                         { this.buttonDisplay() }
@@ -250,7 +247,7 @@ class Orders extends Component {
                             style = {{ backgroundColor:'#CC0000', color:'white'}}
                             //value = {'+'}
                             onClick = { this.numberOnChange }
-                            value = {'+'} 
+                            value = { '+' } 
                             id = { removeSpace(name) }>+</button>
 
                     </div>
@@ -265,4 +262,4 @@ class Orders extends Component {
 
 }
 
-export default Orders;
+export default connect(null, { refreshButton })(Orders);

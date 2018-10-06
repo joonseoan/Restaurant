@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import DisplayDetailButtons from './Display_detail_buttons';
 import DisplayOthers from './Display_others';
 import { setCurrentMenu } from '../../utils/setRecommendation';
+import { fetchRecommendedMenus } from '../../actions';
 
 class RecommendedMenu extends Component {
 
@@ -33,6 +35,9 @@ class RecommendedMenu extends Component {
             selectedMenu: setCurrentMenu(nextProps)
 
         });
+
+        this.props.fetchRecommendedMenus(setCurrentMenu(nextProps));
+        // console.log(setCurrentMenu(nextProps));
 
     }
     
@@ -88,4 +93,4 @@ class RecommendedMenu extends Component {
 
 }
 
-export default RecommendedMenu;
+export default connect(null, { fetchRecommendedMenus })(RecommendedMenu);

@@ -1,11 +1,9 @@
-// props값 재 정리 필요.....하하...
-
-
 import React, { Component } from 'react';
 import _ from 'lodash';
 
 import CartInput from './Cart_input';
 import Orders from './Orders';
+import RecommendationMessage from './Recommendation_message';
 
 class Main extends Component {
 
@@ -28,7 +26,7 @@ class Main extends Component {
 
     }
  */
-    
+
     render() {
 
         if(!this.props) return <div/>;
@@ -46,6 +44,7 @@ class Main extends Component {
 
             width: '200px',
             height: '150px'
+            
         }
 
         const path = './images/';
@@ -69,6 +68,8 @@ class Main extends Component {
                     />
         
                 </label>
+
+                <RecommendationMessage menuNames = { name }/>
 
                 <Orders
 

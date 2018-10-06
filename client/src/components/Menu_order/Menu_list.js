@@ -4,8 +4,7 @@ import _ from 'lodash';
 
 import { Redirect } from 'react-router-dom';
 
-import RecommendationDescriptions from '../Current_recommendations/Recommendation_descriptions';
-import { removeSpace, initUI } from '../../utils/uIControl';
+import { removeSpace } from '../../utils/uIControl';
 import Main from './Main';
 
 class MenuList extends Component {
@@ -17,6 +16,18 @@ class MenuList extends Component {
     //     e.preventDefault();
 
     // }
+
+    state = { refresh : false };
+
+    componentDidUpdate(prevProps, prevNext) {
+
+        if(prevProps.refresh !== this.props.refresh) {
+
+            this.setState( { refresh : true});
+
+        }
+
+    }
 
     menuBoard = (menu) => {
 
@@ -55,7 +66,8 @@ class MenuList extends Component {
                     <Main 
                         
                         dataControl = { this.props.controlData } 
-                        menuColorControl = { menuColor } 
+                        menuColorControl = { menuColor }
+                        // refreshNumber = { this.state.refresh }
 
                     />
 
@@ -81,6 +93,8 @@ class MenuList extends Component {
     render () {
 
         if(!this.props) return<div/>;
+
+        console.log(this.state.refresh, 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
 
         const { firstRow, secondRow, thirdRow, forthRow } = this.props;
         

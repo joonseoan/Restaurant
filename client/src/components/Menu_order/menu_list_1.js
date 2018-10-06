@@ -67,6 +67,7 @@ class MenuList extends Component {
 
         });
         
+        // Refresh......
         if(city !== branchLocation) {
 
             this.setState({
@@ -230,7 +231,7 @@ class MenuList extends Component {
                 document.querySelector(`i#${CurrentMenuName}`).style.visibility= 'visible';
 
                 document.querySelector(`input.${CurrentMenuName}`).disabled= false;
-                
+
             }
 
         } else {
