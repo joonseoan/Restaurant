@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import { Redirect } from 'react-router-dom';
 
@@ -16,18 +16,6 @@ class MenuList extends Component {
     //     e.preventDefault();
 
     // }
-
-    state = { refresh : false };
-
-    componentDidUpdate(prevProps, prevNext) {
-
-        if(prevProps.refresh !== this.props.refresh) {
-
-            this.setState( { refresh : true});
-
-        }
-
-    }
 
     menuBoard = (menu) => {
 
@@ -67,7 +55,8 @@ class MenuList extends Component {
                         
                         dataControl = { this.props.controlData } 
                         menuColorControl = { menuColor }
-                        // refreshNumber = { this.state.refresh }
+                        refreshAction = { this.props.refreshAction }
+                        setRefresh = { this.props.setRefresh }
 
                     />
 
@@ -79,22 +68,9 @@ class MenuList extends Component {
 
     }
 
-    // shouldComponentUpdate(nextProps) {
-
-    //     if(this.props.firstRow === nextProps.firstRow) return false;
-    //     if(this.props.secondRow === nextProps.secondRow) return false;
-    //     if(this.props.thirdRow === nextProps.thirdRow) return false;
-    //     if(this.props.forthRow === nextProps.forthRow) return false;
-
-    //     return true;
-
-    // }
-
     render () {
 
         if(!this.props) return<div/>;
-
-        console.log(this.state.refresh, 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
 
         const { firstRow, secondRow, thirdRow, forthRow } = this.props;
         

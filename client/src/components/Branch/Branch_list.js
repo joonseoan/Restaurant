@@ -82,6 +82,8 @@ class BranchList extends Component {
                                 this.setTodayWeatherInfo(city);
 
                             }}
+
+                            refreshStatus = { this.props.refreshStatus }
                             
                         />
                         

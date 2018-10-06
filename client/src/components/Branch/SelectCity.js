@@ -1,52 +1,20 @@
 import React from 'react';
 import { options } from '../../utils/cities';
-import { connect } from 'react-redux';
 import _ from 'lodash';
-import { initUI } from '../../utils/uIControl';
 
 const SelectCity = props => {
     
-    
     const handleOnClick = e => {
 
+        const { setCity,  refreshStatus } = props;
+        
+        refreshStatus();
+                
         const { value } = e.target;
         
-        const { setCity, 
-            refreshMenu: { refreshData, refreshUI } } = props;
-            
         sessionStorage.setItem('branch_city', value);
 
-        
-
-        
-        
-        // console.log(refreshButton);
-        
-        if(refreshData && refreshUI ) {
-            
-            // console.log(refreshButton);
-            
-            // refreshButton();
-            
-            // _.each(refreshUI, item => {
-                
-                //     initUI(item.name);
-                
-                // });
-                refreshData();
-                
-                
-                
-            
-                
-                // this.forceUpdate();
-                
-                
-                
-                
-            }
-            
-            setCity(value);
+        setCity(value);
         
     
         //window.location.reload();
@@ -86,10 +54,4 @@ const SelectCity = props => {
         
 }
 
-function mapsPropsToState ({ refreshMenu, refreshButton }) {
-
-    return ({ refreshMenu, refreshButton  });
-
-}
-
-export default connect(mapsPropsToState)(SelectCity);
+export default SelectCity;

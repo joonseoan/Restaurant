@@ -7,26 +7,6 @@ import RecommendationMessage from './Recommendation_message';
 
 class Main extends Component {
 
-// Test it for better performance     
-/*     nameValues = [];
-
-    componentDidMount() {
-
-        if(!this.props) return;
-
-        this.nameValues = [ ...this.nameValues, this.props.menuColorControl.menuItems.name ];
-
-    }
-    
-    shouldComponentUpdate(nextProps) {
-
-        if(this.nameValues[0] === nextProps.menuColorControl.menuItems.name) return false;
-
-        return true;
-
-    }
- */
-
     render() {
 
         if(!this.props) return <div/>;
@@ -44,7 +24,7 @@ class Main extends Component {
 
             width: '200px',
             height: '150px'
-            
+
         }
 
         const path = './images/';
@@ -74,6 +54,8 @@ class Main extends Component {
                 <Orders
 
                     cartAndButton = { data }
+                    refreshAction = { this.props.refreshAction }
+                    setRefresh = { this.props.setRefresh }
 
                 />
 

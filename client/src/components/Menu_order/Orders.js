@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import { removeSpace, initUI } from '../../utils/uIControl';
-import { refreshButton } from '../../actions';
 
 class Orders extends Component {
 
@@ -62,8 +61,7 @@ class Orders extends Component {
                            
                         </div>
 
-                        
-                
+                    
                     </div>
 
                 </div>
@@ -81,6 +79,21 @@ class Orders extends Component {
     state = {
 
         number: 0
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+        if(prevProps.refreshAction === 0) {
+
+            if(prevProps.refreshAction !== prevState.number ) {
+    
+                this.setState({ number: prevProps.refreshAction });
+    
+            }
+
+            this.props.setRefresh();
+        }
 
     }
 
@@ -173,7 +186,7 @@ class Orders extends Component {
 
         return this.buttons.map(button => {
 
-            console.log(name + '        ' + this.state.number);
+            // console.log(name + '        ' + this.state.number);
              
             const visibility = Number(button) === this.state.number ? 'hidden' : 'visible';
 
@@ -262,4 +275,4 @@ class Orders extends Component {
 
 }
 
-export default connect(null, { refreshButton })(Orders);
+export default Orders;

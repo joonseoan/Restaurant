@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import MenuList from './Menu_list';
 import Bill from '../Bill/Bill';
-import { refreshMenu } from '../../actions/';
 
 class MenuAndOrder extends Component {
 
@@ -13,40 +12,30 @@ class MenuAndOrder extends Component {
         showModal: false,
         name_price: [],
         orderButton: 'none'
-        
+
     };
 
-    refresh = false;
-
     componentDidUpdate(prevProps, prevState) {
+
+        console.log(this.props.refreshUI, this.props.hideOrderButton)
+
+        if(this.props.refreshUI === []) {
+
+///            if(this.props.refreshUI !==  prevProps.name_price) {
         
-        if(this.state.name_price !== prevState.name_price) {
+                this.setState({ 
+                    
+                    name_price: this.props.refreshUI,
+                    orderButton: this.props.hideOrderButton
+    
+                });
 
-            const refresh = {
-
-                refreshData: () => { 
-                
-                    this.setState({
-            
-                        name_price: [],
-                        orderButton: 'none'
-                       
-                    });
+                this.props.setRefreshUI();
         
-                },
-
-                refreshUI: this.state.name_price
-                
             }
-                        
-            this.props.refreshMenu(refresh);
+   //     }
 
-            this.refresh = true;
 
-        }
-
-     
-          
     }
 
     handleOpenModal = () => {
@@ -55,6 +44,7 @@ class MenuAndOrder extends Component {
  
              showModal : true,
              newPage : false,
+             orderButton: 'none',
              name_price: this.state.name_price.filter(menu => (menu.number !== 0))
  
          }); 
@@ -68,7 +58,8 @@ class MenuAndOrder extends Component {
  
          this.setState ({ 
              
-             showModal : false
+             showModal : false,
+             orderButton: 'block'
          
          });
   
@@ -114,7 +105,8 @@ class MenuAndOrder extends Component {
                     
                         <MenuList 
                             controlData = { data }
-                            refresh = { this.refresh }
+                            refreshAction = { this.props.refreshAction }
+                            setRefresh = { this.props.setRefresh }
                         /> 
 
                     </div>
@@ -148,4 +140,4 @@ class MenuAndOrder extends Component {
 
 }
 
-export default connect (null, { refreshMenu })(MenuAndOrder);
+export default MenuAndOrder;

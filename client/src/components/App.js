@@ -8,6 +8,14 @@ import MenuAndOrder from './Menu_order/Menu_and_order';
 
 class App extends Component {
 
+    state = { 
+        
+        newZero: null, 
+        new_name_price: null,
+        new_order_button: null
+
+    };
+
     componentDidMount = () => {
 
       sessionStorage.clear();
@@ -20,25 +28,72 @@ class App extends Component {
 
         return (
         
-        <div>
-            
-            <div className="mt-5">  
-                <BranchList />
-            </div>
-
             <div>
-                <LocationCoordinate className="mt-5"/>
-            </div>
+                
+                <div className="mt-5"> 
 
-            <div className="mb-5">
-                <RecommendationMenu />
-            </div>
+                    <BranchList 
+                    
+                        refreshStatus = { () => {
 
-            <div className="mt-5">
-                <MenuAndOrder className="mt-5" />
-            </div>
+                            this.setState( { 
+                                
+                                newZero: 0,
+                                new_name_price: [],
+                                new_order_button: 'none'
+                                
 
-        </div>
+                            }); 
+                        }}  
+                    
+                    />
+
+                </div>
+
+                <div>
+                    <LocationCoordinate className="mt-5"/>
+                </div>
+
+                <div className="mb-5">
+                    <RecommendationMenu />
+                </div>
+
+                <div className="mt-5">
+
+                    <MenuAndOrder className="mt-5" 
+                        
+                        refreshAction = { this.state.newZero }
+                        
+                        setRefresh = { () => { 
+                            
+                            this.setState( { 
+                                
+                                newZero: null
+                                
+    
+                            })
+                            
+                        } }
+                        
+                        refreshUI = {this.state.new_name_price }
+                        
+                        setRefreshUI = { () => { 
+                            
+                            this.setState( { 
+                                
+                                new_name_price: null
+                                
+                            })
+                            
+                        } }
+
+                        hideOrderButton = { this.state.new_order_button }
+                        
+                    />
+
+                </div>
+
+            </div>
         
         );
 
