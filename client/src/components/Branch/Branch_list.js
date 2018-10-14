@@ -1,102 +1,73 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { location, additionalTodayWeatherInfo } from '../../actions';
-import DateTimeDisplay from '../Weather/Date_time_display';
-import LocationCoordinate from '../Weather/Location_coordinate';
-import SelectCity from './SelectCity';
-import { options } from '../../utils/cities';
+import { location, additionalTodayWeatherInfo } from "../../actions";
+import DateTimeDisplay from "../Weather/Date_time_display";
+import LocationCoordinate from "../Weather/Location_coordinate";
+import SelectCity from "./SelectCity";
+import { options } from "../../utils/cities";
 
 class BranchList extends Component {
+  startInterval;
 
-    startInterval;
+  state = {
+    city: ""
+  };
 
-    state = { 
-        
-        city: ''
-    
-    };
-    
-    setTodayWeatherInfo = city => {
+  setTodayWeatherInfo = city => {
+    this.props.location(city);
 
-        this.props.location(city);
-        
-        this.props.additionalTodayWeatherInfo(city);
+    this.props.additionalTodayWeatherInfo(city);
 
-        if(this.startInterval) clearInterval(this.startInterval);
+    if (this.startInterval) clearInterval(this.startInterval);
 
-        this.startInterval = setInterval(() => {
+    this.startInterval = setInterval(() => {
+      this.props.additionalTodayWeatherInfo(city);
+    }, 300000);
+  };
 
-            this.props.additionalTodayWeatherInfo(city);
+  componentDidMount() {
+    const { city } = this.state;
 
-        }, 300000);
-
+    if (!city && !sessionStorage.branch_city) {
+      this.setState({ city: options[0].value });
+    } else if (sessionStorage.branch_city) {
+      this.setState({ city: sessionStorage.branch_city });
     }
 
-    componentDidMount() {
+    this.setTodayWeatherInfo(city || options[0].value);
+  }
 
-        const { city } = this.state;
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state !== nextState ? true : false;
+  }
 
-        if (!city && !sessionStorage.branch_city) {
+  render() {
+    if (!this.state.city) return <div />;
 
-            this.setState({ city: options[0].value });
+    return (
+      <div>
+        <nav className="navbar navbar-expand-sm bg-warning">
+          <div className="text-center w-100">
+            <h4>Welcome to Korean Restaurant in {`${this.state.city}`}</h4>
+          </div>
 
-        } else if (sessionStorage.branch_city) {
-
-            this.setState({ city: sessionStorage.branch_city });
-        
-        }
-
-        
-        this.setTodayWeatherInfo(city || options[0].value);
-
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        
-        return this.state !== nextState ? true : false;
-
-    }
-
-    render() {
-
-        if(!this.state.city)
-            return <div/>;
-
-        return (
-
-            <div>
-                <nav className="navbar navbar-expand-sm bg-warning">  
-
-                    <div className="text-center w-100">
-                        <h4>Welcome to Korean Restaurant in { `${this.state.city}` }</h4>
-                    </div>
-
-                    <div className="mx-auto text-center w-50">
-
-                        <SelectCity 
-
-                            setCity = { (city) => {
-                            
-                                this.setState({ city });
-                                this.setTodayWeatherInfo(city);
-
-                            }}
-
-                            refreshStatus = { this.props.refreshStatus }
-                            
-                        />
-                        
-                    </div>
-
-                </nav>
-
-            </div>
-        
-        );
-
-    }
-
+          <div className="mx-auto text-center w-50">
+            <SelectCity
+              setCity={city => {
+                this.setState({ city });
+                this.setTodayWeatherInfo(city);
+              }}
+              refreshStatus={this.props.refreshStatus}
+            />
+          </div>
+        </nav>
+      </div>
+    );
+  }
 }
 
-export default connect (null, { location, additionalTodayWeatherInfo })(BranchList);
+export default connect(
+  null,
+  { location, additionalTodayWeatherInfo }
+)(BranchList);

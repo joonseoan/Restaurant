@@ -1,59 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import RecommendedMenu from './Recommended_menu';
-import { regexFilter, setWeather } from '../../utils/mainWeather';
+import RecommendedMenu from "./Recommended_menu";
+import { regexFilter, setWeather } from "../../utils/mainWeather";
 
 export default class SetCurrentRecommendation extends Component {
+  state = {
+    indexValue: null
+  };
 
-    state = {
+  componentDidMount() {
+    if (!this.props.mainWeather) return;
 
-        indexValue: null
-    
-    }
+    const getWeather = regexFilter(this.props.mainWeather);
 
-    componentDidMount() {
+    this.setState({ indexValue: setWeather(getWeather) });
+  }
 
-        if(!this.props.mainWeather) return;
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { temperature, mainWeather } = this.props;
 
-        const getWeather = regexFilter(this.props.mainWeather);
+  //   if (
+  //     nextProps.temperature === temperature &&
+  //     nextProps.mainWeather === mainWeather &&
+  //     (this.state.indexValue === nextState.indexValue || !this.state.indexValue)
+  //   ) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-        const index = setWeather(getWeather);
+  render() {
+    if (!this.props) return <div />;
 
-        this.setState({ indexValue: index });
+    const { inputMenus, temperature } = this.props;
 
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-
-        const { temperature } = this.props;
-        
-        if(nextProps.temperature === temperature && 
-            this.state.indexValue === nextState.indexValue) {
-
-            return false;
-
-        } 
-        
-        return true;
-
-    }
-    
-    render() {
-
-        if(!this.props) return <div/>;
-
-        const { inputMenus, temperature } = this.props;
-    
-        return(
-                
-            <RecommendedMenu 
-                menu = { inputMenus } 
-                temp = { temperature }
-                value = { this.state.indexValue }
-            />
-                            
-        );
-
-    }
-
+    return (
+      <RecommendedMenu
+        menu={inputMenus}
+        temp={temperature}
+        value={this.state.indexValue}
+      />
+    );
+  }
 }

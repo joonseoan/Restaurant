@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
+import Modal from "react-modal";
 
 import { fetchGuesbookLists } from "../../actions";
 
-class RecommendationDescriptions extends Component {
+Modal.setAppElement("#root");
+
+class MainDescriptions extends Component {
   state = {
     menuItem: "",
     theOthers: ""
@@ -127,7 +130,7 @@ class RecommendationDescriptions extends Component {
     const { description, file, spicy, carlorie } = menuItem;
 
     return (
-      <div>
+      <Modal isOpen={this.props.openStatus}>
         <div>
           <img
             src={path + file}
@@ -160,7 +163,7 @@ class RecommendationDescriptions extends Component {
             </tbody>
           </table>
         </div>
-      </div>
+      </Modal>
     );
   }
 }
@@ -175,4 +178,4 @@ function mapStateToProps({ guestbooks, menu }) {
 export default connect(
   mapStateToProps,
   { fetchGuesbookLists }
-)(RecommendationDescriptions);
+)(MainDescriptions);

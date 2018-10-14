@@ -1,82 +1,85 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
+import React, { Component } from "react";
+import _ from "lodash";
 
-import CartInput from './Cart_input';
-import Orders from './Orders';
-import RecommendationMessage from './Recommendation_message';
+import CartInput from "./Cart_input";
+import Orders from "./Orders";
+import RecommendationMessage from "./Recommendation_message";
+import Details from "./Details";
+// import RecommendationDescriptions from "../Current_recommendations/Recommendation_descriptions";
 
 class Main extends Component {
+  state = {
+    toDescriptionName: "",
+    toDescriptionPrice: 0
+  };
 
-    render() {
+  render() {
+    if (!this.props) return <div />;
 
-        if(!this.props) return <div/>;
+    const {
+      menuItems: { name, price, description, file }
+    } = this.props.menuColorControl;
 
-        const { name, price, description, file } = this.props.menuColorControl.menuItems;
+    const data = {
+      name,
+      items: this.props.dataControl
+    };
 
-        const data = { 
-                
-            name,
-            items: this.props.dataControl
-                    
-        }
+    const style = {
+      width: "200px",
+      height: "150px"
+    };
 
-        const style = {
+    const path = "./images/";
 
-            width: '200px',
-            height: '150px'
+    return (
+      <div>
+        <label className="d-block clearfix mt-2">
+          <span
+            className="float-left text-muted d-block"
+            style={{ fontSize: "13px" }}
+          >
+            <b>{name}</b>
+            ($
+            {price}
+            ):
+          </span>
 
-        }
+          <CartInput controlFunction={this.props} />
+        </label>
 
-        const path = './images/';
+        <RecommendationMessage menuNames={name} />
 
-        return(
+        <Details
+          namePrice={{ name, price }}
+          sendSelectedNamePrice={(sentName, sentPrice) => {
+            this.setState({
+              toDescriptionName: sentName,
+              toDescriptionPrice: sentPrice
+            });
+          }}
+          toDescriptions={this.state}
+        />
 
-            <div>
+        <Orders
+          cartAndButton={data}
+          refreshAction={this.props.refreshAction}
+          setRefresh={this.props.setRefresh}
+        />
 
-                <label className="d-block clearfix mt-2">
-                                
-                    <span className="float-left text-muted d-block" 
-                        style={{fontSize: '13px'}}>
-                        <b>{ name }</b> 
-                        (${ price }):
-                    </span>
+        <img
+          style={style}
+          className="img img-fluid img-thumbnail mt-3"
+          src={path + file}
+          alt={name}
+        />
 
-                    <CartInput 
-                    
-                        controlFunction = { this.props }
-                    
-                    />
-        
-                </label>
-
-                <RecommendationMessage menuNames = { name }/>
-
-                <Orders
-
-                    cartAndButton = { data }
-                    refreshAction = { this.props.refreshAction }
-                    setRefresh = { this.props.setRefresh }
-
-                />
-
-                <img
-                    style={ style } 
-                    className="img img-fluid img-thumbnail mt-3" 
-                    src = { path + file }
-                    alt = { name } 
-                />
-
-                <div className="mt-3">
-
-                    <p className="text-justify text-center">{ description }</p> 
-                
-                </div>
-
-            </div>
-
-        );
-    }
-
+        <div className="mt-3">
+          <p className="text-justify text-center">{description}</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Main;

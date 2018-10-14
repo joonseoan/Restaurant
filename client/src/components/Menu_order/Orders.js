@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import _ from "lodash";
 
-import { removeSpace, initUI } from '../../utils/uIControl';
+import { removeSpace, initUI } from "../../utils/uIControl";
 
 class Orders extends Component {
-
-        /* 
+  /* 
         allMenuContents = () => {
 
         const menuPrices = (item) => {
@@ -74,205 +72,171 @@ class Orders extends Component {
         
     */
 
-    buttons = [1, 2, 3, 4];
+  buttons = [1, 2, 3, 4];
 
-    state = {
+  state = {
+    number: 0
+  };
 
-        number: 0
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.refreshAction !== this.props.refreshAction) {
+      //if(prevProps.refreshAction !== prevState.number ) {
 
+      this.setState({ number: prevProps.refreshAction });
+
+      //}
+
+      this.props.setRefresh();
     }
+  }
 
-    componentDidUpdate(prevProps, prevState) {
+  numberOnChange = e => {
+    const { items, orderButton } = this.props.cartAndButton.items;
 
-        if(prevProps.refreshAction === 0) {
+    const CurrentMenuName = e.target.id;
 
-            if(prevProps.refreshAction !== prevState.number ) {
-    
-                this.setState({ number: prevProps.refreshAction });
-    
-            }
+    let buttonValues;
 
-            this.props.setRefresh();
-        }
+    if (e.target.value !== "+") {
+      buttonValues = Number(e.target.value);
 
-    }
+      this.setState({
+        number: buttonValues
+      });
 
-    numberOnChange = e => {
-        
-        const { items, orderButton } = this.props.cartAndButton.items;
+      if (buttonValues === 0) {
+        items.forEach(menu => {
+          if (menu.name === CurrentMenuName) {
+            const index = items.indexOf(menu);
 
-        const CurrentMenuName = e.target.id;
-
-        let buttonValues;
-
-        if(e.target.value !== '+') {
-
-            buttonValues = Number(e.target.value);
-    
-            this.setState({ 
-                
-                number: buttonValues
-    
-            });
-    
-            if(buttonValues === 0) {
-
-                items.forEach(menu => {
-
-                    if (menu.name === CurrentMenuName) {
-    
-                        const index = items.indexOf(menu);
-    
-                        items.splice(index, 1);
-    
-                    }
-    
-                });
-
-                initUI(CurrentMenuName);
-
-            }
-
-        } else {
-
-            buttonValues = this.state.number + 1;
-
-            this.setState({ 
-                
-                number: buttonValues
-    
-            });
-
-        }
-
-        _.each(items, item => {
-
-            if(CurrentMenuName === item.name) {
-                
-                item['number'] = buttonValues;
-
-            }
-
+            items.splice(index, 1);
+          }
         });
 
-  
-        if(items.length > 0) {
+        initUI(CurrentMenuName);
+      }
+    } else {
+      buttonValues = this.state.number + 1;
 
-            let count;
-
-            items.forEach(order => {
-                
-                count =+ order.number;
-
-            });
-
-            if(count > 0) {
-
-                orderButton('block');
-
-             }
-
-        } else {
-
-            orderButton('none');
-
-        } 
-        
+      this.setState({
+        number: buttonValues
+      });
     }
 
-    buttonDisplay = () => {
+    _.each(items, item => {
+      if (CurrentMenuName === item.name) {
+        item["number"] = buttonValues;
+      }
+    });
 
-        const { name } = this.props.cartAndButton;
+    if (items.length > 0) {
+      let count;
 
-        return this.buttons.map(button => {
+      items.forEach(order => {
+        count = +order.number;
+      });
 
-            // console.log(name + '        ' + this.state.number);
-             
-            const visibility = Number(button) === this.state.number ? 'hidden' : 'visible';
-
-            return (<button key = { button }
-
-                className="btn btn-sm mr-1 mb-1"
-                style={{ backgroundColor:'#ff4444', color:'white', visibility: `${ visibility }` }}
-                value = { button }
-                onClick = { this.numberOnChange } 
-                id = { removeSpace(name) }>
-            
-                { button }
-            
-            </button>);
-                        
-        });
-
+      if (count > 0) {
+        orderButton("block");
+      }
+    } else {
+      orderButton("none");
     }
+  };
 
-    shouldComponentUpdate(nextState) {
+  buttonDisplay = () => {
+    const { name } = this.props.cartAndButton;
 
-        if(this.state.number === nextState.number) return false
-        
-        return true;
+    return this.buttons.map(button => {
+      // console.log(name + '        ' + this.state.number);
 
-    }
+      const visibility =
+        Number(button) === this.state.number ? "hidden" : "visible";
 
-    render() {
+      return (
+        <button
+          key={button}
+          className="btn btn-sm mr-1 mb-1"
+          style={{
+            backgroundColor: "#ff4444",
+            color: "white",
+            visibility: `${visibility}`
+          }}
+          value={button}
+          onClick={this.numberOnChange}
+          id={removeSpace(name)}
+        >
+          {button}
+        </button>
+      );
+    });
+  };
 
-        if(!this.props) return <div/>;
+  // shouldComponentUpdate(nextState) {
+  //   if (this.state.number === nextState.number) return false;
 
-        const { name, items: { items } } = this.props.cartAndButton;
-        
-        const className = `${removeSpace(name)}Button`;
+  //   return true;
+  // }
 
-        let display = 'none';
+  render() {
+    if (!this.props) return <div />;
 
-        _.each(items, item => {
+    const {
+      name,
+      items: { items }
+    } = this.props.cartAndButton;
 
-            if(removeSpace(name) === item.name) display = 'block';
-            
-        });
+    const className = `${removeSpace(name)}Button`;
 
-        return(
-            
-            <div>
+    let display = "none";
 
-            {/*  
+    _.each(items, item => {
+      if (removeSpace(name) === item.name) display = "block";
+    });
+
+    return (
+      <div>
+        {/*  
                 // 
             */}
-                <div className = { className} style={{ display: `${ display }` }} id="number-input" >
+        <div
+          className={className}
+          style={{ display: `${display}` }}
+          id="number-input"
+        >
+          {/* */}
+          <div className="mt-3">
+            Number of Orders:{" "}
+            <label className={removeSpace(name)}>{this.state.number}</label>
+          </div>
 
-                {/* */}
-                    <div className="mt-3">
-                        Number of Orders: <label className = { removeSpace(name) }>{ this.state.number}</label>
-                    
-                    </div>
+          <div className="btn-group mt-3">
+            <button
+              className="btn btn-sm mr-1 mb-1 btn-primary"
+              onClick={this.numberOnChange}
+              value={0}
+              id={removeSpace(name)}
+            >
+              0
+            </button>
 
-                    <div className="btn-group mt-3">
+            {this.buttonDisplay()}
 
-                        <button 
-                            className="btn btn-sm mr-1 mb-1 btn-primary"
-                            onClick = { this.numberOnChange }
-                            value = { 0 } 
-                            id = { removeSpace(name) }>0</button>
-
-                        { this.buttonDisplay() }
-
-                        <button 
-                            className="btn btn-sm mr-1 mb-1"
-                            style = {{ backgroundColor:'#CC0000', color:'white'}}
-                            //value = {'+'}
-                            onClick = { this.numberOnChange }
-                            value = { '+' } 
-                            id = { removeSpace(name) }>+</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-                    
-        );
-
-    }
-
+            <button
+              className="btn btn-sm mr-1 mb-1"
+              style={{ backgroundColor: "#CC0000", color: "white" }}
+              //value = {'+'}
+              onClick={this.numberOnChange}
+              value={"+"}
+              id={removeSpace(name)}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Orders;
