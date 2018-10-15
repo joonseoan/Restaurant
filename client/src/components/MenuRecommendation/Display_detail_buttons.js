@@ -8,16 +8,16 @@ class DisplayDetailButtons extends Component {
     super(props, context);
 
     this.state = {
-      name: "",
-      price: 0,
+      // name: "",
+      // price: 0,
       showModal: false
     };
   }
 
   handleDetailButton = e => {
     this.setState({
-      name: e.target.name,
-      price: e.target.value,
+      // name: e.target.name,
+      // price: e.target.value,
       showModal: true
     });
   };

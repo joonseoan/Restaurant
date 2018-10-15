@@ -5,56 +5,56 @@ import { connect } from "react-redux";
 import { removeSpace } from "../../utils/uIControl";
 
 class CartInput extends Component {
-  componentDidUpdate(prevProps, prevNext) {
-    console.log(prevProps.selectedMenu, 'selectedMenu ""');
+  state = {
+    setMenu: ""
+  };
 
+  static getDerivedStateFromProps(nextProps, prevState) {}
+
+  componentDidUpdate(prevProps, prevNext) {
     const {
       items,
       toCheckItems,
       orderButton
     } = this.props.controlFunction.dataControl;
-
     const {
       name,
       price
     } = this.props.controlFunction.menuColorControl.menuItems;
 
-    if (
-      this.props.selectedMenu &&
-      this.props.selectedMenu !== prevProps.selectedMenu
-    ) {
-      if (name === this.props.selectedMenu) {
+    const { selectedMenu } = this.props;
+
+    if (selectedMenu !== prevProps.selectedMenu) {
+      if (name === selectedMenu) {
         orderButton("none");
 
         if (items.length > 0) {
-          const cleanCart = _.each(items, orders => {
+          const cleanCart = _.map(items, orders => {
             if (orders.number === 0) {
               const index = items.indexOf(orders);
-
               return items.splice(index, 1);
             }
           });
-
           toCheckItems(cleanCart);
         }
 
         const newItems = [
           ...items,
-          { name, value: price, checked: true, number: 0 }
+          {
+            name: removeSpace(selectedMenu),
+            value: price,
+            checked: true,
+            number: 0
+          }
         ];
 
         toCheckItems(newItems);
       }
-      // console.log(this.props.selectedMenu, ":: selectedMenu");
-      // this.setState({
-      //   name_price: [...name_price, this.props.selectedMenu]
-      // });
     }
   }
 
   menuOnChange = e => {
     const { name, value, checked } = e.target;
-
     const {
       items,
       toCheckItems,
@@ -64,14 +64,12 @@ class CartInput extends Component {
     orderButton("none");
 
     if (items.length > 0) {
-      const cleanCart = _.each(items, orders => {
+      const cleanCart = _.map(items, orders => {
         if (orders.number === 0) {
           const index = items.indexOf(orders);
-
           return items.splice(index, 1);
         }
       });
-
       toCheckItems(cleanCart);
     }
 
@@ -81,8 +79,7 @@ class CartInput extends Component {
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.selectedMenu.name === nextProps.selectedMenu.name)
-      return false;
+    if (this.props.selectedMenu === nextProps.selectedMenu) return false;
 
     return true;
   }
@@ -95,7 +92,7 @@ class CartInput extends Component {
       price
     } = this.props.controlFunction.menuColorControl.menuItems;
 
-    console.log(name, ":: name");
+    console.log(this.state.setMenu, "setMenu");
 
     const { items } = this.props.controlFunction.dataControl;
 
