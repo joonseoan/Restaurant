@@ -4,23 +4,18 @@ import _ from "lodash";
 
 import { fetchGuesbookLists } from "../../actions";
 
-class RecommendationDescriptions extends Component {
+class Descriptions extends Component {
   state = {
     menuItem: "",
     theOthers: ""
   };
 
+  // componentDidMount() {
+  //   this.props.fetchGuesbookLists();
+  // }
+
   componentDidMount() {
-    this.props.fetchGuesbookLists();
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    console.log("dfafdadfafd", nextProps.foodName, this.props.foodName);
-    if (!nextProps.foodName || this.props.foodName === nextProps.foodName)
-      return;
-
-    const { foodName, menu } = nextProps;
-
+    const { menu, foodName } = this.props;
     _.each(menu, menuType => {
       _.each(menuType, menuItem => {
         if (menuItem.name === foodName) {
@@ -31,7 +26,28 @@ class RecommendationDescriptions extends Component {
         }
       });
     });
+
+    this.props.fetchGuesbookLists();
   }
+
+  // componentWillReceiveProps(nextProps, nextState) {
+  //   console.log("dfafdadfafd", nextProps.foodName, this.props.foodName);
+  //   if (!nextProps.foodName || this.props.foodName === nextProps.foodName)
+  //     return;
+
+  //   const { foodName, menu } = nextProps;
+
+  //   _.each(menu, menuType => {
+  //     _.each(menuType, menuItem => {
+  //       if (menuItem.name === foodName) {
+  //         this.setState({
+  //           menuItem,
+  //           theOthers: menuType.filter(menu => menu.name !== foodName)
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
 
   picList() {
     const { menuItem, theOthers } = this.state;
@@ -175,4 +191,4 @@ function mapStateToProps({ guestbooks, menu }) {
 export default connect(
   mapStateToProps,
   { fetchGuesbookLists }
-)(RecommendationDescriptions);
+)(Descriptions);

@@ -1,10 +1,15 @@
 import React from "react";
-import _ from "lodash";
+import { connect } from "react-redux";
+import { selectedReco } from "../../actions/";
 
 const DisplayOthers = props => {
   const { name, file, price } = props.menuItems;
   const src = `../images/${file}`;
   const ids = `#${name}`;
+
+  const handleRecoMenu = () => {
+    props.selectedReco(name);
+  };
 
   return (
     <div className="border border-success">
@@ -19,7 +24,7 @@ const DisplayOthers = props => {
 
       <div className="text-info mb-1"> Price: ${price} </div>
 
-      <div>
+      <div onClick={handleRecoMenu}>
         <a
           href={ids}
           className="orderStart font-weight-bold border border-info"
@@ -42,4 +47,7 @@ const DisplayOthers = props => {
   );
 };
 
-export default DisplayOthers;
+export default connect(
+  null,
+  { selectedReco }
+)(DisplayOthers);

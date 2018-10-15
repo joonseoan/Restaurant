@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { location, additionalTodayWeatherInfo } from "../../actions";
-import DateTimeDisplay from "../Weather/Date_time_display";
-import LocationCoordinate from "../Weather/Location_coordinate";
+// import DateTimeDisplay from "../Weather/Date_time_display";
+// import LocationCoordinate from "../Weather/Location_coordinate";
 import SelectCity from "./SelectCity";
 import { options } from "../../utils/cities";
 

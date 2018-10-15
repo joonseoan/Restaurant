@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import _ from "lodash";
 
 import CartInput from "./Cart_input";
 import Orders from "./Orders";
@@ -8,11 +7,6 @@ import Details from "./Details";
 // import RecommendationDescriptions from "../Current_recommendations/Recommendation_descriptions";
 
 class Main extends Component {
-  state = {
-    toDescriptionName: "",
-    toDescriptionPrice: 0
-  };
-
   render() {
     if (!this.props) return <div />;
 
@@ -50,16 +44,7 @@ class Main extends Component {
 
         <RecommendationMessage menuNames={name} />
 
-        <Details
-          namePrice={{ name, price }}
-          sendSelectedNamePrice={(sentName, sentPrice) => {
-            this.setState({
-              toDescriptionName: sentName,
-              toDescriptionPrice: sentPrice
-            });
-          }}
-          toDescriptions={this.state}
-        />
+        <Details namePrice={{ name, price }} />
 
         <Orders
           cartAndButton={data}

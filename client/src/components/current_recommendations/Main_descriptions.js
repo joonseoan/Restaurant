@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
-import Modal from "react-modal";
 
 import { fetchGuesbookLists } from "../../actions";
-
-Modal.setAppElement("#root");
 
 class MainDescriptions extends Component {
   state = {
@@ -14,16 +11,7 @@ class MainDescriptions extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchGuesbookLists();
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    console.log("dfafdadfafd", nextProps.foodName, this.props.foodName);
-    if (!nextProps.foodName || this.props.foodName === nextProps.foodName)
-      return;
-
-    const { foodName, menu } = nextProps;
-
+    const { menu, foodName } = this.props;
     _.each(menu, menuType => {
       _.each(menuType, menuItem => {
         if (menuItem.name === foodName) {
@@ -34,6 +22,7 @@ class MainDescriptions extends Component {
         }
       });
     });
+    this.props.fetchGuesbookLists();
   }
 
   picList() {
@@ -117,8 +106,6 @@ class MainDescriptions extends Component {
   }
 
   render() {
-    console.log(this.props.foodName, "ffoood");
-
     if (!this.state.menuItem) return <div />;
 
     const { menuItem } = this.state;
@@ -130,7 +117,7 @@ class MainDescriptions extends Component {
     const { description, file, spicy, carlorie } = menuItem;
 
     return (
-      <Modal isOpen={this.props.openStatus}>
+      <div>
         <div>
           <img
             src={path + file}
@@ -163,7 +150,7 @@ class MainDescriptions extends Component {
             </tbody>
           </table>
         </div>
-      </Modal>
+      </div>
     );
   }
 }

@@ -1,57 +1,47 @@
-import React from 'react';
-import { options } from '../../utils/cities';
-import _ from 'lodash';
+import React from "react";
+import { options } from "../../utils/cities";
 
 const SelectCity = props => {
-    
-    const handleOnClick = e => {
+  const handleOnClick = e => {
+    const { setCity, refreshStatus } = props;
 
-        const { setCity,  refreshStatus } = props;
-        
-        refreshStatus();
-                
-        const { value } = e.target;
-        
-        sessionStorage.setItem('branch_city', value);
+    refreshStatus();
 
-        setCity(value);
-        
-    
-        //window.location.reload();
-    }
+    const { value } = e.target;
 
-    return(
+    sessionStorage.setItem("branch_city", value);
 
-        <div>
-            <div className="dropdown">
+    setCity(value);
 
-                <button className="col-sm btn btn-success dropdown-toggle d-block" type="button" data-toggle="dropdown">
-                    Branch Restaurants
-                </button>
+    //window.location.reload();
+  };
 
-                <div className="col-sm dropdown-menu border border-danger ml-1">
-                    
-                    { options.map(cities =>(
+  return (
+    <div>
+      <div className="dropdown">
+        <button
+          className="col-sm btn btn-success dropdown-toggle d-block"
+          type="button"
+          data-toggle="dropdown"
+        >
+          Branch Restaurants
+        </button>
 
-                        <button
-
-                            key = { cities.value } 
-                            className="dropdown-item"
-                            onClick={ handleOnClick } 
-                            value={ cities.value }>
-                            
-                            { cities.value }
-                        
-                        </button>
-
-                    )) }    
-
-                </div>
-            </div>
+        <div className="col-sm dropdown-menu border border-danger ml-1">
+          {options.map(cities => (
+            <button
+              key={cities.value}
+              className="dropdown-item"
+              onClick={handleOnClick}
+              value={cities.value}
+            >
+              {cities.value}
+            </button>
+          ))}
         </div>
-
-    );
-        
-}
+      </div>
+    </div>
+  );
+};
 
 export default SelectCity;

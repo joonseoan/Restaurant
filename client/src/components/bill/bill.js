@@ -1,173 +1,154 @@
-import React, { Component } from 'react';
-import Modal from 'react-modal';
-import _ from 'lodash';
-import { connect } from 'react-redux';
-import { storeOrders } from '../../actions'
+import React, { Component } from "react";
+import Modal from "react-modal";
+import _ from "lodash";
+import { connect } from "react-redux";
+import { storeOrders } from "../../actions";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
-function rounding (number) {
-
-    return _.round(number, 2);
-
+function rounding(number) {
+  return _.round(number, 2);
 }
 
 class Bill extends Component {
+  orderList(order) {
+    const { name, value, number } = order;
 
-    orderList(order) {
+    const unitPrice = parseFloat(value);
 
-        const { name, value, number } = order;
+    const subTotal = unitPrice * number;
 
-        const unitPrice = parseFloat(value);
+    let orderNumber = this.props.menuChecked.indexOf(order) + 1;
 
-        const subTotal = unitPrice * number;
+    return (
+      <ul key={name}>
+        <h5>
+          <b>
+            {orderNumber}. {name}
+          </b>
+        </h5>
 
-        let orderNumber = this.props.menuChecked.indexOf(order) + 1;
+        <li>Unit Price : ${unitPrice}</li>
+        <br />
+        <li>Qty : {number} </li>
+        <br />
+        <li> Sub Total : ${rounding(subTotal)}</li>
+        <br />
+      </ul>
+    );
+  }
 
-        return (
+  numberOfOrders() {
+    let totalOrders = 0;
 
-            <ul key = { name }>
-                
-                <h5><b>{orderNumber}. { name }</b></h5>
+    _.each(this.props.menuChecked, order => {
+      totalOrders += order.number;
+    });
 
-                <li>Unit Price : ${ unitPrice }</li><br/>
-                <li>Qty : { number } </li><br/>
-                <li> Sub Total : ${ rounding(subTotal) }</li><br/>
-                
-            </ul>
+    return totalOrders;
+  }
 
-        );
+  totalAmount() {
+    let totalAmount = 0;
+    let subTotalAmount = 0;
 
-    }
+    _.each(this.props.menuChecked, order => {
+      subTotalAmount = order.value * order.number;
+      totalAmount += subTotalAmount;
+    });
 
-    numberOfOrders(){
+    return totalAmount;
+  }
 
-        let totalOrders = 0;
+  eventClick = e => {
+    // will send this data to DB later on.
+    const { menuChecked } = this.props;
 
-        _.each(this.props.menuChecked, order => {
+    this.props.storeOrders(menuChecked);
 
-            totalOrders += order.number;
+    // From children object
+    //this.props.children._self.state.newPage = true;
+    this.props.newPageStatus();
 
-        });
+    // this.props.children._self.handleCloseModal();
+  };
 
-        return totalOrders;
+  render() {
+    if (!this.props) return <div>Loading...</div>;
 
-    }
+    // if(this.props.menuChecked.length === 0) {
 
-    totalAmount(){
+    //     return (
 
-        let totalAmount = 0;
-        let subTotalAmount = 0;
+    //         <Modal isOpen = { this.props.openStatus }>
 
-        _.each(this.props.menuChecked, order => {
+    //             <div>
+    //                 <center>
+    //                     <div>
 
-            subTotalAmount = order.value * order.number;
-            totalAmount += subTotalAmount;
+    //                     <h3>Sorry, customer.</h3>
+    //                     <h3>You have not chosen the menu yet.</h3>
 
-        });
+    //                     </div>
 
-        return totalAmount;
+    //                     <div>
 
-    }
+    //                             { this.props.children }
 
-    eventClick = e => {
+    //                     </div>
+    //                 </center>
 
-        // will send this data to DB later on.
-        const menuOrdered = this.props.menuChecked;
+    //             </div>
 
-        this.props.storeOrders(menuOrdered);
+    //         </Modal>
 
-        // From children object
-        //this.props.children._self.state.newPage = true;
-       this.props.newPageStatus();
+    //     );
 
-        // this.props.children._self.handleCloseModal();
+    // }
 
-    } 
+    return (
+      <Modal
+        className="bg-warning"
+        isOpen={this.props.openStatus}
+        style={{
+          content: {
+            width: "40%",
+            margin: "auto"
+          }
+        }}
+      >
+        <section>
+          <div>{this.props.children}</div>
 
-    render() {
+          <h5 ref={subtitle => subtitle}>
+            <center>Your Reciet Estimated</center>
+          </h5>
 
-        if(!this.props) return <div>Loading...</div>
+          <div>{this.props.menuChecked.map(this.orderList.bind(this))}</div>
 
-        // if(this.props.menuChecked.length === 0) {
+          <div className="right">
+            <p>----------------------------------------</p>
 
-        //     return (
+            <p>Total number of Orders : {this.numberOfOrders()}</p>
+            <p>Total price: ${rounding(this.totalAmount())}</p>
+            <p>HST: 15%</p>
+            <p>Total Payable: ${rounding(this.totalAmount() * 1.15)}</p>
 
-        //         <Modal isOpen = { this.props.openStatus }>
-
-        //             <div>
-        //                 <center>
-        //                     <div>
-                            
-        //                     <h3>Sorry, customer.</h3>
-        //                     <h3>You have not chosen the menu yet.</h3>
-                            
-        //                     </div>
-
-        //                     <div> 
-
-        //                             { this.props.children }
-
-        //                     </div>
-        //                 </center>
-
-        //             </div>
-
-        //         </Modal>
-
-        //     );
-
-        // }
-
-        return (            
-                        
-            <Modal isOpen = { this.props.openStatus }>
-
-                <section>
-
-                    <div>
-                    
-                        { this.props.children }
-                        
-                    </div>
-                
-                    <h5 ref = { subtitle => subtitle }>
-                                                
-                        <center>Your Reciet Estimated</center>
-                    
-                    </h5>
-
-                    <div> 
-                    
-                        { this.props.menuChecked.map(this.orderList.bind(this)) }
-                    
-                    </div>
-
-                    <div className = 'right'>
-
-                        <p>----------------------------------------</p>
-
-                        <p>Total number of Orders : { this.numberOfOrders() }</p>
-                        <p>Total price: ${ rounding(this.totalAmount()) }</p>
-                        <p>HST: 15%</p>
-                        <p>Total Payable: ${ rounding(this.totalAmount() * 1.15) }</p>
-
-                        <button type = 'submit' value = 'Submit Your Orders' 
-                            onClick = { this.eventClick }>
-
-                                Submit Order
-                        </button>
-
-                    </div>
-
-                </section>
-
-            </Modal>
-
-        );
-
-    }
-
+            <button
+              type="submit"
+              value="Submit Your Orders"
+              onClick={this.eventClick}
+            >
+              Submit Order
+            </button>
+          </div>
+        </section>
+      </Modal>
+    );
+  }
 }
 
-export default connect (null, { storeOrders })(Bill);
+export default connect(
+  null,
+  { storeOrders }
+)(Bill);

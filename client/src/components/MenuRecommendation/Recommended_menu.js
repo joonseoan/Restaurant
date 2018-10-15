@@ -4,14 +4,12 @@ import { connect } from "react-redux";
 
 import { setCurrentMenu } from "../../utils/setRecommendation";
 import { fetchRecommendedMenus } from "../../actions";
-import DisplayDetailButtons from "../../utils/display_detail_buttons";
+import DisplayDetailButtons from "./Display_detail_buttons";
 import DisplayOthers from "./Display_others";
 
 class RecommendedMenu extends Component {
   state = {
-    selectedMenu: [],
-    toDescriptionName: "",
-    toDescriptionPrice: 0
+    selectedMenu: []
   };
 
   componentDidMount() {
@@ -61,19 +59,7 @@ class RecommendedMenu extends Component {
             >
               <div className="mb-2 bg-warning">{name} </div>
 
-              <DisplayDetailButtons
-                menuItems={{ name, price }}
-                clickedMenu={(nameSent, priceSent) => {
-                  this.setState({
-                    toDescriptionName: nameSent,
-                    toDescriptionPrice: priceSent
-                  });
-                }}
-                descriptionNamePrice={{
-                  name: this.state.toDescriptionName,
-                  price: this.state.toDescriptionPrice
-                }}
-              />
+              <DisplayDetailButtons namePrice={{ name, price }} />
               <DisplayOthers menuItems={{ name, file, price }} />
             </div>
           );

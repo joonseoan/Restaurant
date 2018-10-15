@@ -20,10 +20,23 @@ class MenuAndOrder extends Component {
         name_price: this.props.refreshUI,
         orderButton: this.props.hideOrderButton
       });
-
-      // this.props.setRefreshUI();
     }
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(this.props.selectedMenu, "selectedMenu");
+
+  //   const { name_price } = this.state;
+
+  //   if (
+  //     nextProps.selectedMenu &&
+  //     nextProps.selectedMenu.name !== this.props.selectedMenu.name
+  //   ) {
+  //     this.setState({
+  //       name_price: [...name_price, nextProps.selectedMenu]
+  //     });
+  //   }
+  // }
 
   handleOpenModal = () => {
     this.setState({
@@ -54,6 +67,8 @@ class MenuAndOrder extends Component {
 
   render() {
     if (!this.props) return <div />;
+
+    console.log(this.state.name_price, "name_price");
 
     if (this.state.newPage)
       return (

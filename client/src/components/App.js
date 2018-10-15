@@ -16,10 +16,10 @@ class App extends Component {
   componentDidMount = () => {
     sessionStorage.clear();
 
-    // if (typeof window !== "undefined") {
-    //   const wow = new WOW();
-    //   wow.init();
-    // }
+    if (typeof window !== "undefined") {
+      const wow = new WOW();
+      wow.init();
+    }
   };
 
   render() {

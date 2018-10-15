@@ -1,44 +1,60 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import ReduxPromise from 'redux-promise';
-import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import ReduxPromise from "redux-promise";
+import { createStore, applyMiddleware } from "redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import App from './components/App';
-import GuestbookAllPosted from './guestbooks/guestbook_all_posted';
-import GuestbookNewCreated from './guestbooks/guestbook_new_created';
-import RecommendationDescriptions from './components/Current_recommendations/Recommendation_descriptions';
-import ThankYouAndGuestbook from './components/Thankyou/Thank_you_and_guestbook';
-import GuestbookPosted from './guestbooks/guestbook_posted';
-import EmailPasswordInput from './guestbooks/email_password_input';
+import App from "./components/App";
+import GuestbookAllPosted from "./guestbooks/guestbook_all_posted";
+import GuestbookNewCreated from "./guestbooks/guestbook_new_created";
+//import RecommendationDescriptions from './components/Current_recommendations/Recommendation_descriptions';
+import ThankYouAndGuestbook from "./components/Thankyou/Thank_you_and_guestbook";
+import GuestbookPosted from "./guestbooks/guestbook_posted";
+import EmailPasswordInput from "./guestbooks/email_password_input";
 
-import reducers from './reducers';
+import reducers from "./reducers";
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
-    
-    <Provider store = { createStoreWithMiddleware(reducers)} >
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route
+            exact
+            path="/thankyouAndGuestbook"
+            component={ThankYouAndGuestbook}
+          />
+          {/* 
+                        <Route exact path = '/description/:id' component = { RecommendationDescriptions } />
+                     */}
+          <Route
+            exact
+            path="/guestbookAllPosted"
+            component={GuestbookAllPosted}
+          />
+          <Route
+            exact
+            path="/guestbookNewCreated"
+            component={GuestbookNewCreated}
+          />
+          <Route
+            exact
+            path="/guestbookPosted/:id"
+            component={GuestbookPosted}
+          />
+          <Route
+            exact
+            path="/emailPasswordInput"
+            component={EmailPasswordInput}
+          />
+          <Route path="/" component={App} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  </Provider>,
 
-        <BrowserRouter>
-
-            <div>
-                <Switch>
-
-                    <Route exact path = '/thankyouAndGuestbook' component = { ThankYouAndGuestbook }/>
-                    <Route exact path = '/description/:id' component = { RecommendationDescriptions } />
-                    <Route exact path = '/guestbookAllPosted' component = { GuestbookAllPosted } />
-                    <Route exact path = '/guestbookNewCreated' component = { GuestbookNewCreated } />
-                    <Route exact path = '/guestbookPosted/:id' component = { GuestbookPosted } />
-                    <Route exact path = '/emailPasswordInput' component = { EmailPasswordInput } />
-                    <Route path = '/' component = { App } />
-                   
-                </Switch>
-            </div>
-        
-        </BrowserRouter>
-       
-    </ Provider>
-
-, document.getElementById('root'));
+  document.getElementById("root")
+);

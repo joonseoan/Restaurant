@@ -4,74 +4,6 @@ import _ from "lodash";
 import { removeSpace, initUI } from "../../utils/uIControl";
 
 class Orders extends Component {
-  /* 
-        allMenuContents = () => {
-
-        const menuPrices = (item) => {
-
-            const class_name_4 = `${removeSpace(item.name)} mx-50 my-50`;
-
-            return (
-             
-                <div id={ item.name } key = { item.name } className = { class_name_1 } >
-
-                    
-
-                    <div className="mr-2 pl-2">
-
-                        <div key = { item.name } className = { class_name_4 } id = "all-pictures" width = '120'>
-                            
-                            <button className="btn btn-sm btn-info mt-3" 
-                                data-toggle="modal" 
-                                data-target="#allMenu"
-                                onClick={ this.handleDescription }
-                                value = { item.name }
-                            >
-                                        
-                                Check Detail
-                                            
-                            </button>
-                
-                            <div className="modal" id="allMenu">
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title"></h5>
-                                            <button className="close btn btn-danger" data-dismiss="modal">&times;</button>
-                                        </div>
-                
-                                        <div className="modal-body">
-                                               
-                                            <RecommendationDescriptions
-                                                foodName = { this.state.toDescription }
-                                            />
-                
-                                        </div>
-                                            
-                                        <div className="modal-footer">
-                                            <button className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                
-                                    </div>
-                                </div>
-                            </div>                
-                         
-                           
-                        </div>
-
-                    
-                    </div>
-
-                </div>
-                    
-            );
-    
-        }
-    
-    }
-        
-    */
-
   buttons = [1, 2, 3, 4];
 
   state = {
@@ -148,8 +80,6 @@ class Orders extends Component {
     const { name } = this.props.cartAndButton;
 
     return this.buttons.map(button => {
-      // console.log(name + '        ' + this.state.number);
-
       const visibility =
         Number(button) === this.state.number ? "hidden" : "visible";
 
@@ -225,7 +155,6 @@ class Orders extends Component {
             <button
               className="btn btn-sm mr-1 mb-1"
               style={{ backgroundColor: "#CC0000", color: "white" }}
-              //value = {'+'}
               onClick={this.numberOnChange}
               value={"+"}
               id={removeSpace(name)}
