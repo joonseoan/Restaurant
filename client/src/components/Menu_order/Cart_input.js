@@ -5,56 +5,7 @@ import { connect } from "react-redux";
 import { removeSpace } from "../../utils/uIControl";
 
 class CartInput extends Component {
-  state = {
-    setMenu: ""
-  };
-
-  static getDerivedStateFromProps(nextProps, prevState) {}
-
-  componentDidUpdate(prevProps, prevNext) {
-    const {
-      items,
-      toCheckItems,
-      orderButton
-    } = this.props.controlFunction.dataControl;
-    const {
-      name,
-      price
-    } = this.props.controlFunction.menuColorControl.menuItems;
-
-    const { selectedMenu } = this.props;
-
-    if (selectedMenu !== prevProps.selectedMenu) {
-      if (name === selectedMenu) {
-        orderButton("none");
-
-        if (items.length > 0) {
-          const cleanCart = _.map(items, orders => {
-            if (orders.number === 0) {
-              const index = items.indexOf(orders);
-              return items.splice(index, 1);
-            }
-          });
-          toCheckItems(cleanCart);
-        }
-
-        const newItems = [
-          ...items,
-          {
-            name: removeSpace(selectedMenu),
-            value: price,
-            checked: true,
-            number: 0
-          }
-        ];
-
-        toCheckItems(newItems);
-      }
-    }
-  }
-
-  menuOnChange = e => {
-    const { name, value, checked } = e.target;
+  menuSelectControl(name, value) {
     const {
       items,
       toCheckItems,
@@ -73,16 +24,30 @@ class CartInput extends Component {
       toCheckItems(cleanCart);
     }
 
-    const newItems = [...items, { name, value, checked, number: 0 }];
+    const newItems = [...items, { name, value, checked: true, number: 0 }];
 
     toCheckItems(newItems);
-  };
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.selectedMenu === nextProps.selectedMenu) return false;
-
-    return true;
   }
+
+  componentDidUpdate(prevProps, prevNext) {
+    const {
+      name,
+      price
+    } = this.props.controlFunction.menuColorControl.menuItems;
+
+    const { selectedMenu } = this.props;
+
+    if (selectedMenu !== prevProps.selectedMenu) {
+      if (name === selectedMenu) {
+        this.menuSelectControl(removeSpace(name), price);
+      }
+    }
+  }
+
+  menuOnChange = e => {
+    const { name, value } = e.target;
+    this.menuSelectControl(name, value);
+  };
 
   render() {
     if (!this.props) return <div />;
@@ -91,8 +56,6 @@ class CartInput extends Component {
       name,
       price
     } = this.props.controlFunction.menuColorControl.menuItems;
-
-    console.log(this.state.setMenu, "setMenu");
 
     const { items } = this.props.controlFunction.dataControl;
 
