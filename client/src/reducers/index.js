@@ -12,6 +12,9 @@ import recommendedMenus from "./recommended_menu";
 import refreshMenu from "./refresh_menu";
 import refreshButton from "./refresh_button";
 import selectedMenu from "./selectedMenu";
+import matchedMenu from "./matched_menu";
+//import makeMatchedMenu from "./make_matched_menu";
+import controlOrderButton from "./control_order_button";
 
 const reducers = combineReducers({
   branchLocation,
@@ -25,7 +28,10 @@ const reducers = combineReducers({
   recommendedMenus,
   refreshMenu,
   refreshButton,
-  selectedMenu
+  selectedMenu,
+  matchedMenu,
+  //makeMatchedMenu,
+  controlOrderButton
 });
 
 export default reducers;

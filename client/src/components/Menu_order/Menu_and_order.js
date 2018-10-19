@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 import MenuList from "./Menu_list";
 import Bill from "../Bill/Bill";
+import { controlOrderButton } from "../../actions";
 
 class MenuAndOrder extends Component {
   state = {
@@ -20,6 +22,16 @@ class MenuAndOrder extends Component {
         name_price: this.props.refreshUI,
         orderButton: this.props.hideOrderButton
       });
+    }
+
+    if (prevState.name_price.length > 0) {
+      const buttonControl = {
+        currentOrder: this.state.name_price,
+        buttonToggling: control => {
+          this.setState({ orderButton: control });
+        }
+      };
+      this.props.controlOrderButton(buttonControl);
     }
   }
 
@@ -67,8 +79,6 @@ class MenuAndOrder extends Component {
 
   render() {
     if (!this.props) return <div />;
-
-    console.log(this.state.name_price, "name_price");
 
     if (this.state.newPage)
       return (
@@ -126,4 +136,7 @@ class MenuAndOrder extends Component {
   }
 }
 
-export default MenuAndOrder;
+export default connect(
+  null,
+  { controlOrderButton }
+)(MenuAndOrder);

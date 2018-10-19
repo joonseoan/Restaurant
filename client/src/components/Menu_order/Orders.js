@@ -126,9 +126,6 @@ class Orders extends Component {
 
     return (
       <div>
-        {/*  
-                // 
-            */}
         <div
           className={className}
           style={{ display: `${display}` }}

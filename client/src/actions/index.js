@@ -6,7 +6,10 @@ import {
   RECOMMENDED_MENUS,
   REFRESH_MENU,
   REFRESH_BUTTON,
-  FETCH_SELECTED_MENU
+  FETCH_SELECTED_MENU,
+  // MAKE_MATCHED_MENU,
+  FETCH_MATCHED_MENU,
+  CONTROL_ORDER_BUTTON
 } from "./fetch_weather";
 
 import {
@@ -63,6 +66,20 @@ export function selectedReco(menu) {
   };
 }
 
+// export function makeMatchedMenu(menu) {
+//   return {
+//     type: MAKE_MATCHED_MENU,
+//     payload: menu
+//   };
+// }
+
+export function controlOrderButton(control) {
+  return {
+    type: CONTROL_ORDER_BUTTON,
+    payload: control
+  };
+}
+
 export function refreshMenu(refresh = {}) {
   return {
     type: REFRESH_MENU,
@@ -74,6 +91,13 @@ export function refreshButton(number) {
   return {
     type: REFRESH_BUTTON,
     payload: number
+  };
+}
+
+export function fetchMatchedMenu(name) {
+  return {
+    type: FETCH_MATCHED_MENU,
+    payload: name
   };
 }
 

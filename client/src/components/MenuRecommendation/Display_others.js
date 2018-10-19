@@ -1,65 +1,55 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { selectedReco } from "../../actions/";
+import _ from "lodash";
 
 class DisplayOthers extends Component {
-  state = {
-    visibility: "visible",
-    clicked_name: ""
-  };
+  menuName;
+  receivedMenu;
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("component did update");
-    // console.log(
-    //   "this.state = ",
-    //   this.state.clicked_name,
-    //   "prevState = ",
-    //   prevState.clicked_name,
-    //   ", before didUpdate"
-    // );
-
-    if (prevState.clicked_name) {
-      this.setState({
-        clicked_name: "",
-        visibility: "visible"
-      });
-    }
-
-    // console.log(
-    //   "this.state = ",
-    //   this.state.clicked_name,
-    //   "prevState = ",
-    //   prevState.clicked_name,
-    //   ", after didUpdate"
-    // );
-  }
+  // state = { tag: true };
 
   handleRecoMenu = () => {
     const { name } = this.props.menuItems;
+    const { currentOrder, buttonToggling } = this.props.controlOrderButton;
+    this.menuName = name;
+    // this.setState({ tag: true });
     this.props.selectedReco(name);
 
-    // console.log("onclickevent");
+    console.log(this.props.controlOrderButton, "currentOrder");
 
-    this.setState({
-      visibility: "hidden",
-      clicked_name: name
-    });
+    if (this.props.controlOrderButton !== {}) {
+      let number = false;
+      _.each(currentOrder, orderNumber => {
+        if (orderNumber.number === 0) number = true;
+      });
+
+      const toggling = !number ? "block" : "none";
+      buttonToggling(toggling);
+
+      console.log(number);
+    }
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.clicked_name || this.state.clicked_name) return true;
-
-    // must run this because when weather is updated, it will be update, as well,
-    //  then, menu 'start' button will reset.
-    if (this.props.menuItems.name === nextProps.menuItems.name) return false;
-
-    return true;
-  }
-
   render() {
-    const { name, file, price } = this.props.menuItems;
+    const {
+      menuItems: { name, file, price },
+      matchedMenu
+    } = this.props;
     const src = `../images/${file}`;
     const ids = `#${name}`;
+
+    let visibility = "visible";
+
+    // if (this.menuName === name) {
+    //   visibility = "hidden";
+    //   console.log(matchedMenu, "matched"); // this.props.matchedMenu = "";
+    // } else if (matchedMenu === name) {
+    //   visibility = "hidden";
+    // }
+
+    this.menuName = "";
+    this.receivedMenu = "";
 
     return (
       <div className="border border-success">
@@ -74,13 +64,11 @@ class DisplayOthers extends Component {
 
         <div className="text-info mb-1"> Price: ${price} </div>
 
-        <div
-          onClick={this.handleRecoMenu}
-          style={{ visibility: `${this.state.visibility}` }}
-        >
+        <div style={{ visibility: `${visibility}` }}>
           <a
             href={ids}
             className="orderStart font-weight-bold border border-info"
+            onClick={this.handleRecoMenu}
           >
             <span data-text="S">S</span>
             <span data-text="T">T</span>
@@ -101,7 +89,14 @@ class DisplayOthers extends Component {
   }
 }
 
+function mapStateToProps({ matchedMenu, controlOrderButton }) {
+  return {
+    matchedMenu,
+    controlOrderButton
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { selectedReco }
 )(DisplayOthers);
