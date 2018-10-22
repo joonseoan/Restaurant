@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import _ from "lodash";
 
 import MenuList from "./Menu_list";
 import Bill from "../Bill/Bill";
-import { controlOrderButton } from "../../actions";
+import { fetchItemsCheckedIn } from "../../actions";
 
 class MenuAndOrder extends Component {
   state = {
     showModal: false,
     name_price: [],
-    orderButton: "none"
+    orderButton: "none",
+    clicked_name: ""
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.selected_menu !== nextProps.selectedMenu) {
+      return {
+        clicked_name: nextProps.selectedMenu
+      };
+    }
+
+    return null;
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -24,15 +36,24 @@ class MenuAndOrder extends Component {
       });
     }
 
-    if (prevState.name_price.length > 0) {
-      const buttonControl = {
-        currentOrder: this.state.name_price,
-        buttonToggling: control => {
-          this.setState({ orderButton: control });
-        }
-      };
-      this.props.controlOrderButton(buttonControl);
+    // console.log(this.state.name_price);
+
+    if (
+      // this.state.name_price.length > 0 &&
+      this.state.name_price.length !== prevState.name_price.length
+    ) {
+      this.props.fetchItemsCheckedIn(this.state.name_price);
     }
+
+    // if (prevState.name_price.length > 0) {
+    //   const buttonControl = {
+    //     currentOrder: this.state.name_price,
+    //     buttonToggling: control => {
+    //       this.setState({ orderButton: control });
+    //     }
+    //   };
+    //  this.props.controlOrderButton(buttonControl);
+    //}
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -71,13 +92,14 @@ class MenuAndOrder extends Component {
 
   shouldComponentUpdate(nextState) {
     if (this.state.showModal === nextState.showModal) return false;
-    if (this.state.name_price === nextState.name_price) return false;
     if (this.state.orderButton === nextState.orderButton) return false;
 
     return true;
   }
 
   render() {
+    // console.log(this.state.name_price, "; name_price");
+
     if (!this.props) return <div />;
 
     if (this.state.newPage)
@@ -108,6 +130,7 @@ class MenuAndOrder extends Component {
               controlData={data}
               refreshAction={this.props.refreshAction}
               setRefresh={this.props.setRefresh}
+              selectedMenu={this.state.clicked_name}
             />
           </div>
           <div
@@ -136,7 +159,13 @@ class MenuAndOrder extends Component {
   }
 }
 
+function mapStateToProps({ selectedMenu }) {
+  return { selectedMenu };
+}
+
+// export default connect(mapStateToProps)(MenuAndOrder);
+
 export default connect(
-  null,
-  { controlOrderButton }
+  mapStateToProps,
+  { fetchItemsCheckedIn }
 )(MenuAndOrder);

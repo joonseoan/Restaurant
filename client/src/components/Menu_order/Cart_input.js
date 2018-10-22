@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 
-import { fetchMatchedMenu } from "../../actions";
+//import { fetchMatchedMenu, resetRecoButton } from "../../actions";
 import { removeSpace } from "../../utils/uIControl";
 
 class CartInput extends Component {
@@ -37,6 +37,7 @@ class CartInput extends Component {
     } = this.props.controlFunction.menuColorControl.menuItems;
 
     const { selectedMenu } = this.props;
+
     if (selectedMenu !== prevProps.selectedMenu) {
       if (name === selectedMenu) {
         this.menuSelectControl(removeSpace(name), price);
@@ -45,9 +46,13 @@ class CartInput extends Component {
   }
 
   menuOnChange = e => {
+    // const { getClickedMenu } = this.props.clickedMenuControl;
     const { name, value } = e.target;
     this.menuSelectControl(removeSpace(name), value);
-    this.props.fetchMatchedMenu(name);
+
+    // Wrong thiniking
+    // getClickedMenu(name);
+    // this.props.resetRecoButton.reset();
   };
 
   render() {
@@ -94,14 +99,12 @@ class CartInput extends Component {
   }
 }
 
-function mapStateToProps({ selectedMenu }) {
-  return {
-    selectedMenu
-    // makeMatchedMenu
-  };
-}
+export default CartInput;
 
-export default connect(
-  mapStateToProps,
-  { fetchMatchedMenu }
-)(CartInput);
+// function mapStateToProps({ resetRecoButton }) {
+//   return {
+//     resetRecoButton
+//   };
+// }
+
+// export default connect(mapStateToProps)(CartInput);

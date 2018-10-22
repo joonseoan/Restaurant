@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import { connect } from "react-redux";
 
 import { removeSpace, initUI } from "../../utils/uIControl";
+import { fetchCancelMenu } from "../../actions";
 
 class Orders extends Component {
   buttons = [1, 2, 3, 4];
@@ -10,16 +12,28 @@ class Orders extends Component {
     number: 0
   };
 
+  // componentDidMount() {
+  //   const { items } = this.props.cartAndButton.items;
+  //   this.props.fetchItemsCheckedIn(items);
+  // }
+
   componentDidUpdate(prevProps, prevState) {
+    // const {
+    //   items: { items }
+    // } = this.props.cartAndButton;
+    // const { items } = this.props.cartAndButton.items;
+
     if (prevProps.refreshAction !== this.props.refreshAction) {
       //if(prevProps.refreshAction !== prevState.number ) {
 
       this.setState({ number: prevProps.refreshAction });
 
-      //}
-
       this.props.setRefresh();
     }
+
+    // if (this.state.number !== prevState.number) {
+    //   this.props.fetchItemsCheckedIn(items);
+    // }
   }
 
   numberOnChange = e => {
@@ -46,6 +60,7 @@ class Orders extends Component {
         });
 
         initUI(CurrentMenuName);
+        this.props.fetchCancelMenu(CurrentMenuName);
       }
     } else {
       buttonValues = this.state.number + 1;
@@ -165,4 +180,9 @@ class Orders extends Component {
   }
 }
 
-export default Orders;
+// export default Orders;
+
+export default connect(
+  null,
+  { fetchCancelMenu }
+)(Orders);

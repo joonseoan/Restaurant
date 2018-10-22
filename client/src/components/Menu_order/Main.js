@@ -25,7 +25,6 @@ class Main extends Component {
     };
 
     const path = "./images/";
-
     return (
       <div>
         <label className="d-block clearfix mt-2">
@@ -39,7 +38,11 @@ class Main extends Component {
             ):
           </span>
 
-          <CartInput controlFunction={this.props} />
+          <CartInput
+            controlFunction={this.props}
+            clickedMenuControl={this.props.clickedMenuControl}
+            selectedMenu={this.props.selectedMenu}
+          />
         </label>
 
         <RecommendationMessage menuNames={name} />

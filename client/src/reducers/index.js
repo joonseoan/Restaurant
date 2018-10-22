@@ -12,9 +12,12 @@ import recommendedMenus from "./recommended_menu";
 import refreshMenu from "./refresh_menu";
 import refreshButton from "./refresh_button";
 import selectedMenu from "./selectedMenu";
-import matchedMenu from "./matched_menu";
+//import matchedMenu from "./matched_menu";
 //import makeMatchedMenu from "./make_matched_menu";
-import controlOrderButton from "./control_order_button";
+//import resetClickedMenuButton from "./reset_clicked_menu_button";
+//import resetRecoButton from "./reset_reco_button";
+import itemsCheckedIn from "./fetchItemsCheckedIn";
+import canceledMenu from "./fetch_cancel_menu";
 
 const reducers = combineReducers({
   branchLocation,
@@ -29,9 +32,12 @@ const reducers = combineReducers({
   refreshMenu,
   refreshButton,
   selectedMenu,
-  matchedMenu,
+  // matchedMenu,
   //makeMatchedMenu,
-  controlOrderButton
+  // resetRecoButton,
+  // resetClickedMenuButton,
+  itemsCheckedIn,
+  canceledMenu
 });
 
 export default reducers;

@@ -23,6 +23,8 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.new_name_price, "at App");
+
     return (
       <div>
         <div className="mt-5">

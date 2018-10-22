@@ -7,9 +7,10 @@ import {
   REFRESH_MENU,
   REFRESH_BUTTON,
   FETCH_SELECTED_MENU,
-  // MAKE_MATCHED_MENU,
-  FETCH_MATCHED_MENU,
-  CONTROL_ORDER_BUTTON
+  // FETCH_MATCHED_MENU,
+  // RESET_RECO_BUTTON,
+  FETCH_CANCEL_MENU,
+  FETCH_ITEMS_CHECKEDIN
 } from "./fetch_weather";
 
 import {
@@ -66,17 +67,17 @@ export function selectedReco(menu) {
   };
 }
 
-// export function makeMatchedMenu(menu) {
+// export function resetRecoButton(reset) {
 //   return {
-//     type: MAKE_MATCHED_MENU,
-//     payload: menu
+//     type: RESET_RECO_BUTTON,
+//     payload: reset
 //   };
 // }
 
-export function controlOrderButton(control) {
+export function fetchCancelMenu(menu) {
   return {
-    type: CONTROL_ORDER_BUTTON,
-    payload: control
+    type: FETCH_CANCEL_MENU,
+    payload: menu
   };
 }
 
@@ -94,10 +95,17 @@ export function refreshButton(number) {
   };
 }
 
-export function fetchMatchedMenu(name) {
+// export function fetchMatchedMenu(name) {
+//   return {
+//     type: FETCH_MATCHED_MENU,
+//     payload: name
+//   };
+// }
+
+export function fetchItemsCheckedIn(name_price) {
   return {
-    type: FETCH_MATCHED_MENU,
-    payload: name
+    type: FETCH_ITEMS_CHECKEDIN,
+    payload: name_price
   };
 }
 
