@@ -3,11 +3,7 @@ import _ from "lodash";
 import { connect } from "react-redux";
 
 import { setCurrentMenu } from "../../utils/setRecommendation";
-import {
-  fetchRecommendedMenus,
-  //resetRecoButton,
-  selectedReco
-} from "../../actions";
+import { fetchRecommendedMenus, selectedReco } from "../../actions";
 import DisplayDetailButtons from "./Display_detail_buttons";
 import DisplayOthers from "./Display_others";
 import { removeSpace } from "../../utils/uIControl";
@@ -16,7 +12,8 @@ class RecommendedMenu extends Component {
   state = {
     selectedMenu: [],
     clicked_name: "",
-    updateString: ""
+    updateString: "",
+    canceled_menu: ""
   };
 
   componentDidMount() {
@@ -32,9 +29,6 @@ class RecommendedMenu extends Component {
       selectedMenu: setCurrentMenu(this.props),
       updateString
     });
-
-    // const reset = { reset: () => this.setState({ clicked_name: "" }) };
-    // this.props.resetRecoButton(reset);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,6 +42,8 @@ class RecommendedMenu extends Component {
 
       this.props.fetchRecommendedMenus(setCurrentMenu(nextProps));
     }
+
+    this.setState({ canceled_menu: nextProps.canceledMenu });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -58,30 +54,44 @@ class RecommendedMenu extends Component {
     if (prevState.updateString !== this.state.updateString) {
       this.setState({ updateString: this.state.updateString });
     }
+
+    if (
+      this.state.clicked_name &&
+      prevState.clicked_name === this.state.clicked_name
+    ) {
+      this.setState({ clicked_name: "" });
+    }
+
+    if (
+      this.state.canceled_menu &&
+      this.props.canceledMenu === prevState.canceled_menu
+    ) {
+      this.setState({ canceled_menu: "" });
+    }
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
-  //   if (
-  //     this.props.temp === nextProps.temp &&
-  //     this.props.value === nextProps.value
-  //   )
-  //     return false;
+  //   // if (
+  //   //   this.props.temp === nextProps.temp &&
+  //   //   this.props.value === nextProps.value
+  //   // )
+  //   //   return false;
 
   //   return true;
   // }
 
   handleOrders() {
     const { selectedMenu } = this.state;
-    const { itemsCheckedIn } = this.props;
+    const { menuOrdered } = this.props;
 
     let setMenu = selectedMenu;
+    _.each(setMenu, menu => {
+      menu.number = null;
+    });
 
-    console.log(itemsCheckedIn, "itemsCheckedIn");
-    console.log(setMenu, ": SETMENU");
-
-    if (itemsCheckedIn.length > 0) {
+    if (menuOrdered.length > 0) {
       _.each(setMenu, menu => {
-        _.each(itemsCheckedIn, item => {
+        _.each(menuOrdered, item => {
           if (removeSpace(menu.name) === item.name) {
             menu["number"] = item.number;
           } else {
@@ -98,18 +108,6 @@ class RecommendedMenu extends Component {
     const { selectedMenu } = this.state;
 
     if (selectedMenu.length === 0) return <div />;
-
-    console.log(this.props.canceledMenu, ": canceledMenu");
-
-    // const control = {
-    //   // resetClickedMenu: () => {
-    //   //   this.setState({ clicked_name: "" });
-    //   // },
-    //   getClickedMenu: menu => {
-    //     this.setState({ clicked_name: menu });
-    //   }
-    //   // currentClickedMenu: this.state.clicked_name
-    // };
 
     return (
       <div className="row border border-danger">
@@ -130,7 +128,7 @@ class RecommendedMenu extends Component {
                   this.setState({ clicked_name: menu });
                 }}
                 updateString={this.state.updateString}
-                // itemsCheckedIn={this.props.itemsCheckedIn}
+                canceledMenu={this.state.canceled_menu}
               />
             </div>
           );
@@ -140,14 +138,11 @@ class RecommendedMenu extends Component {
   }
 }
 
-function mapStateToProps({ itemsCheckedIn, canceledMenu }) {
-  return {
-    itemsCheckedIn,
-    canceledMenu
-  };
+function mapsPropsToState({ canceledMenu }) {
+  return { canceledMenu };
 }
 
 export default connect(
-  mapStateToProps,
+  mapsPropsToState,
   { fetchRecommendedMenus, selectedReco }
 )(RecommendedMenu);

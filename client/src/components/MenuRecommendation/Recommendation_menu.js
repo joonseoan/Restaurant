@@ -45,6 +45,7 @@ class RecommendationMenu extends Component {
             inputMenus={menu}
             mainWeather={main}
             temperature={roundData(temp - 273)}
+            menuOrdered={this.props.menuOrdered}
           />
         </div>
 

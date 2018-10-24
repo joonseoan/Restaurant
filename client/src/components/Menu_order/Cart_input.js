@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
-//import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
-//import { fetchMatchedMenu, resetRecoButton } from "../../actions";
 import { removeSpace } from "../../utils/uIControl";
 
 class CartInput extends Component {
@@ -46,13 +45,8 @@ class CartInput extends Component {
   }
 
   menuOnChange = e => {
-    // const { getClickedMenu } = this.props.clickedMenuControl;
     const { name, value } = e.target;
     this.menuSelectControl(removeSpace(name), value);
-
-    // Wrong thiniking
-    // getClickedMenu(name);
-    // this.props.resetRecoButton.reset();
   };
 
   render() {
@@ -100,11 +94,5 @@ class CartInput extends Component {
 }
 
 export default CartInput;
-
-// function mapStateToProps({ resetRecoButton }) {
-//   return {
-//     resetRecoButton
-//   };
-// }
 
 // export default connect(mapStateToProps)(CartInput);

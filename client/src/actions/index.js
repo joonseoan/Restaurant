@@ -8,9 +8,9 @@ import {
   REFRESH_BUTTON,
   FETCH_SELECTED_MENU,
   // FETCH_MATCHED_MENU,
-  // RESET_RECO_BUTTON,
-  FETCH_CANCEL_MENU,
-  FETCH_ITEMS_CHECKEDIN
+  // RESET_CANCEL,
+  FETCH_CANCEL_MENU
+  // FETCH_ITEMS_CHECKEDIN
 } from "./fetch_weather";
 
 import {
@@ -67,9 +67,9 @@ export function selectedReco(menu) {
   };
 }
 
-// export function resetRecoButton(reset) {
+// export function resetCancel(reset) {
 //   return {
-//     type: RESET_RECO_BUTTON,
+//     type: RESET_CANCEL,
 //     payload: reset
 //   };
 // }
@@ -102,12 +102,12 @@ export function refreshButton(number) {
 //   };
 // }
 
-export function fetchItemsCheckedIn(name_price) {
-  return {
-    type: FETCH_ITEMS_CHECKEDIN,
-    payload: name_price
-  };
-}
+// export function fetchItemsCheckedIn(name_price) {
+//   return {
+//     type: FETCH_ITEMS_CHECKEDIN,
+//     payload: name_price
+//   };
+// }
 
 export function fetchGuesbookLists() {
   // const url = 'http://localhost:3000/guests';

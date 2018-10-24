@@ -12,11 +12,11 @@ import recommendedMenus from "./recommended_menu";
 import refreshMenu from "./refresh_menu";
 import refreshButton from "./refresh_button";
 import selectedMenu from "./selectedMenu";
-//import matchedMenu from "./matched_menu";
-//import makeMatchedMenu from "./make_matched_menu";
-//import resetClickedMenuButton from "./reset_clicked_menu_button";
-//import resetRecoButton from "./reset_reco_button";
-import itemsCheckedIn from "./fetchItemsCheckedIn";
+// import matchedMenu from "./matched_menu";
+// import makeMatchedMenu from "./make_matched_menu";
+// import resetClickedMenuButton from "./reset_clicked_menu_button";
+// import resetCancel from "./reset_cancel";
+// import itemsCheckedIn from "./fetchItemsCheckedIn";
 import canceledMenu from "./fetch_cancel_menu";
 
 const reducers = combineReducers({
@@ -34,9 +34,9 @@ const reducers = combineReducers({
   selectedMenu,
   // matchedMenu,
   //makeMatchedMenu,
-  // resetRecoButton,
+  // resetCancel,
   // resetClickedMenuButton,
-  itemsCheckedIn,
+  // itemsCheckedIn
   canceledMenu
 });
 

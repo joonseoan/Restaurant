@@ -4,7 +4,6 @@ import CartInput from "./Cart_input";
 import Orders from "./Orders";
 import RecommendationMessage from "./Recommendation_message";
 import Details from "./Details";
-// import RecommendationDescriptions from "../Current_recommendations/Recommendation_descriptions";
 
 class Main extends Component {
   render() {
@@ -40,7 +39,6 @@ class Main extends Component {
 
           <CartInput
             controlFunction={this.props}
-            clickedMenuControl={this.props.clickedMenuControl}
             selectedMenu={this.props.selectedMenu}
           />
         </label>
@@ -53,6 +51,7 @@ class Main extends Component {
           cartAndButton={data}
           refreshAction={this.props.refreshAction}
           setRefresh={this.props.setRefresh}
+          setCountIsZero={this.props.setCountIsZero}
         />
 
         <img

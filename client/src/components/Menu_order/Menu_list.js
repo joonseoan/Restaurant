@@ -2,35 +2,16 @@ import React, { Component } from "react";
 import _ from "lodash";
 import { connect } from "react-redux";
 
-// import { fetchMatchedMenu, resetClickedMenuButton } from "../../actions";
 import { removeSpace } from "../../utils/uIControl";
 import Main from "./Main";
 
 class MenuList extends Component {
   state = {
     keystroke: ""
-    // clicked_name: ""
   };
-
-  // componentDidMount() {
-  //   const reset = { reset: () => this.setState({ clicked_name: "" }) };
-  //   this.props.resetClickedMenuButton(reset);
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.clicked_name !== this.state.clicked_name) {
-  //     this.props.fetchMatchedMenu(this.state.clicked_name);
-  //   }
-  // }
 
   menuBoard = menu => {
     const { items } = this.props.controlData;
-
-    const control = {
-      getClickedMenu: menu => {
-        this.setState({ clicked_name: menu });
-      }
-    };
 
     return _.map(menu, menuItems => {
       const { id, name } = menuItems;
@@ -62,8 +43,8 @@ class MenuList extends Component {
               menuColorControl={menuColor}
               refreshAction={this.props.refreshAction}
               setRefresh={this.props.setRefresh}
-              clickedMenuControl={control}
               selectedMenu={this.props.selectedMenu}
+              setCountIsZero={this.props.setCountIsZero}
             />
           </div>
         );
@@ -141,7 +122,7 @@ class MenuList extends Component {
   }
 }
 
-function mapStateToProps({ menu, selectedMenu }) {
+function mapStateToProps({ menu }) {
   let firstRow = [];
   let secondRow = [];
   let thirdRow = [];
@@ -162,7 +143,4 @@ function mapStateToProps({ menu, selectedMenu }) {
   };
 }
 
-export default connect(
-  mapStateToProps //,
-  //{ fetchMatchedMenu, resetClickedMenuButton }
-)(MenuList);
+export default connect(mapStateToProps)(MenuList);

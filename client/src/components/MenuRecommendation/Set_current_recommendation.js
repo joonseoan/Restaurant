@@ -39,6 +39,7 @@ export default class SetCurrentRecommendation extends Component {
         menu={inputMenus}
         temp={temperature}
         value={this.state.indexValue}
+        menuOrdered={this.props.menuOrdered}
       />
     );
   }

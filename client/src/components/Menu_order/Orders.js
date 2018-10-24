@@ -12,32 +12,20 @@ class Orders extends Component {
     number: 0
   };
 
-  // componentDidMount() {
-  //   const { items } = this.props.cartAndButton.items;
-  //   this.props.fetchItemsCheckedIn(items);
-  // }
-
   componentDidUpdate(prevProps, prevState) {
-    // const {
-    //   items: { items }
-    // } = this.props.cartAndButton;
-    // const { items } = this.props.cartAndButton.items;
-
     if (prevProps.refreshAction !== this.props.refreshAction) {
-      //if(prevProps.refreshAction !== prevState.number ) {
-
       this.setState({ number: prevProps.refreshAction });
-
       this.props.setRefresh();
     }
-
-    // if (this.state.number !== prevState.number) {
-    //   this.props.fetchItemsCheckedIn(items);
-    // }
   }
 
   numberOnChange = e => {
-    const { items, orderButton } = this.props.cartAndButton.items;
+    const {
+      cartAndButton: {
+        items: { items }
+      },
+      setCountIsZero: { setCount, setIsZero }
+    } = this.props;
 
     const CurrentMenuName = e.target.id;
 
@@ -59,8 +47,9 @@ class Orders extends Component {
           }
         });
 
-        initUI(CurrentMenuName);
+        this.props.fetchCancelMenu("");
         this.props.fetchCancelMenu(CurrentMenuName);
+        initUI(CurrentMenuName);
       }
     } else {
       buttonValues = this.state.number + 1;
@@ -76,19 +65,8 @@ class Orders extends Component {
       }
     });
 
-    if (items.length > 0) {
-      let count;
-
-      items.forEach(order => {
-        count = +order.number;
-      });
-
-      if (count > 0) {
-        orderButton("block");
-      }
-    } else {
-      orderButton("none");
-    }
+    setCount(0);
+    setIsZero(false);
   };
 
   buttonDisplay = () => {
@@ -146,7 +124,6 @@ class Orders extends Component {
           style={{ display: `${display}` }}
           id="number-input"
         >
-          {/* */}
           <div className="mt-3">
             Number of Orders:{" "}
             <label className={removeSpace(name)}>{this.state.number}</label>
@@ -179,8 +156,6 @@ class Orders extends Component {
     );
   }
 }
-
-// export default Orders;
 
 export default connect(
   null,

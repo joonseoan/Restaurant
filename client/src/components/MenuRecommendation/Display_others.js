@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
-// import { removeSpace } from "../../utils/uIControl";
-// import _ from "lodash";
+import { removeSpace } from "../../utils/uIControl";
 
 class DisplayOthers extends Component {
   handleRecoMenu = () => {
     const {
       menuItems: { name },
       clickeMenuControl
-      //resetClickedMenuButton: { reset }
     } = this.props;
 
-    //  reset();
     clickeMenuControl(name);
   };
 
@@ -29,10 +25,8 @@ class DisplayOthers extends Component {
 
   handleStartOrderButton() {
     const {
-      menuItems: { name, number }
-      //matchedMenu,
-      //clickeMenuControl: { currentClickedMenu },
-      /// itemsCheckedIn
+      menuItems: { name, number },
+      canceledMenu
     } = this.props;
 
     const ids = `#${name}`;
@@ -59,11 +53,12 @@ class DisplayOthers extends Component {
       </div>
     );
 
-    //console.log(name, number);
     if (number === 0) {
       return <div>ENTER A NUMBER OF ORDERS</div>;
     } else if (number > 0) {
       return <div>READY TO ORDER</div>;
+    } else if (removeSpace(name) === canceledMenu) {
+      return startOrder;
     } else {
       return startOrder;
     }
@@ -94,12 +89,4 @@ class DisplayOthers extends Component {
   }
 }
 
-// function mapStateToProps({ matchedMenu, resetClickedMenuButton }) {
-//   return {
-//     matchedMenu,
-//     resetClickedMenuButton
-//   };
-// }
-
 export default DisplayOthers;
-// export default connect(mapStateToProps)(DisplayOthers);
