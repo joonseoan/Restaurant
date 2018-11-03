@@ -15,6 +15,7 @@ class App extends Component {
     orderButton: "none",
     count: 0,
     isZero: false
+    //currentSlide: 0
   };
 
   componentDidMount = () => {
@@ -55,6 +56,13 @@ class App extends Component {
         this.setState({ orderButton: "none" });
       }
     }
+
+    // if (
+    //   prevState.orderButton === "block" &&
+    //   this.state.orderButton === "none"
+    // ) {
+    //   this.setState({ currentSlide: 0 });
+    // }
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -115,6 +123,10 @@ class App extends Component {
                 this.setState({ isZero: status });
               }
             }}
+            // setCurrentSlide={number => {
+            //   this.setState({ currentSlide: number });
+            // }}
+            // currentSlideStatus={this.state.currentSlide}
           />
         </div>
       </div>

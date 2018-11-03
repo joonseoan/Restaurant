@@ -119,20 +119,22 @@ class MainDescriptions extends Component {
     return (
       <div>
         <div>
-          <img
-            src={path + file}
-            className="img img-fluid img-thumbnail mt-3"
-            alt={spicy}
-            style={{ width: "350px", height: "250px" }}
-          />
+          <div>
+            <img
+              src={path + file}
+              className="img img-fluid img-thumbnail mt-3"
+              alt={spicy}
+              style={{ width: "350px", height: "250px" }}
+            />
+          </div>
 
-          <p>
-            {description} ({carlorie} cal) {this.isSpicy()}
+          <p className="d-inline">
+            {description} ({carlorie} cal)
           </p>
+          <div className="d-inline">{this.isSpicy()}</div>
 
           <div>
-            <h4>CUSTOMER'S REVIEW</h4>
-
+            <h3>CUSTOMER'S REVIEW</h3>
             <ul>{this.foodGuestbooks(guestbooks)}</ul>
           </div>
         </div>
@@ -140,11 +142,11 @@ class MainDescriptions extends Component {
         <div>
           <div>
             <div>
-              <h3>Other Choices</h3>
+              <h3>OTHER OPTIONS</h3>
             </div>
           </div>
 
-          <table className="table">
+          <table className="table table-reponsive">
             <tbody>
               <tr>{this.picList()}</tr>
             </tbody>

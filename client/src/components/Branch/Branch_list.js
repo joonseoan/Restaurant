@@ -51,7 +51,6 @@ class BranchList extends Component {
           <div className="text-center w-100">
             <h4>Welcome to Korean Restaurant in {`${this.state.city}`}</h4>
           </div>
-
           <div className="mx-auto text-center w-50">
             <SelectCity
               setCity={city => {

@@ -11,7 +11,7 @@ function rounding(number) {
 }
 
 class Bill extends Component {
-  orderList(order) {
+  orderList = order => {
     const { name, value, number } = order;
 
     const unitPrice = parseFloat(value);
@@ -21,22 +21,20 @@ class Bill extends Component {
     let orderNumber = this.props.menuChecked.indexOf(order) + 1;
 
     return (
-      <ul key={name}>
+      <div key={name}>
         <h5>
           <b>
             {orderNumber}. {name}
           </b>
         </h5>
-
-        <li>Unit Price : ${unitPrice}</li>
-        <br />
-        <li>Qty : {number} </li>
-        <br />
-        <li> Sub Total : ${rounding(subTotal)}</li>
-        <br />
-      </ul>
+        <div className="text-right">
+          <div>Unit Price : ${unitPrice}</div>
+          <div>Qty : {number} </div>
+          <div>Sub Total : ${rounding(subTotal)}</div>
+        </div>
+      </div>
     );
-  }
+  };
 
   numberOfOrders() {
     let totalOrders = 0;
@@ -108,41 +106,44 @@ class Bill extends Component {
 
     return (
       <Modal
-        className="bg-warning"
+        // className="mx-auto my-auto"
         isOpen={this.props.openStatus}
         style={{
           content: {
-            width: "40%",
-            margin: "auto"
+            width: "30%",
+            margin: "auto",
+            backgroundImage: "url(./images/receipt.PNG)"
           }
         }}
       >
-        <section>
+        <section className="text-dark mt-5">
           <div>{this.props.children}</div>
-
-          <h5 ref={subtitle => subtitle}>
-            <center>Your Reciet Estimated</center>
-          </h5>
-
-          <div>{this.props.menuChecked.map(this.orderList.bind(this))}</div>
-
-          <div className="right">
-            <p>----------------------------------------</p>
-
-            <p>Total number of Orders : {this.numberOfOrders()}</p>
-            <p>Total price: ${rounding(this.totalAmount())}</p>
+          <h4
+            className="text-center font-weight-bold mt-5 m  b-5"
+            ref={subtitle => subtitle}
+          >
+            YOUR RECEIPT
+          </h4>
+          <div className="mt-5">
+            {this.props.menuChecked.map(this.orderList)}
+          </div>
+          <div className="text-right">
+            <p>-----------------------</p>
+            <p>Total Number of Orders : {this.numberOfOrders()}</p>
+            <p>Total Price: ${rounding(this.totalAmount())}</p>
             <p>HST: 15%</p>
-            <p>Total Payable: ${rounding(this.totalAmount() * 1.15)}</p>
-
-            <button
-              type="submit"
-              value="Submit Your Orders"
-              onClick={this.eventClick}
-            >
-              Submit Order
-            </button>
+            <p className="font-weight-bold">
+              Total Payable: ${rounding(this.totalAmount() * 1.15)}
+            </p>
           </div>
         </section>
+        <button
+          className="btn btn-sm btn-danger float-right mt-5"
+          type="submit"
+          onClick={this.eventClick}
+        >
+          SUBMIT ORDER
+        </button>
       </Modal>
     );
   }

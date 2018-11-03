@@ -34,13 +34,20 @@ class RecommendationMenu extends Component {
 
     if (!menu || !additionalTodayWeather) return <div />;
 
-    const { main } = additionalTodayWeather.weather[0];
+    const { main, description } = additionalTodayWeather.weather[0];
     const { temp } = additionalTodayWeather.main;
 
     return (
-      <div>
-        <div className="mt-5 container border border-info text-center">
-          <h4 className="mb-2">Special For you Based on Weather</h4>
+      <div className="container mt-5">
+        <h2 className="border border-danger">PRESENT SPECIAL MENU</h2>
+        <div className="slide-left border border-danger">
+          <p style={{ fontSize: "24px" }}>
+            Hi Customers. It is{" "}
+            <strong className="blink text-primary">{description}</strong>. At
+            this weather. we strongly recommend the following foods for you.
+          </p>
+        </div>
+        <div className="border border-info text-center">
           <SetCurrentRecommendation
             inputMenus={menu}
             mainWeather={main}

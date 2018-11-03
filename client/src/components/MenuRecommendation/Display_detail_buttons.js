@@ -34,7 +34,7 @@ class DisplayDetailButtons extends Component {
           value={price}
           name={name}
         >
-          Check Detail
+          CHECK DETAIL
         </button>
 
         <Modal
@@ -45,8 +45,7 @@ class DisplayDetailButtons extends Component {
           <Modal.Header>
             <Modal.Title className="clearfix">
               <span className="mr-auto display-4">
-                {name}
-                ($
+                {name} ($
                 {price})
               </span>
             </Modal.Title>

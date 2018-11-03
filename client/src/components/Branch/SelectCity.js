@@ -17,21 +17,21 @@ const SelectCity = props => {
   };
 
   return (
-    <div>
+    <div className="w-50">
       <div className="dropdown">
         <button
-          className="col-sm btn btn-success dropdown-toggle d-block"
+          className="btn btn-success dropdown-toggle"
           type="button"
           data-toggle="dropdown"
         >
-          Branch Restaurants
+          BRANCH RESTAURANTS
         </button>
 
-        <div className="col-sm dropdown-menu border border-danger ml-1">
+        <div className="dropdown-menu border border-danger">
           {options.map(cities => (
             <button
               key={cities.value}
-              className="dropdown-item"
+              className="btn dropdown-item text-left"
               onClick={handleOnClick}
               value={cities.value}
             >

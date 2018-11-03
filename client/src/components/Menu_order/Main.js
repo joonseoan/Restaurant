@@ -36,7 +36,6 @@ class Main extends Component {
             {price}
             ):
           </span>
-
           <CartInput
             controlFunction={this.props}
             selectedMenu={this.props.selectedMenu}

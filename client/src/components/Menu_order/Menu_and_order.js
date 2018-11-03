@@ -4,6 +4,7 @@ import _ from "lodash";
 
 import MenuList from "./Menu_list";
 import Bill from "../Bill/Bill";
+import MenuOrders from "./Menu_orders";
 
 class MenuAndOrder extends Component {
   state = {
@@ -58,39 +59,55 @@ class MenuAndOrder extends Component {
 
     return (
       <div className="container mt-5 mb-5" id="allFoods">
-        <h4 className="text-center">Menu & Order</h4>
+        <h2>MENU & ORDER</h2>
 
         <div className="mt-5">
-          <div>
-            <MenuList
-              controlData={data}
-              refreshAction={this.props.refreshAction}
-              setRefresh={this.props.setRefresh}
-              selectedMenu={this.props.selectedMenu}
-              setCountIsZero={this.props.setCountIsZero}
-            />
-          </div>
-          <div
-            className="btn btn-danger mt-3 mx-auto fixed-bottom w-50"
-            onClick={this.handleOpenModal}
-            style={{ display: `${this.props.orderButton}` }}
-            id="order"
-          >
-            Place an Order
-          </div>
-        </div>
+          <MenuList
+            controlData={data}
+            refreshAction={this.props.refreshAction}
+            setRefresh={this.props.setRefresh}
+            selectedMenu={this.props.selectedMenu}
+            setCountIsZero={this.props.setCountIsZero}
+          />
 
-        <Bill
-          openStatus={this.state.showModal}
-          menuChecked={this.props.menuOrdered}
-          newPageStatus={() => {
-            this.setState({ newPage: true });
-          }}
-        >
-          <div className="btn btn-primary" onClick={this.handleCloseModal}>
-            Back to Menu
-          </div>
-        </Bill>
+          <MenuOrders
+            id="order"
+            openModalControl={this.handleOpenModal}
+            orderButton={this.props.orderButton}
+            menuOrdered={menuOrdered}
+            // setCurrentSlide={this.props.setCurrentSlide}
+            // currentSlideStatus={this.props.currentSlideStatus}
+          />
+
+          {/* 
+            <div
+              className="btn btn-danger mt-3 mx-auto fixed-bottom w-50"
+              onClick={this.handleOpenModal}
+              style={{ display: `${this.props.orderButton}` }}
+              id="order"
+            >
+              <div className="row">
+                {this.handleOrderList(menuOrdered)}
+                <div className="col">Place an Order</div>
+              </div>
+            </div>
+          
+           */}
+        </div>
+        <div>
+          <Bill
+            openStatus={this.state.showModal}
+            menuChecked={this.props.menuOrdered}
+            newPageStatus={() => {
+              this.setState({ newPage: true });
+            }}
+          >
+            <i
+              className="btn btn-secondary text-warning fa fa-arrow-left"
+              onClick={this.handleCloseModal}
+            />
+          </Bill>
+        </div>
       </div>
     );
   }

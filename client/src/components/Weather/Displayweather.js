@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import WOW from 'wow.js';
 
 import { roundData, weatherImage } from "../../utils/other_weathers";
 import GoogleMap from "./Google_map";
@@ -40,7 +39,7 @@ const TodayWeather = props => {
             data-wow-offset="50"
             data-wow-delay="0.7s"
           >
-            <div className="bg-primary"> Highest </div>
+            <div className="bg-secondary"> Highest </div>
             <div className="my-4">
               {roundData(additionalWeather.main.temp_max - 273)} &#8451;
             </div>
@@ -63,16 +62,6 @@ const TodayWeather = props => {
             <div className="bg-warning"> Lowest </div>
             <div className="my-4">
               {roundData(additionalWeather.main.temp_min - 273)} &#8451;
-            </div>
-          </div>
-          <div
-            className="col col-md border border-secondary ml-1 mr-1 mb-2 wow flipInY"
-            data-wow-offset="50"
-            data-wow-delay="1.5s"
-          >
-            <div className="bg-secondary"> Description </div>
-            <div className="text-capitalize my-4">
-              {additionalWeather.weather[0].description}
             </div>
           </div>
         </div>

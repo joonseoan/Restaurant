@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import _ from "lodash";
-// import { connect } from "react-redux";
 
 import { removeSpace } from "../../utils/uIControl";
 
@@ -72,7 +71,7 @@ class CartInput extends Component {
     });
 
     return (
-      <div className="icons">
+      <div>
         <i
           className="fa fa-cart-arrow-down text-danger float-right"
           id={removeSpace(name)}
@@ -94,5 +93,3 @@ class CartInput extends Component {
 }
 
 export default CartInput;
-
-// export default connect(mapStateToProps)(CartInput);

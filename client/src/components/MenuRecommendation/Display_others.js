@@ -35,7 +35,7 @@ class DisplayOthers extends Component {
       <div key={name} onClick={this.handleRecoMenu}>
         <a
           href={ids}
-          className="orderStart font-weight-bold border border-info"
+          className="orderStart font-weight-bold border border-info rounded"
         >
           <span data-text="S">S</span>
           <span data-text="T">T</span>
