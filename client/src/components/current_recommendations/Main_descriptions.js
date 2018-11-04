@@ -30,11 +30,12 @@ class MainDescriptions extends Component {
 
     return theOthers.map(pic => {
       return [
-        <td key={pic.name}>
-          <p>
-            {pic.name} ($
+        <div className="col col-sm border rounded" key={pic.name}>
+          <div>{pic.name}</div>
+          <div>
+            ($
             {pic.price})
-          </p>
+          </div>
 
           <button
             className="btn btn-sm btn-info mt-3"
@@ -50,16 +51,16 @@ class MainDescriptions extends Component {
               });
             }}
           >
-            Check Detail
+            CHECK DETAIL
           </button>
 
           <img
             src={`../images/${pic.file}`}
             className="img img-fluid img-thumbnail mt-3"
             alt={pic.name}
-            style={{ width: "180px", height: "110px" }}
+            style={{ width: "120px", height: "70px" }}
           />
-        </td>
+        </div>
       ];
     });
   }
@@ -69,38 +70,71 @@ class MainDescriptions extends Component {
 
     if (spicy) {
       return (
-        <img src={`../images/${spicy}`} alt={name} width="100" height="80" />
+        <img
+          className="mr-5 pr-2 align-self-center"
+          src={`../images/${spicy}`}
+          alt={name}
+          style={{ width: "44px", height: "40px" }}
+        />
       );
     }
   }
 
   foodGuestbooks(guestbooks) {
     const { name } = this.state.menuItem;
-
     const guestbookList = _.map(guestbooks);
+    const getGuestbooks = _.filter(
+      guestbookList,
+      guestbook => guestbook.food === name
+    );
 
-    let countNumber = 1;
+    let countNumber = 0;
 
-    return guestbookList.reverse().map(guestbook => {
-      if (guestbook.food === name && guestbook.like && countNumber < 5) {
-        return (
-          <li key={guestbook._id}>
-            <h3>
-              {countNumber++}. {guestbook.title}
-            </h3>
-            <p>{guestbook.comments}</p>
-            <p>- I was here at {guestbook.visitedAt}</p>
-          </li>
-        );
-      } else {
-        return <div key={guestbook._id} />;
-      }
-    });
+    if (getGuestbooks.length === 0) {
+      return (
+        <div className="text-info font-weight-bold">
+          Still Waiting For Customer's Review...
+        </div>
+      );
+    } else {
+      return (
+        <div id="accordion">
+          {getGuestbooks.reverse().map(guestbook => {
+            if (guestbook.food === name && guestbook.like) {
+              countNumber++;
+              if (countNumber < 4) {
+                return (
+                  <div key={countNumber} className="card">
+                    <div className="card-header">
+                      <h4 className="text-left">
+                        <a
+                          href={`#collapse${countNumber}`}
+                          data-parent="#accordion"
+                          data-toggle="collapse"
+                        >
+                          {countNumber}. {guestbook.title}
+                        </a>
+                      </h4>
+                    </div>
+                    <div id={`collapse${countNumber}`} className="collapse">
+                      <div className="card-body">
+                        <p className="text-left">{guestbook.comments}</p>
+                        <p className="text-right">
+                          --- at {guestbook.visitedAt}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            }
+          })}
+        </div>
+      );
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.menuItem.name !== nextState.menuItem.name) return true;
-    if (this.props.foodName === nextProps.foodName) return false;
     if (!nextProps.foodName) return false;
     return true;
   }
@@ -109,11 +143,8 @@ class MainDescriptions extends Component {
     if (!this.state.menuItem) return <div />;
 
     const { menuItem } = this.state;
-
     const { guestbooks } = this.props;
-
     const path = "../images/";
-
     const { description, file, spicy, carlorie } = menuItem;
 
     return (
@@ -124,33 +155,31 @@ class MainDescriptions extends Component {
               src={path + file}
               className="img img-fluid img-thumbnail mt-3"
               alt={spicy}
-              style={{ width: "350px", height: "250px" }}
+              style={{ width: "300px", height: "200px" }}
             />
           </div>
-
-          <p className="d-inline">
-            {description} ({carlorie} cal)
-          </p>
-          <div className="d-inline">{this.isSpicy()}</div>
-
+          <div className="media">
+            <div className="media-body ml-2">
+              <p className="text-left ml-5">
+                {description} ({carlorie} cal)
+              </p>
+            </div>
+            {this.isSpicy()}
+          </div>
+          <hr />
           <div>
             <h3>CUSTOMER'S REVIEW</h3>
-            <ul>{this.foodGuestbooks(guestbooks)}</ul>
+            {this.foodGuestbooks(guestbooks)}
           </div>
         </div>
-
-        <div>
+        <hr />
+        <div className="mx-2">
           <div>
             <div>
               <h3>OTHER OPTIONS</h3>
             </div>
           </div>
-
-          <table className="table table-reponsive">
-            <tbody>
-              <tr>{this.picList()}</tr>
-            </tbody>
-          </table>
+          <div className="row">{this.picList()}</div>
         </div>
       </div>
     );

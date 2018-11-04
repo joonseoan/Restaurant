@@ -115,10 +115,7 @@ class RecommendedMenu extends Component {
           const { name, id, price, file, number } = menu;
 
           return (
-            <div
-              key={id}
-              className="col border border-warning rounded mx-2 pb-5"
-            >
+            <div key={id} className="col rounded mx-2 pb-5">
               <div className="mb-2 bg-warning">{name} </div>
 
               <DisplayDetailButtons namePrice={{ name, price }} />
