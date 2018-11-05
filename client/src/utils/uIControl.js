@@ -1,5 +1,17 @@
+import _ from "lodash";
+
 export function removeSpace(name) {
   return name.replace(/\s/g, "");
+}
+
+export function insertSpaces(name) {
+  name = name.replace(/([a-z])([A-Z])/g, "$1 $2");
+  name = name.replace(/([A-Z])([A-Z][a-z])/g, "$1 $2");
+  return name;
+}
+
+export function rounding(number) {
+  return _.round(number, 2);
 }
 
 export const initUI = CurrentMenuName => {
@@ -21,21 +33,3 @@ export const initUI = CurrentMenuName => {
 
   document.querySelector(`input.${CurrentMenuName}`).disabled = false;
 };
-
-// export const initUI = (menuChecked) => _.each(menuChecked, orders => {
-
-//     if (orders.number === 0) {
-
-//         document.querySelector(`input[name="${this.removeSpace(orders.name)}"]`).checked = false;
-
-//         document.querySelector(`div.${this.removeSpace(orders.name)}BgColor`).style.backgroundColor = '';
-
-//         document.querySelector(`div.${this.removeSpace(orders.name)}Button`).style.display = 'none';
-
-//         document.querySelector(`i#${orders.name}`).style.visibility= 'visible';
-
-//         document.querySelector(`input.${orders.name}`).disabled= false;
-
-//     }
-
-// });

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import _ from "lodash";
 
 import MenuList from "./Menu_list";
 import Bill from "../Bill/Bill";

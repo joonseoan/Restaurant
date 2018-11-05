@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Slider from "react-slick";
+import { insertSpaces } from "../../utils/uIControl";
 
 function SetNextArrow(props) {
   const { className, style } = props;
@@ -10,12 +11,6 @@ function SetNextArrow(props) {
 function SetPrevArrow(props) {
   const { className, style } = props;
   return <div className={className} style={{ ...style, display: "none" }} />;
-}
-
-function insertSpaces(string) {
-  string = string.replace(/([a-z])([A-Z])/g, "$1 $2");
-  string = string.replace(/([A-Z])([A-Z][a-z])/g, "$1 $2");
-  return string;
 }
 
 class MenuOrders extends Component {

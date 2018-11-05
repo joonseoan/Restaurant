@@ -89,19 +89,20 @@ class MenuList extends Component {
     }
 
     return (
-      <div>
-        <div className="text-right">
-          <label className="d-inline display-5">FIND YOUR FOODS: </label>
+      <div className="clearfix">
+        <div className="input-group">
+          <div>
+            <i className="fa fa-search btn border border-muted ml-1 mb-1 float-right" />
+          </div>
           <input
-            className="form-control d-inline w-50"
+            className="form-control w-25 float-right"
             type="text"
             placeholder="Search by names..."
             value={this.state.keystroke}
             onChange={this.handleKeystroke}
           />
-
-          <i className="fa fa-search btn border border-muted ml-1 mb-1" />
         </div>
+
         <div className="row justify-content-center mb-2 mt-3 border border-success text-center">
           {this.menuBoard(firstRow)}
 

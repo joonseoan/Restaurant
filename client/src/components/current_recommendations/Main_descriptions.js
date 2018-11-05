@@ -126,7 +126,11 @@ class MainDescriptions extends Component {
                     </div>
                   </div>
                 );
+              } else {
+                return null;
               }
+            } else {
+              return null;
             }
           })}
         </div>

@@ -8,7 +8,6 @@ const LocationCoordinate = props => {
   if (!props.branchLocation) return <div />;
 
   const { geometry, address_components } = props.branchLocation.results[0];
-
   return (
     <div>
       <div>

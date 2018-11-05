@@ -30,6 +30,7 @@
     "mongoose": "^5.2.17",
     "react-bootstrap": "^0.32.4",
     "react-slick": "^0.23.2",
+    "react-stripe-checkout": "^2.6.3",
     "slick-carousel": "^1.8.1",
     "validator": "^10.7.1"
   },

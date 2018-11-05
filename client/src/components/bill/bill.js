@@ -3,14 +3,16 @@ import Modal from "react-modal";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { storeOrders } from "../../actions";
-
+import CreditCard from "./Credit_card";
+import { rounding, insertSpaces } from "../../utils/uIControl";
 Modal.setAppElement("#root");
 
-function rounding(number) {
-  return _.round(number, 2);
-}
-
 class Bill extends Component {
+  state = {
+    tipRate: 0,
+    tip: 0
+  };
+
   orderList = order => {
     const { name, value, number } = order;
 
@@ -24,7 +26,7 @@ class Bill extends Component {
       <div key={name}>
         <h5>
           <b>
-            {orderNumber}. {name}
+            {orderNumber}. {insertSpaces(name)}
           </b>
         </h5>
         <div className="text-right">
@@ -58,6 +60,13 @@ class Bill extends Component {
     return totalAmount;
   }
 
+  handleOnChange = e => {
+    this.setState({
+      tipRate: e.target.value,
+      tip: rounding(e.target.value * this.totalAmount())
+    });
+  };
+
   eventClick = e => {
     // will send this data to DB later on.
     const { menuChecked } = this.props;
@@ -74,76 +83,100 @@ class Bill extends Component {
   render() {
     if (!this.props) return <div>Loading...</div>;
 
-    // if(this.props.menuChecked.length === 0) {
-
-    //     return (
-
-    //         <Modal isOpen = { this.props.openStatus }>
-
-    //             <div>
-    //                 <center>
-    //                     <div>
-
-    //                     <h3>Sorry, customer.</h3>
-    //                     <h3>You have not chosen the menu yet.</h3>
-
-    //                     </div>
-
-    //                     <div>
-
-    //                             { this.props.children }
-
-    //                     </div>
-    //                 </center>
-
-    //             </div>
-
-    //         </Modal>
-
-    //     );
-
-    // }
+    const tipRate = [0.0, 0.1, 0.15, 0.2];
+    let count = 0;
 
     return (
       <Modal
-        // className="mx-auto my-auto"
         isOpen={this.props.openStatus}
         style={{
           content: {
-            width: "30%",
+            width: "32%",
             margin: "auto",
             backgroundImage: "url(./images/receipt.PNG)"
           }
         }}
       >
-        <section className="text-dark mt-5">
+        <section className="text-monospace">
           <div>{this.props.children}</div>
           <h4
-            className="text-center font-weight-bold mt-5 m  b-5"
+            className="text-center font-weight-bold"
             ref={subtitle => subtitle}
           >
-            YOUR RECEIPT
+            YOUR RECEIPT (ESTIMATED)
           </h4>
           <div className="mt-5">
             {this.props.menuChecked.map(this.orderList)}
           </div>
           <div className="text-right">
-            <p>-----------------------</p>
+            <p>----------------------</p>
             <p>Total Number of Orders : {this.numberOfOrders()}</p>
-            <p>Total Price: ${rounding(this.totalAmount())}</p>
-            <p>HST: 15%</p>
-            <p className="font-weight-bold">
-              Total Payable: ${rounding(this.totalAmount() * 1.15)}
+            <p>Total Price : ${rounding(this.totalAmount())}</p>
+            <p>HST(15%) : ${rounding(this.totalAmount() * 0.15)}</p>
+            <div className="text-center border-top border-bottom">
+              <p className="text-dark font-weight-bold mt-3">
+                Would you like to tip?
+              </p>
+              {_.map(tipRate, rate => {
+                count++;
+                return (
+                  <div
+                    key={count}
+                    className="custom-control custom-radio custom-control-inline"
+                  >
+                    <input
+                      type="radio"
+                      className="custom-control-input"
+                      id={`tip-${count}`}
+                      name="tip"
+                      value={rate}
+                      onChange={this.handleOnChange}
+                      defaultChecked={rate === 0.0 ? true : false}
+                    />
+                    <label
+                      className="custom-control-label font-weight-normal"
+                      htmlFor={`tip-${count}`}
+                    >
+                      {rate * 100}%
+                    </label>
+                  </div>
+                );
+              })}
+              <p className="text-right mt-3">
+                Tip ($
+                {rounding(this.totalAmount())} X {this.state.tipRate * 100}
+                %) : ${this.state.tip}
+              </p>
+            </div>
+            <p className="font-weight-bold mt-4">
+              Total Payable : $
+              {rounding(this.state.tip + this.totalAmount() * 1.15)}
             </p>
           </div>
         </section>
-        <button
-          className="btn btn-sm btn-danger float-right mt-5"
-          type="submit"
-          onClick={this.eventClick}
-        >
-          SUBMIT ORDER
-        </button>
+
+        <ol className="breadcrumb text-monospace mt-5 bg-transparent justify-content-center">
+          <h5 className="text-monospace font-weight-bold d-inline">
+            CHECK OUT :
+          </h5>
+          <li className="ml-3">
+            <button
+              className="btn btn-sm btn-warning font-weight-bold text-secondary"
+              type="submit"
+              onClick={this.eventClick}
+            >
+              CASH
+              <i className="ml-2 fa fa-dollar" />
+            </button>{" "}
+          </li>
+          <li className="breadcrumb-item">
+            <CreditCard
+              totalPayment={rounding(
+                this.state.tip + this.totalAmount() * 1.15
+              )}
+            />
+          </li>
+        </ol>
       </Modal>
     );
   }
