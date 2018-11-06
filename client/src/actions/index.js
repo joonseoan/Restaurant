@@ -20,7 +20,9 @@ import {
   FETCH_GUESTBOOK,
   DELETE_GUESTBOOK,
   USER_LOGIN,
-  FETCH_LOGIN_GUESTBOOK
+  FETCH_LOGIN_GUESTBOOK,
+  GUEST_PAY,
+  GENERAL_GUEST
 } from "./fetch_guestbooks";
 
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
@@ -109,6 +111,31 @@ export function refreshButton(number) {
 //   };
 // }
 
+export function storeOrders(orders) {
+  return {
+    type: MENU_ORDERED,
+    payload: orders
+  };
+}
+
+export function handleTotalAmount(amount) {
+  axios.post("/billing", { amount });
+  return {
+    type: GUEST_PAY
+  };
+}
+
+export function handleToken(token) {
+  const response = axios.post("/billing/credit", token).then(res => {
+    return res.data;
+  });
+
+  return {
+    type: GENERAL_GUEST,
+    payload: response
+  };
+}
+
 export function fetchGuesbookLists() {
   // const url = 'http://localhost:3000/guests';
 
@@ -116,12 +143,12 @@ export function fetchGuesbookLists() {
 
   return {
     type: FETCH_GUESTBOOKS,
-
     payload: request
   };
 }
 
 export function createGuestbook(guestbook, callback) {
+  // console.log("guestbook: ", guestbook);
   const request = axios.post("/guests", guestbook).then(() => {
     callback();
   });
@@ -129,13 +156,6 @@ export function createGuestbook(guestbook, callback) {
   return {
     type: CREATE_GUESTBOOK,
     payload: request
-  };
-}
-
-export function storeOrders(orders) {
-  return {
-    type: MENU_ORDERED,
-    payload: orders
   };
 }
 

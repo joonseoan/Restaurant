@@ -1,33 +1,32 @@
-// const keys = require("../restaurant_configs/config").stripeSecretKey;
-
-// console.log(keys);
-
-// configuration of stripe
 const stripe = require("stripe")(process.env.STRIPE);
 
+// Update Later on after setting google OAuth before the orders
 // const requireLogin = require('../middleware/requireLogin');
 
 module.exports = app => {
-  app.post("/api/creditcard", async (req, res) => {
-    // it is from action creator of the client, "handleToken(token)"
-    console.log("req.body from client:", req.body);
+  let totalAmount = 0;
 
+  app.post("/billing", async (req, res) => {
+    totalAmount = req.body.amount * 100;
+
+    res.send("success");
+  });
+
+  app.post("/billing/credit", async (req, res) => {
     const charge = await stripe.charges.create({
-      // must be a same setup as with client
-      amount: 500, // $5
+      amount: totalAmount,
       currency: "usd",
       description: "pay for korean restaurant",
       source: req.body.id
     });
 
-    // req.user.credits += 5;
-
+    // Setup after google OAuth login
     // from "passport" m/w
     // const user = await req.user.save();
     // console.log('1. ', user)
 
     // ***************We can send "user" object to the client by using variable, "user".
     // res.send(user);
-    // console.log('2. ', user)
+    res.send("success");
   });
 };

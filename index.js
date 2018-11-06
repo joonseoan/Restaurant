@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 // app.use(cors());
 
 require("./routes/guestbookRoutes")(app);
-// require("./routes/paymentRoutes")(app);
+require("./routes/paymentRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -25,4 +25,4 @@ if (process.env.NODE_ENV === "production") {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 
-// module.exports = { app };
+module.exports = { app };

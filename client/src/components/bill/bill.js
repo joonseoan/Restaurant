@@ -75,6 +75,7 @@ class Bill extends Component {
 
     // From children object
     //this.props.children._self.state.newPage = true;
+
     this.props.newPageStatus();
 
     // this.props.children._self.handleCloseModal();
@@ -148,35 +149,44 @@ class Bill extends Component {
                 %) : ${this.state.tip}
               </p>
             </div>
-            <p className="font-weight-bold mt-4">
+            <p className="font-weight-bold mt-4 font-italic">
               Total Payable : $
               {rounding(this.state.tip + this.totalAmount() * 1.15)}
             </p>
           </div>
         </section>
-
-        <ol className="breadcrumb text-monospace mt-5 bg-transparent justify-content-center">
-          <h5 className="text-monospace font-weight-bold d-inline">
-            CHECK OUT :
+        <div className="mt-5 text-center">
+          <h5
+            className="text-monospace font-weight-bold mt-2 text-danger"
+            style={{ textDecoration: "underline" }}
+          >
+            CHECK OUT
           </h5>
-          <li className="ml-3">
-            <button
-              className="btn btn-sm btn-warning font-weight-bold text-secondary"
-              type="submit"
-              onClick={this.eventClick}
-            >
-              CASH
-              <i className="ml-2 fa fa-dollar" />
-            </button>{" "}
-          </li>
-          <li className="breadcrumb-item">
-            <CreditCard
-              totalPayment={rounding(
-                this.state.tip + this.totalAmount() * 1.15
-              )}
-            />
-          </li>
-        </ol>
+          <ol className="breadcrumb text-monospace bg-transparent justify-content-center">
+            <li className="ml-3">
+              <button
+                className="btn btn-sm btn-warning font-weight-bold text-secondary"
+                type="submit"
+                onClick={this.eventClick}
+              >
+                CASH
+                <i className="ml-2 fa fa-dollar" />
+              </button>{" "}
+            </li>
+            <li className="breadcrumb-item">
+              <CreditCard
+                totalPayment={rounding(
+                  this.state.tip + this.totalAmount() * 1.15
+                )}
+                storeMenuOrders={() => {
+                  const { menuChecked, storeOrders } = this.props;
+                  storeOrders(menuChecked);
+                }}
+                newPageStatus={this.props.newPageStatus}
+              />
+            </li>
+          </ol>
+        </div>
       </Modal>
     );
   }

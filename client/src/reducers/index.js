@@ -18,6 +18,7 @@ import selectedMenu from "./selectedMenu";
 // import resetCancel from "./reset_cancel";
 // import itemsCheckedIn from "./fetchItemsCheckedIn";
 import canceledMenu from "./fetch_cancel_menu";
+import finishCreditPay from "./finishCreditCard";
 
 const reducers = combineReducers({
   branchLocation,
@@ -38,6 +39,7 @@ const reducers = combineReducers({
   // resetClickedMenuButton,
   // itemsCheckedIn
   canceledMenu
+  // finishCreditPay
 });
 
 export default reducers;
