@@ -38,8 +38,8 @@ const reducers = combineReducers({
   // resetCancel,
   // resetClickedMenuButton,
   // itemsCheckedIn
-  canceledMenu
-  // finishCreditPay
+  canceledMenu,
+  finishCreditPay
 });
 
 export default reducers;

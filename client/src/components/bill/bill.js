@@ -5,12 +5,17 @@ import { connect } from "react-redux";
 import { storeOrders } from "../../actions";
 import CreditCard from "./Credit_card";
 import { rounding, insertSpaces } from "../../utils/uIControl";
+import { Redirect } from "react-router-dom";
+
 Modal.setAppElement("#root");
 
 class Bill extends Component {
   state = {
     tipRate: 0,
-    tip: 0
+    tip: 0,
+    newPage: false,
+    fromWhere: "",
+    disable: false
   };
 
   orderList = order => {
@@ -67,22 +72,36 @@ class Bill extends Component {
     });
   };
 
+  handleNewPage = () => {
+    return (
+      <Redirect
+        to={{
+          pathname: "/thankyouAndGuestbook",
+          state: { referrer: this.state.fromWhere }
+        }}
+      />
+    );
+  };
+
   eventClick = e => {
     // will send this data to DB later on.
     const { menuChecked } = this.props;
 
     this.props.storeOrders(menuChecked);
 
-    // From children object
-    //this.props.children._self.state.newPage = true;
-
-    this.props.newPageStatus();
+    this.setState({
+      newPage: true,
+      fromWhere: "cash",
+      disable: true
+    });
 
     // this.props.children._self.handleCloseModal();
   };
 
   render() {
     if (!this.props) return <div>Loading...</div>;
+
+    if (this.state.newPage) return this.handleNewPage();
 
     const tipRate = [0.0, 0.1, 0.15, 0.2];
     let count = 0;
@@ -168,6 +187,7 @@ class Bill extends Component {
                 className="btn btn-sm btn-warning font-weight-bold text-secondary"
                 type="submit"
                 onClick={this.eventClick}
+                disabled={this.state.disable}
               >
                 CASH
                 <i className="ml-2 fa fa-dollar" />
@@ -182,7 +202,14 @@ class Bill extends Component {
                   const { menuChecked, storeOrders } = this.props;
                   storeOrders(menuChecked);
                 }}
-                newPageStatus={this.props.newPageStatus}
+                newPageStatus={() => {
+                  this.setState({
+                    newPage: true,
+                    fromWhere: "credit",
+                    disable: true
+                  });
+                }}
+                disable={this.state.disable}
               />
             </li>
           </ol>

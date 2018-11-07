@@ -7,19 +7,38 @@ import BranchList from "./Branch/Branch_list";
 import LocationCoordinate from "./Weather/Location_coordinate";
 import RecommendationMenu from "./MenuRecommendation/Recommendation_menu";
 import MenuAndOrder from "./Menu_order/Menu_and_order";
+//import { setLocation } from "../actions/index";
+//import { options } from "../utils/cities";
 
 class App extends Component {
-  state = {
-    newZero: null,
-    menu_ordered: [],
-    orderButton: "none",
-    count: 0,
-    isZero: false
-    //currentSlide: 0
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      newZero: null,
+      menu_ordered: [],
+      orderButton: "none",
+      count: 0,
+      isZero: false
+      // forcedRefresh: true
+      // city: ""
+    };
+
+    //this._isMounted = false;
+    // need to make a decision to refresh policy
+    // if (this.state.forcedRefresh) sessionStorage.clear();
+  }
 
   componentDidMount = () => {
-    sessionStorage.clear();
+    // this.props.location(this.state.city);
+
+    // const city = sessionStorage.branch_city || options[0].value;
+
+    // this.setState({
+    //   city
+    // });
+
+    // this.props.setLocation(city);
 
     if (typeof window !== "undefined") {
       const wow = new WOW();
@@ -56,13 +75,6 @@ class App extends Component {
         this.setState({ orderButton: "none" });
       }
     }
-
-    // if (
-    //   prevState.orderButton === "block" &&
-    //   this.state.orderButton === "none"
-    // ) {
-    //   this.setState({ currentSlide: 0 });
-    // }
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -83,6 +95,10 @@ class App extends Component {
                 orderButton: "none"
               });
             }}
+            // city={this.state.city}
+            // setCity={city => {
+            //   this.setState({ city: city });
+            // }}
           />
         </div>
 
@@ -123,10 +139,10 @@ class App extends Component {
                 this.setState({ isZero: status });
               }
             }}
-            // setCurrentSlide={number => {
-            //   this.setState({ currentSlide: number });
+            // need to make a decision for refresh policy
+            // isForcedRefresh={() => {
+            //   this.setState({ forcedRefresh: false });
             // }}
-            // currentSlideStatus={this.state.currentSlide}
           />
         </div>
       </div>
@@ -138,4 +154,4 @@ function mapStateToProps({ selectedMenu }) {
   return { selectedMenu };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App); //{ setLocation }

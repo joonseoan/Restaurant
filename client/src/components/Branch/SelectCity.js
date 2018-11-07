@@ -6,14 +6,9 @@ const SelectCity = props => {
     const { setCity, refreshStatus } = props;
 
     refreshStatus();
-
     const { value } = e.target;
-
     sessionStorage.setItem("branch_city", value);
-
     setCity(value);
-
-    //window.location.reload();
   };
 
   return (

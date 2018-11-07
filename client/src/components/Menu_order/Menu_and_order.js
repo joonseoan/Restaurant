@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
 import MenuList from "./Menu_list";
 import Bill from "../Bill/Bill";
@@ -13,8 +12,8 @@ class MenuAndOrder extends Component {
 
   handleOpenModal = () => {
     this.setState({
-      showModal: true,
-      newPage: false
+      showModal: true
+      //newPage: false
     });
 
     const removeZeroOrder = this.props.menuOrdered.filter(
@@ -42,13 +41,13 @@ class MenuAndOrder extends Component {
     if (!this.props) return <div />;
     const { menuOrdered, setMenuOrdered, setOrderButton } = this.props;
 
-    if (this.state.newPage)
-      return (
-        <Redirect
-          to="thankyouAndGuestbook"
-          menuChecked={this.props.menuOrdered}
-        />
-      );
+    // if (this.state.newPage)
+    //   return (
+    //     <Redirect
+    //       to="thankyouAndGuestbook"
+    //       menuChecked={this.props.menuOrdered}
+    //     />
+    //   );
 
     const data = {
       items: menuOrdered,
@@ -97,9 +96,9 @@ class MenuAndOrder extends Component {
           <Bill
             openStatus={this.state.showModal}
             menuChecked={this.props.menuOrdered}
-            newPageStatus={() => {
-              this.setState({ newPage: true });
-            }}
+            // newPageStatus={() => {
+            //   this.setState({ newPage: true });
+            // }}
           >
             <i
               className="btn btn-secondary text-warning fa fa-arrow-left"

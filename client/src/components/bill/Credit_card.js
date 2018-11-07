@@ -1,31 +1,29 @@
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { connect } from "react-redux";
-// import stripe_key from "./key";
-import { Redirect } from "react-router-dom";
 
 import { handleToken, handleTotalAmount } from "../../actions";
 
 class CreditCard extends Component {
-  //state ={ isPaySuccess: ''}
-
-  // componentDidMount(prevProps, prevState) {
-  //   if (
-  //     this.props.finishCreditPay &&
-  //     prevProps.finishCreditPay !== this.props.finishCreditPay
-  //   )
-  //     console.log("finishPay", this.props.finishCreditPay);
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.finishCreditPay &&
+      prevProps.finishCreditPay !== this.props.finishCreditPay &&
+      this.props.finishCreditPay.data === "success"
+    ) {
+      this.props.newPageStatus();
+    }
+  }
 
   handleOnClick = e => {
+    alert(
+      "In a while of the test mode, the credit card number is '4242 4242 4242 4242'."
+    );
     this.props.handleTotalAmount(this.props.totalPayment);
     this.props.storeMenuOrders();
-    // if (this.props.finishCreditPay === "success") {
-    //   this.props.newPageStatus();
-    // }
   };
+
   render() {
-    console.log(this.props.finishCreditPay, "newPageStatus");
     return (
       <StripeCheckout
         name="KOREAN RESTAURANT"
@@ -40,6 +38,7 @@ class CreditCard extends Component {
           type="submit"
           className="btn btn-sm btn-warning font-weight-bold text-secondary"
           onClick={this.handleOnClick}
+          disabled={this.props.disable}
         >
           CREDIT CARD
           <i className="ml-2 fa fa-cc-visa" />
@@ -49,12 +48,11 @@ class CreditCard extends Component {
   }
 }
 
-// function mapStateToProps({ finishCreditPay }) {
-//   return { finishCreditPay };
-// }
+function mapStateToProps({ finishCreditPay }) {
+  return { finishCreditPay };
+}
 
 export default connect(
-  null,
-  //mapStateToProps,
+  mapStateToProps,
   { handleToken, handleTotalAmount }
 )(CreditCard);

@@ -3,11 +3,15 @@ import React, { Component } from "react";
 export default class DateTimeDisplay extends Component {
   startInverval;
 
+  _isMounted = false;
+
   state = {
     date: new Date()
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     this.startInverval = setInterval(() => {
       const dateTime = new Date();
       this.setState({ date: new Date(dateTime) });
@@ -18,15 +22,22 @@ export default class DateTimeDisplay extends Component {
     clearInterval(this.startInverval);
 
     const { city } = nextProps;
+    if (this._isMounted) {
+      this.startInverval = setInterval(() => {
+        const dateTime = new Date();
+        const vancouverTime = dateTime.getTime() - 10800000;
 
-    this.startInverval = setInterval(() => {
-      const dateTime = new Date();
-      const vancouverTime = dateTime.getTime() - 10800000;
+        city !== "Vancouver"
+          ? this.setState({ date: dateTime })
+          : this.setState({ date: new Date(vancouverTime) });
+      }, 1000);
+    }
+  }
 
-      city !== "Vancouver"
-        ? this.setState({ date: dateTime })
-        : this.setState({ date: new Date(vancouverTime) });
-    }, 1000);
+  componentWillUnmount() {
+    this._isMounted = false;
+    clearInterval(this.startInterval);
+    this.startInterval = false;
   }
 
   render() {

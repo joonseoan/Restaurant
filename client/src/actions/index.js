@@ -29,14 +29,14 @@ const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
   process.env.REACT_APP_OPEN_WEATHER_KEY
 }`;
 
-// gota change it.
 const GoogleURL = "https://maps.googleapis.com/maps/api/geocode/json?address";
 
-export function location(branch_city) {
-  const URL = `${GoogleURL}=${branch_city}&key=${
+export function setLocation(branch_city) {
+  const url = `${GoogleURL}=${branch_city}&key=${
     process.env.REACT_APP_GMAP_API_KEY
   }`;
-  const request = axios.get(URL);
+
+  const request = axios.get(url);
 
   return {
     type: FETCH_LOCATION,
@@ -45,9 +45,8 @@ export function location(branch_city) {
 }
 
 export function additionalTodayWeatherInfo(branch_city) {
-  const URL = `${TodayURL}&q=${branch_city},ca`;
-
-  const request = axios.get(URL);
+  const url = `${TodayURL}&q=${branch_city},ca`;
+  const request = axios.get(url);
 
   return {
     type: FETCH_ADDITIONAL_TODAY_WEATHER,
@@ -127,7 +126,7 @@ export function handleTotalAmount(amount) {
 
 export function handleToken(token) {
   const response = axios.post("/billing/credit", token).then(res => {
-    return res.data;
+    return res;
   });
 
   return {
