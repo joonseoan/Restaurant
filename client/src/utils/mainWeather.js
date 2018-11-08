@@ -1,44 +1,61 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-const weatherCategories = [ 'Clear', 'Cloudy', 'Clouds', 'Overcast', 'Rain', 'Drizzle', 'Mist', 
-    'Haze', 'Sleet', 'Snow', 'Storm', 'Shower', 'Thunderstorms','Breezy', 'Smoke', 'Fog', 'Humid', 
-    'Humidy', 'Blizzard', 'Dust', 'Whirls', 'Sand', 'Squalls', 'Tornado', 'Windy', 
-    'Hurricane', 'Ash', 'windBearing', 'Thunderstorm', 'Humi',
-     'Hail'];
+const weatherCategories = [
+  "Clear",
+  "Cloudy",
+  "Clouds",
+  "Overcast",
+  "Rain",
+  "Drizzle",
+  "Mist",
+  "Haze",
+  "Sleet",
+  "Snow",
+  "Storm",
+  "Shower",
+  "Thunderstorms",
+  "Breezy",
+  "Smoke",
+  "Fog",
+  "Humid",
+  "Humidy",
+  "Blizzard",
+  "Dust",
+  "Whirls",
+  "Sand",
+  "Squalls",
+  "Tornado",
+  "Windy",
+  "Hurricane",
+  "Ash",
+  "windBearing",
+  "Thunderstorm",
+  "Humi",
+  "Hail"
+];
 
 export function regexFilter(weather) {
+  console.log("weather in main: ", weather);
 
-    console.log('weather in main: ', weather)
-    
-    let result;
+  let result;
 
-    _.each(weatherCategories, data => {
+  _.each(weatherCategories, data => {
+    const patt = new RegExp(`${data}+`, "i");
 
-        const patt = new RegExp(`${data}+`, 'i');
+    if (weather.match(patt)) result = weather.match(patt);
+  });
 
-        if (weather.match(patt))
-            result = weather.match(patt);
-
-    });
-
-    return result[0];
-
+  return result[0];
 }
 
-export function setWeather (getWeather) {
+export function setWeather(getWeather) {
+  let indexValue;
 
-    let indexValue
+  _.each(weatherCategories, weather => {
+    if (getWeather === weather) {
+      indexValue = weatherCategories.indexOf(getWeather);
+    }
+  });
 
-    _.each(weatherCategories, weather => {
-
-        if (getWeather === weather) {
-
-            indexValue = weatherCategories.indexOf(getWeather);
-
-        }
-
-    });
-
-    return indexValue;
-
+  return indexValue;
 }

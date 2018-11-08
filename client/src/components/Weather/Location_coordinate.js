@@ -14,7 +14,7 @@ class LocationCoordinate extends Component {
     } = this.props.branchLocation.results[0];
 
     return (
-      <div>
+      <div className="container card wow wobble">
         <div>
           <Displayweather area={geometry.location} />
         </div>

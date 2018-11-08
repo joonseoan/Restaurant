@@ -50,11 +50,13 @@ class BranchList extends Component {
     //if (!this.state.city) return <div />;
     return (
       <div>
-        <nav className="navbar navbar-expand-sm bg-warning">
-          <div className="text-center w-100">
-            <h4>Welcome to Korean Restaurant in {`${this.state.city}`}</h4>
+        <nav className="navbar navbar-expand-sm justify-content-center neon-background">
+          <div className="wow swing">
+            <h2 className="headline blink">
+              Welcome to Korean Restaurant in {`${this.state.city}`}
+            </h2>
           </div>
-          <div className="mx-auto text-center w-50">
+          <div>
             <SelectCity
               setCity={city => {
                 this.setState({ city: city });

@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 import _ from "lodash";
 import { connect } from "react-redux";
+// import { Redirect } from "react-router-dom";
+
 import { storeOrders } from "../../actions";
-import CreditCard from "./Credit_card";
 import { rounding, insertSpaces } from "../../utils/uIControl";
-import { Redirect } from "react-router-dom";
+import CreditCard from "./Credit_card";
+import ThankYou from "./Thank_you";
 
 Modal.setAppElement("#root");
 
@@ -13,18 +15,16 @@ class Bill extends Component {
   state = {
     tipRate: 0,
     tip: 0,
-    newPage: false,
+    //newPage: false,
     fromWhere: "",
-    disable: false
+    disable: false,
+    showThankYou: false
   };
 
   orderList = order => {
     const { name, value, number } = order;
-
     const unitPrice = parseFloat(value);
-
     const subTotal = unitPrice * number;
-
     let orderNumber = this.props.menuChecked.indexOf(order) + 1;
 
     return (
@@ -72,27 +72,27 @@ class Bill extends Component {
     });
   };
 
-  handleNewPage = () => {
-    return (
-      <Redirect
-        to={{
-          pathname: "/thankyouAndGuestbook",
-          state: { referrer: this.state.fromWhere }
-        }}
-      />
-    );
-  };
+  // handleNewPage = () => {
+  //   //   return (
+  //   //     <Redirect
+  //   //       to={{
+  //   //         pathname: "/thankyouAndGuestbook",
+  //   //         state: { referrer: this.state.fromWhere }
+  //   //       }}
+  //   //     />
+  //   //   );
+  // };
 
   eventClick = e => {
     // will send this data to DB later on.
     const { menuChecked } = this.props;
-
     this.props.storeOrders(menuChecked);
 
     this.setState({
       newPage: true,
-      fromWhere: "cash",
-      disable: true
+      fromWhere: e.target.name,
+      disable: true,
+      showThankYou: true
     });
 
     // this.props.children._self.handleCloseModal();
@@ -101,7 +101,7 @@ class Bill extends Component {
   render() {
     if (!this.props) return <div>Loading...</div>;
 
-    if (this.state.newPage) return this.handleNewPage();
+    // if (this.state.newPage) return this.handleNewPage();
 
     const tipRate = [0.0, 0.1, 0.15, 0.2];
     let count = 0;
@@ -186,6 +186,7 @@ class Bill extends Component {
               <button
                 className="btn btn-sm btn-warning font-weight-bold text-secondary"
                 type="submit"
+                name="cash"
                 onClick={this.eventClick}
                 disabled={this.state.disable}
               >
@@ -202,9 +203,9 @@ class Bill extends Component {
                   const { menuChecked, storeOrders } = this.props;
                   storeOrders(menuChecked);
                 }}
-                newPageStatus={() => {
+                thankYouControl={() => {
                   this.setState({
-                    newPage: true,
+                    showThankYou: true,
                     fromWhere: "credit",
                     disable: true
                   });
@@ -213,6 +214,12 @@ class Bill extends Component {
               />
             </li>
           </ol>
+          <div>
+            <ThankYou
+              showThankYou={this.state.showThankYou}
+              fromWhere={this.state.fromWhere}
+            />
+          </div>
         </div>
       </Modal>
     );

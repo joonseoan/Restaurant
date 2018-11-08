@@ -55,7 +55,10 @@ export default class DateTimeDisplay extends Component {
         : this.state.date.getSeconds();
 
     return (
-      <div className="blockquote text-right container">
+      <div
+        className="text-right my-3 font-weight-bold"
+        style={{ fontFamily: "Ubuntu" }}
+      >
         Date : {this.state.date.toDateString()}, Time :{" "}
         {hours < 10 ? `0${hours}` : hours}: {minutes}: {seconds}
       </div>

@@ -72,10 +72,10 @@ class DisplayOthers extends Component {
 
     return (
       <div>
-        <div className="border border-success">
+        <div>
           <div>
             <img
-              style={{ width: "220px", height: "150px" }}
+              style={{ width: "100px", height: "70px" }}
               className="img img-fluid img-thumbnail mt-3"
               alt="Responsive_img"
               src={src}

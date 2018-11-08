@@ -11,7 +11,7 @@ class CreditCard extends Component {
       prevProps.finishCreditPay !== this.props.finishCreditPay &&
       this.props.finishCreditPay.data === "success"
     ) {
-      this.props.newPageStatus();
+      this.props.thankYouControl();
     }
   }
 

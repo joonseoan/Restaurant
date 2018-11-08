@@ -38,16 +38,18 @@ class RecommendationMenu extends Component {
     const { temp } = additionalTodayWeather.main;
 
     return (
-      <div className="container mt-5">
-        <h2 className="border border-danger">PRESENT SPECIAL MENU</h2>
-        <div className="slide-left border border-danger">
-          <p style={{ fontSize: "24px" }}>
-            Hi Customers. It is{" "}
-            <strong className="blink text-primary">{description}</strong>. At
-            this weather. we strongly recommend the following foods for you.
+      <div className="container card mt-5">
+        <h2 className="card-header subTitle text-white bg-danger rounded">
+          Present Special Menu
+        </h2>
+        <div className="slide-left neon-background border-top mt-5 mb-5 mx-auto card-title w-75">
+          <p className="text-danger">
+            Hi customers. It is{" "}
+            <strong className="blink text-success">{description}</strong>. In
+            this weather, you might enjoy the followings.
           </p>
         </div>
-        <div className="border border-info text-center">
+        <div className="text-center">
           <SetCurrentRecommendation
             inputMenus={menu}
             mainWeather={main}
@@ -56,8 +58,8 @@ class RecommendationMenu extends Component {
           />
         </div>
 
-        <div className="container border border-danger text-center">
-          <Link className="btn btn-info btn-sm mt-3" to="/guestbookAllPosted">
+        <div className="container text-center">
+          <Link className="btn btn-info btn-sm mt-5" to="/guestbookAllPosted">
             REVIEW CUSTOMER's BEST CHOICE
           </Link>
         </div>

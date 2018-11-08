@@ -1,3 +1,12 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
+}
+
+.neon-background {
+  background-image: url(../images/neonbackground.PNG);
+}
+
 a.orderStart {
   position: absolute;
   margin-top: 20px;
@@ -39,7 +48,6 @@ a.orderStart span:nth-child(even):before {
   position: absolute;
   transform: translateY(-100%);
 }
-
 a.orderStart span:nth-child(even) {
   transform: translateY(100%);
 }
@@ -47,14 +55,11 @@ a.orderStart:hover span:nth-child(even) {
   transform: translateY(0);
   color: darkred;
 }
-
 .blink {
   /* font-size: 240px; */
   color: rgb (0, 137, 226);
-
-  animation: blink 1s infinite;
+  animation: blink 2s infinite;
 }
-
 @keyframes blink {
   0% {
     opacity: 1;
@@ -69,15 +74,17 @@ a.orderStart:hover span:nth-child(even) {
     opacity: 0;
   }
 }
-
 div.slide-left {
   height: 50px;
   overflow: hidden;
   position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 4px solid #868f96;
 }
-
 div.slide-left p {
-  font-size: 3em;
+  font-size: 20px;
+  font-family: "Ubuntu", sans-serif;
   color: limegreen;
   position: absolute;
   width: 100%;
@@ -85,16 +92,13 @@ div.slide-left p {
   margin: 0;
   line-height: 50px;
   text-align: center;
-
   -moz-transform: translateX(100%);
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
-
   -moz-animation: slide-left 15s linear infinite;
   -webkit-animation: slide-left 15s linear infinite;
   animation: slide-left 15s linear infinite;
 }
-
 @-moz-keyframes slide-left {
   0% {
     -moz-transform: translateX(100%);
@@ -103,7 +107,6 @@ div.slide-left p {
     -moz-transform: translateX(-100%);
   }
 }
-
 @-webkit-keyframes slide-left {
   0% {
     -webkit-transform: translateX(100%);
@@ -112,7 +115,6 @@ div.slide-left p {
     -webkit-transform: translateX(-100%);
   }
 }
-
 @keyframes slide-left {
   0% {
     -moz-transform: translateX(100%);
@@ -126,23 +128,75 @@ div.slide-left p {
   }
 }
 
-/* 
-div.slide-left {
+#weather-title {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+#weather {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+.subTitle {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: 700;
+  line-height: 30.4px;
+  margin-bottom: 25px;
+}
+
+/* neon title */
+.headline {
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  border: none;
+  font: italic normal normal 27px / normal "Warnes", Helvetica, sans-serif;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: normal;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  /* white-space: pre; */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1),
+    0 0 30px rgba(255, 255, 255, 1), 0 0 40px #ff00de, 0 0 70px #ff00de,
+    0 0 80px #ff00de, 0 0 100px #ff00de;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.specials {
+  background-image: url(../images/todaySpecial.PNG);
+  background-size: cover;
+  height: 100%;
+  /* background-size: 100% auto;
   width: 100%;
-  overflow: hidden;
-}
-div.slide-left p {
-  animation: slide-left 10s;
+  height: 100%; */
+  /* position: static;
+
+   */
+  /* background-repeat: no-repeat;
+  background-size: contain; */
+
+  /*  */
+  /* padding-top: 10.64%; */
 }
 
-@keyframes slide-left {
-  from {
-    margin-left: 100%;
-    width: 300%;
-  }
-
-  to {
-    margin-left: 0%;
-    width: 100%;
+/* @media (max-width: 690px) {
+  .specials {
+    display: visi;
   }
 } */

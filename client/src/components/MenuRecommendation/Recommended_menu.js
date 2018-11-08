@@ -110,12 +110,12 @@ class RecommendedMenu extends Component {
     if (selectedMenu.length === 0) return <div />;
 
     return (
-      <div className="row border border-danger">
+      <div className="row">
         {_.map(this.handleOrders(), menu => {
           const { name, id, price, file, number } = menu;
 
           return (
-            <div key={id} className="col rounded mx-2 pb-5">
+            <div key={id} className="col specials mx-2 pb-5 wow bounceInUp">
               <div className="mb-2 bg-warning">{name} </div>
 
               <DisplayDetailButtons namePrice={{ name, price }} />
