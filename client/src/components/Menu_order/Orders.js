@@ -79,11 +79,12 @@ class Orders extends Component {
       return (
         <button
           key={button}
-          className="btn btn-sm mr-1 mb-1"
+          className="btn-circle ml-2"
           style={{
-            backgroundColor: "#ff4444",
+            backgroundColor: "transparent",
             color: "white",
-            visibility: `${visibility}`
+            visibility: `${visibility}`,
+            verticalAlign: "top"
           }}
           value={button}
           onClick={this.numberOnChange}
@@ -124,26 +125,36 @@ class Orders extends Component {
           style={{ display: `${display}` }}
           id="number-input"
         >
-          <div className="mt-3">
+          <div className="mt-3 mb-0" style={{ fontSize: "14px" }}>
             Number of Orders:{" "}
-            <label className={removeSpace(name)}>{this.state.number}</label>
+            <label
+              className={`${removeSpace(name)} text-primary`}
+              style={{ fontSize: "16px" }}
+            >
+              {this.state.number}
+            </label>
           </div>
 
-          <div className="btn-group mt-3">
+          <div className="btn-group">
             <button
-              className="btn btn-sm mr-1 mb-1 btn-primary"
+              className="btn-circle text-primary font-weght-bold"
+              style={{ backgroundColor: "transparent", verticalAlign: "top" }}
               onClick={this.numberOnChange}
               value={0}
               id={removeSpace(name)}
             >
-              0
+              C
             </button>
 
             {this.buttonDisplay()}
 
             <button
-              className="btn btn-sm mr-1 mb-1"
-              style={{ backgroundColor: "#CC0000", color: "white" }}
+              className="btn-circle ml-2 mb-1 font-weght-bold"
+              style={{
+                backgroundColor: "transparent",
+                color: "red",
+                verticalAlign: "top"
+              }}
               onClick={this.numberOnChange}
               value={"+"}
               id={removeSpace(name)}

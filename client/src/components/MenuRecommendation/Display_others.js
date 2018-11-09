@@ -33,10 +33,7 @@ class DisplayOthers extends Component {
 
     const startOrder = (
       <div key={name} onClick={this.handleRecoMenu}>
-        <a
-          href={ids}
-          className="orderStart font-weight-bold border border-info rounded"
-        >
+        <a href={ids} className="orderStart">
           <span data-text="S">S</span>
           <span data-text="T">T</span>
           <span data-text="A">A</span>
@@ -54,9 +51,9 @@ class DisplayOthers extends Component {
     );
 
     if (number === 0) {
-      return <div>ENTER A NUMBER OF ORDERS</div>;
+      return <div className="text-secondary">ENTER A NUMBER OF ORDERS</div>;
     } else if (number > 0) {
-      return <div>READY TO ORDER</div>;
+      return <div className="text-secondary">READY TO ORDER</div>;
     } else if (removeSpace(name) === canceledMenu) {
       return startOrder;
     } else {
@@ -75,13 +72,13 @@ class DisplayOthers extends Component {
         <div>
           <div>
             <img
-              style={{ width: "100px", height: "70px" }}
+              style={{ width: "150px", height: "100px" }}
               className="img img-fluid img-thumbnail mt-3"
               alt="Responsive_img"
               src={src}
             />
           </div>
-          <div className="text-info mb-1"> Price: ${price} </div>
+          <div className="text-success mb-1"> Price: ${price} </div>
         </div>
         {this.handleStartOrderButton()}
       </div>

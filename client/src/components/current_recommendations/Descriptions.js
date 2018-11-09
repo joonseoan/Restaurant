@@ -130,8 +130,6 @@ class Descriptions extends Component {
   }
 
   render() {
-    console.log(this.props.foodName, "ffoood");
-
     if (!this.state.menuItem) return <div />;
 
     const { menuItem } = this.state;

@@ -2,18 +2,13 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// import { RadioButtonGroup, Checkbox } from 'redux-form-material-ui';
 
 import { createGuestbook } from "../actions/index";
 
 class GuestbookNewCreated extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      visibility: "hidden"
-    };
-  }
+  state = {
+    visibility: "hidden"
+  };
 
   // field values are delivered in a defining order down below.
   renderInputField(fields) {
@@ -21,7 +16,7 @@ class GuestbookNewCreated extends Component {
       meta: { touched, error }
     } = fields;
 
-    const className = `form-group ${touched && error ? "has-danger" : ""}`;
+    const className = `form-group ${touched && error ? "text-danger" : ""}`;
 
     const placeholders =
       fields.input.name === "servComments"
@@ -29,7 +24,7 @@ class GuestbookNewCreated extends Component {
         : "";
 
     return (
-      <div className={className} style={{ marginBottom: "40px" }}>
+      <div className={className}>
         <p>
           <strong>
             {fields.showTitle}
@@ -66,7 +61,7 @@ class GuestbookNewCreated extends Component {
       meta: { touched, error }
     } = field;
 
-    const className = `form-group ${touched && error ? "has-danger" : ""}`;
+    // const className = `form-group ${touched && error ? "has-danger" : ""}`;
 
     return (
       <div>
@@ -102,7 +97,7 @@ class GuestbookNewCreated extends Component {
           <textarea
             {...field.input} // each property only
             cols="50"
-            rows="10"
+            rows="3"
             placeholder="Please write your comments for foods or services here."
           />
         </label>
@@ -156,7 +151,7 @@ class GuestbookNewCreated extends Component {
         {options.map(option => {
           input.value = option;
 
-          let color = count === 0 ? "blue" : "red";
+          //let color = count === 0 ? "blue" : "red";
 
           count++;
 
@@ -205,68 +200,79 @@ class GuestbookNewCreated extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className="card container">
-        <h3>Customer Survey</h3>
-
+      <div className="container mt-5" style={{ fontFamily: "ubuntu" }}>
+        <h1 className="font-weight-bold text-center">Customer Survey</h1>
         <form
+          className="mt-5"
           onSubmit={handleSubmit(this.onSubmit.bind(this))}
-          style={{ marginTop: "50px" }}
         >
-          <strong>Select the one you ordred (Required)</strong>
-          <Field
-            name="food"
-            component={this.orderedManuList}
-            options={this.props.orderedMenu}
-          />
-          Are you satisfied with your meal? (Required)
-          <Field
-            name="likeDislike"
-            component={this.renderLikeDislike}
-            options={["like", "dislike"]}
-          />
-          <Field
-            name="title" // inside of input
-            component={this.renderInputField}
-            showTitle="Title" // separate value from input
-          />
-          <Field name="comments" component={this.renderCommentField} />
-          <Field
-            name="email"
-            component={this.renderInputEmail}
-            showTitle="Your Email"
-          />
-          <Field
-            name="password"
-            component={this.renderInputField}
-            showTitle="Your Password"
-          />
-          <Field
-            name="password2"
-            component={this.renderInputField}
-            showTitle="Confirm Your Password"
-          />
-          <div>
-            <label style={{ fontSize: "1em", color: "black" }}>
-              I don't like your service. (Optional)
+          <div className="row">
+            <div className="col card mr-3">
+              <div className="card-title border-bottom border-secondary">
+                <h3 className="font-weight-bold">Let's get in touch!</h3>
+              </div>
               <Field
-                name="servDislike"
-                component="input"
-                type="checkbox"
-                value="true"
-                onClick={this.inputClick.bind(this)}
+                name="email"
+                component={this.renderInputEmail}
+                showTitle="Your Email"
               />
-            </label>
-          </div>
-          <div>
-            <label style={{ visibility: this.state.visibility }}>
-              <Field name="servComments" component={this.renderInputField} />
-            </label>
-
-            <Field
-              name="telephone"
-              component={this.renderInputField}
-              showTitle="Your Telephone Number (Optional)"
-            />
+              <Field
+                name="password"
+                component={this.renderInputField}
+                showTitle="Your Password"
+              />
+              <Field
+                name="password2"
+                component={this.renderInputField}
+                showTitle="Confirm Your Password"
+              />
+              <Field
+                name="telephone"
+                component={this.renderInputField}
+                showTitle="Your Telephone Number (Optional)"
+              />
+            </div>
+            <div className="col card ml-3">
+              <div className="card-title border-bottom border-secondary">
+                <h3 className="font-weight-bold">
+                  What about our foods and services?
+                </h3>
+              </div>
+              <strong>Select the one you ordred (Required)</strong>
+              <Field
+                name="food"
+                component={this.orderedManuList}
+                options={this.props.orderedMenu}
+              />
+              Are you satisfied with your meal? (Required)
+              <Field
+                name="likeDislike"
+                component={this.renderLikeDislike}
+                options={["like", "dislike"]}
+              />
+              <Field
+                name="title" // inside of input
+                component={this.renderInputField}
+                showTitle="Title" // separate value from input
+              />
+              <Field name="comments" component={this.renderCommentField} />
+              <label style={{ fontSize: "1em", color: "black" }}>
+                I don't like your service. (Optional)
+                <Field
+                  name="servDislike"
+                  component="input"
+                  type="checkbox"
+                  value="true"
+                  onClick={this.inputClick.bind(this)}
+                />
+                <label style={{ visibility: this.state.visibility }}>
+                  <Field
+                    name="servComments"
+                    component={this.renderInputField}
+                  />
+                </label>
+              </label>
+            </div>
           </div>
           <h5>Thank you for joining survey!</h5>
           <Field name="submit" component="button" type="submit">
@@ -344,8 +350,8 @@ const mapStateToProps = ({ orderedMenu, additionalTodayWeather }) => {
 export default reduxForm({
   // naming the form of this component
   form: "CreateNewGuestbook",
-  validate
-  // destroyOnUnmount : false
+  validate,
+  destroyOnUnmount: false
 })(
   connect(
     mapStateToProps,

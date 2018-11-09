@@ -83,9 +83,10 @@ class MainDescriptions extends Component {
   foodGuestbooks(guestbooks) {
     const { name } = this.state.menuItem;
     const guestbookList = _.map(guestbooks);
+
     const getGuestbooks = _.filter(
       guestbookList,
-      guestbook => guestbook.food === name
+      guestbook => guestbook.food === name && guestbook.like
     );
 
     let countNumber = 0;
@@ -100,7 +101,7 @@ class MainDescriptions extends Component {
       return (
         <div id="accordion">
           {getGuestbooks.reverse().map(guestbook => {
-            if (guestbook.food === name && guestbook.like) {
+            if (guestbook.food === name) {
               countNumber++;
               if (countNumber < 4) {
                 return (

@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
 body {
   font-family: "Open Sans", sans-serif;
   background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
@@ -12,20 +14,22 @@ a.orderStart {
   margin-top: 20px;
   /* top:50%;
     left:50%; */
-  background: lightblue;
+  /* background: lightblue; */
   transform: translate(-50%, -50%);
+  font: 20px "Gloria Hallelujah";
   width: 150px;
   /* height:50px; */
   /* padding:0 1rem; */
   /* line-height:60px; */
   text-align: center;
-  border: 2px solid lightblue;
-  font-size: 15px;
-  text-decoration: none;
+  /* border: 2px solid lightblue; */
+  /* font-size: 15px; */
+  /* text-decoration: none; */
   text-transform: uppercase;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   color: lightcoral;
   overflow: hidden;
+  padding-bottom: 10px;
 }
 a.orderStart span {
   display: inline-block;
@@ -55,6 +59,8 @@ a.orderStart:hover span:nth-child(even) {
   transform: translateY(0);
   color: darkred;
 }
+
+/* blink */
 .blink {
   /* font-size: 240px; */
   color: rgb (0, 137, 226);
@@ -74,6 +80,8 @@ a.orderStart:hover span:nth-child(even) {
     opacity: 0;
   }
 }
+
+/* slide */
 div.slide-left {
   height: 50px;
   overflow: hidden;
@@ -128,6 +136,7 @@ div.slide-left p {
   }
 }
 
+/* ubuntu font */
 #weather-title {
   font-family: "Ubuntu", sans-serif;
   font-size: 15px;
@@ -150,6 +159,13 @@ div.slide-left p {
   font-weight: 700;
   line-height: 30.4px;
   margin-bottom: 25px;
+
+  background: -webkit-linear-gradient(
+    -152deg,
+    rgb(91, 36, 69),
+    rgb(197, 186, 211)
+  );
+  background: linear-gradient(-152deg, rgb(91, 36, 69), rgb(197, 186, 211));
 }
 
 /* neon title */
@@ -160,7 +176,8 @@ div.slide-left p {
   box-sizing: border-box;
   padding: 10px;
   border: none;
-  font: italic normal normal 27px / normal "Warnes", Helvetica, sans-serif;
+  font: 30px "Gloria Hallelujah";
+  /* font: italic normal normal 27px / normal "Warnes", Helvetica, sans-serif; */
   text-align: center;
   margin-bottom: 20px;
   margin-right: 20px;
@@ -178,25 +195,66 @@ div.slide-left p {
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
+/* chalkboard */
 .specials {
   background-image: url(../images/todaySpecial.PNG);
   background-size: cover;
-  height: 100%;
-  /* background-size: 100% auto;
-  width: 100%;
-  height: 100%; */
-  /* position: static;
-
-   */
-  /* background-repeat: no-repeat;
-  background-size: contain; */
-
-  /*  */
-  /* padding-top: 10.64%; */
+  border: 4px solid brown;
+  border-radius: 3%;
+  margin-top: 5px;
+  font: 20px "Gloria Hallelujah";
 }
 
-/* @media (max-width: 690px) {
-  .specials {
-    display: visi;
-  }
-} */
+/* Input placeholder for menu search */
+.search-span {
+  position: relative;
+  z-index: 2;
+}
+
+/* menuBoard */
+.menuBoard {
+  /* background-image: url(../images/menuBoard.PNG); */
+  background-size: cover;
+  /* border: 4px solid brown;
+  border-radius: 3%; */
+  margin-top: 5px;
+  font: 20px "Gloria Hallelujah";
+}
+
+/* btn-circle */
+.btn-circle {
+  width: 24px;
+  height: 24px;
+  /* text-align: center; */
+  /* padding: 6px 0; */
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.weather-background {
+  background: -webkit-linear-gradient(
+    -152deg,
+    rgb(250, 252, 249),
+    rgb(1, 11, 0)
+  );
+  background: linear-gradient(-152deg, rgb(250, 252, 249), rgb(1, 11, 0));
+}
+
+.recommendation-background {
+  background: -webkit-linear-gradient(
+    -152deg,
+    rgb(242, 246, 240),
+    rgb(9, 1, 13)
+  );
+  background: linear-gradient(-152deg, rgb(242, 246, 240), rgb(9, 1, 13));
+}
+
+.menu-background {
+  background: -webkit-linear-gradient(
+    -152deg,
+    rgb(221, 226, 219),
+    rgb(3, 17, 2)
+  );
+  background: linear-gradient(-152deg, rgb(221, 226, 219), rgb(3, 17, 2));
+}

@@ -12,20 +12,20 @@ const TodayWeather = props => {
 
   return (
     <div>
-      <div className="mt-2 mb-2 bg-danger rounded">
+      <div className="mt-2 mb-2 rounded">
         <h2 className="subTitle text-light card-header">
           Real-Time Weather Info
         </h2>
       </div>
       <div className="card-title">
-        <div className="row text-center mt-3">
-          <div className="col col-md mr-1 mb-2">
+        <div className="row text-center mt-3 mx-5">
+          <div className="col col-md border border-success mr-1 mb-2 bg-white rounded">
             <div id="weather-title" className="bg-success">
               Restaurant Location
             </div>
             <GoogleMap lat={lat} lng={lng} />
           </div>
-          <div className="col col-md border border-info ml-1 mr-1 mb-2">
+          <div className="col col-md border border-info ml-1 mr-1 mb-2 bg-white rounded">
             <div id="weather-title" className="bg-info">
               {" "}
               Weather{" "}
@@ -34,7 +34,7 @@ const TodayWeather = props => {
               {weatherImage(additionalWeather.weather[0].main)}
             </div>
           </div>
-          <div className="col col-md border border-primary ml-1 mr-1 mb-2">
+          <div className="col col-md border border-secondary ml-1 mr-1 mb-2 bg-white rounded">
             <div id="weather-title" className="bg-secondary">
               {" "}
               Highest{" "}
@@ -43,7 +43,7 @@ const TodayWeather = props => {
               {roundData(additionalWeather.main.temp_max - 273)} &#8451;
             </div>
           </div>
-          <div className="col col-md border border-danger ml-1 mr-1 mb-2">
+          <div className="col col-md border border-danger ml-1 mr-1 mb-2 bg-white rounded">
             <div id="weather-title" className="bg-danger">
               {" "}
               Present{" "}
@@ -52,7 +52,7 @@ const TodayWeather = props => {
               {roundData(additionalWeather.main.temp - 273)} &#8451;
             </div>
           </div>
-          <div className="col col-md border border-warning ml-1 mr-1 mb-2">
+          <div className="col col-md border border-warning ml-1 mb-2 bg-white rounded">
             <div id="weather-title" className="bg-warning">
               {" "}
               Lowest{" "}

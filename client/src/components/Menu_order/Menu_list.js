@@ -17,17 +17,21 @@ class MenuList extends Component {
       const { id, name } = menuItems;
       if (name.toLowerCase().indexOf(this.state.keystroke.toLowerCase()) > -1) {
         const className = `col col-sm ${removeSpace(name)}BgColor border 
-            border-danger justify-content-center ml-2 mr-2 rounded`;
+            border-secondary justify-content-center ml-2 mr-2 mb-2 rounded menuBoard`;
 
         const menuColor = {
           menuItems: menuItems
         };
 
         let backgroundColor = "";
+        let backgroundImage = "url(../images/menuBoard.PNG)";
+        let color = null;
 
         _.each(items, item => {
           if (item.name === removeSpace(name)) {
-            backgroundColor = "#FAFAD2";
+            backgroundColor = "#263238";
+            backgroundImage = "";
+            color = "white";
           }
         });
 
@@ -35,10 +39,14 @@ class MenuList extends Component {
           <div
             key={id}
             id={name}
-            className={className}
-            style={{ backgroundColor: `${backgroundColor}` }}
+            className={`${className} text-${color}`}
+            style={{
+              backgroundColor: backgroundColor,
+              backgroundImage: backgroundImage
+            }}
           >
             <Main
+              color={color}
               dataControl={this.props.controlData}
               menuColorControl={menuColor}
               refreshAction={this.props.refreshAction}
@@ -89,32 +97,37 @@ class MenuList extends Component {
     }
 
     return (
-      <div className="clearfix">
-        <div className="input-group">
-          <div>
-            <i className="fa fa-search btn border border-muted ml-1 mb-1 float-right" />
-          </div>
+      <div>
+        <div
+          className="wrapper text-right mr-5"
+          style={{ fontFamily: "ubuntu" }}
+        >
+          <label className="mr-4" style={{ fontSize: "22px" }}>
+            FIND YOUR FOODS:
+          </label>
           <input
-            className="form-control w-25 float-right"
-            type="text"
-            placeholder="Search by names..."
+            id="textName"
+            className="form-control w-25 d-inline"
+            placeholder="Search by Name"
+            type="textName"
             value={this.state.keystroke}
             onChange={this.handleKeystroke}
           />
+          <span className="text-danger btn btn-primary fa fa-search search-span mb-1" />
         </div>
 
-        <div className="row justify-content-center mb-2 mt-3 border border-success text-center">
+        <div className="row justify-content-center mx-5 mb-2 mt-3 text-center">
           {this.menuBoard(firstRow)}
 
-          <div className="w-100" style={{ border: "1px solid #333" }} />
+          <div className="w-100" />
 
           {this.menuBoard(secondRow)}
 
-          <div className="w-100" style={{ border: "1px solid #333" }} />
+          <div className="w-100" />
 
           {this.menuBoard(thirdRow)}
 
-          <div className="w-100" style={{ border: "1px solid #333" }} />
+          <div className="w-100" />
 
           {this.menuBoard(forthRow)}
         </div>

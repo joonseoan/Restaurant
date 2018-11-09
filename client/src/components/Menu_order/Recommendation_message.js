@@ -26,11 +26,15 @@ class RecommendationMessage extends Component {
     return (
       <div>
         <p
-          className="blink text-danger font-italic font-weight-bold d-inline"
+          className={`blink font-italic font-weight-bold d-inline`}
           id={removeSpace(menuNames)}
-          style={{ visibility: `${visibility}` }}
+          style={{
+            visibility: `${visibility}`,
+            fontSize: "16px",
+            color: "#CC0000"
+          }}
         >
-          Special for you!
+          Specials for you!
         </p>
       </div>
     );

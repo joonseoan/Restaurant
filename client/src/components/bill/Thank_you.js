@@ -14,6 +14,7 @@ class ThankYou extends Component {
         <div>
           <h4>Waitor / Waitress is comming soon</h4>
           <img
+            className="img img-fluid"
             src="https://media1.tenor.com/images/9330a8b90ab850b26b6d3e6c80f91912/tenor.gif?itemid=5676061"
             alt="waitress"
           />

@@ -29,7 +29,7 @@ class DisplayDetailButtons extends Component {
     return (
       <div>
         <button
-          className="btn btn-sm btn-info"
+          className="btn btn-sm btn-outline-info"
           onClick={this.handleDetailButton}
           value={price}
           name={name}

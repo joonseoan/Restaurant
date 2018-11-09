@@ -56,8 +56,10 @@ class MenuAndOrder extends Component {
     };
 
     return (
-      <div className="container mt-5 mb-5" id="allFoods">
-        <h2>MENU & ORDER</h2>
+      <div className="container mt-5 mb-5 card menu-background" id="allFoods">
+        <h2 className="card-header subTitle text-white bg-danger rounded">
+          Menu & Order
+        </h2>
 
         <div className="mt-5">
           <MenuList

@@ -38,11 +38,11 @@ class RecommendationMenu extends Component {
     const { temp } = additionalTodayWeather.main;
 
     return (
-      <div className="container card mt-5">
+      <div className="container card mt-5 recommendation-background">
         <h2 className="card-header subTitle text-white bg-danger rounded">
           Present Special Menu
         </h2>
-        <div className="slide-left neon-background border-top mt-5 mb-5 mx-auto card-title w-75">
+        <div className="slide-left neon-background border-top mt-5 mb-1 mx-auto card-title w-75">
           <p className="text-danger">
             Hi customers. It is{" "}
             <strong className="blink text-success">{description}</strong>. In
@@ -58,9 +58,16 @@ class RecommendationMenu extends Component {
           />
         </div>
 
-        <div className="container text-center">
-          <Link className="btn btn-info btn-sm mt-5" to="/guestbookAllPosted">
-            REVIEW CUSTOMER's BEST CHOICE
+        <div
+          className="container text-center mb-4"
+          style={{ fontFamily: "ubuntu" }}
+        >
+          <Link
+            className="btn btn-info btn-sm mt-5 font-weight-bold"
+            to="/guestbookAllPosted"
+          >
+            REVIEW CUSTOMER'S BEST CHOICE
+            <i className="fa fa-clipboard ml-3 align-middle" />
           </Link>
         </div>
       </div>

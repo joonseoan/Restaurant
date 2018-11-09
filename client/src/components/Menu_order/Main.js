@@ -18,21 +18,19 @@ class Main extends Component {
       items: this.props.dataControl
     };
 
-    const style = {
-      width: "200px",
-      height: "150px"
-    };
-
     const path = "./images/";
+
     return (
       <div>
         <label className="d-block clearfix mt-2">
           <span
-            className="float-left text-muted d-block"
-            style={{ fontSize: "13px" }}
+            className="float-left d-block"
+            style={{
+              fontSize: "13px",
+              color: !this.props.color ? "#424242" : this.props.color
+            }}
           >
-            <b>{name}</b>
-            ($
+            <b style={{ fontSize: "16px" }}>{name}</b> ($
             {price}
             ):
           </span>
@@ -54,14 +52,19 @@ class Main extends Component {
         />
 
         <img
-          style={style}
           className="img img-fluid img-thumbnail mt-3"
           src={path + file}
           alt={name}
+          style={{ width: "150px", height: "100px" }}
         />
 
-        <div className="mt-3">
-          <p className="text-justify text-center">{description}</p>
+        <div className="mt-3 border-top">
+          <p
+            className="text-justify text-left text-muted mt-2 border-secondary"
+            style={{ fontFamily: "ubuntu", fontSize: "14px" }}
+          >
+            {description}
+          </p>
         </div>
       </div>
     );

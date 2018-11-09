@@ -111,7 +111,7 @@ class Bill extends Component {
         isOpen={this.props.openStatus}
         style={{
           content: {
-            width: "32%",
+            width: "50%",
             margin: "auto",
             backgroundImage: "url(./images/receipt.PNG)"
           }
@@ -181,8 +181,8 @@ class Bill extends Component {
           >
             CHECK OUT
           </h5>
-          <ol className="breadcrumb text-monospace bg-transparent justify-content-center">
-            <li className="ml-3">
+          <ol className="list-unstyled text-monospace bg-transparent justify-content-center">
+            <li className="d-inline">
               <button
                 className="btn btn-sm btn-warning font-weight-bold text-secondary"
                 type="submit"
@@ -194,7 +194,7 @@ class Bill extends Component {
                 <i className="ml-2 fa fa-dollar" />
               </button>{" "}
             </li>
-            <li className="breadcrumb-item">
+            <li className="d-inline">
               <CreditCard
                 totalPayment={rounding(
                   this.state.tip + this.totalAmount() * 1.15
