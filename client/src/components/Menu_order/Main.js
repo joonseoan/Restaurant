@@ -30,9 +30,11 @@ class Main extends Component {
               color: !this.props.color ? "#424242" : this.props.color
             }}
           >
-            <b style={{ fontSize: "16px" }}>{name}</b> ($
-            {price}
-            ):
+            <strong style={{ fontSize: "16px" }}>{name}</strong>{" "}
+            <span className="text-muted" style={{ fontFamily: "ubuntu" }}>
+              ($
+              {price})
+            </span>
           </span>
           <CartInput
             controlFunction={this.props}

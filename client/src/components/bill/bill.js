@@ -72,17 +72,6 @@ class Bill extends Component {
     });
   };
 
-  // handleNewPage = () => {
-  //   //   return (
-  //   //     <Redirect
-  //   //       to={{
-  //   //         pathname: "/thankyouAndGuestbook",
-  //   //         state: { referrer: this.state.fromWhere }
-  //   //       }}
-  //   //     />
-  //   //   );
-  // };
-
   eventClick = e => {
     // will send this data to DB later on.
     const { menuChecked } = this.props;
@@ -206,9 +195,11 @@ class Bill extends Component {
                 thankYouControl={() => {
                   this.setState({
                     showThankYou: true,
-                    fromWhere: "credit",
-                    disable: true
+                    fromWhere: "credit"
                   });
+                }}
+                setDisable={() => {
+                  this.setState({ disable: true });
                 }}
                 disable={this.state.disable}
               />

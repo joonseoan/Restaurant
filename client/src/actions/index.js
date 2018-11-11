@@ -136,8 +136,6 @@ export function handleToken(token) {
 }
 
 export function fetchGuesbookLists() {
-  // const url = 'http://localhost:3000/guests';
-
   const request = axios.get("/guests");
 
   return {
@@ -146,11 +144,8 @@ export function fetchGuesbookLists() {
   };
 }
 
-export function createGuestbook(guestbook, callback) {
-  // console.log("guestbook: ", guestbook);
-  const request = axios.post("/guests", guestbook).then(() => {
-    callback();
-  });
+export function createGuestbook(guestbook) {
+  const request = axios.post("/guests", guestbook);
 
   return {
     type: CREATE_GUESTBOOK,
@@ -168,6 +163,8 @@ export function fetchGuestbook(id) {
 }
 
 export function userGuestbookLogin(loginInfo, callback) {
+  console.log("loginInfo: ", loginInfo);
+
   return {
     type: USER_LOGIN,
     payload: axios.post("/guests/login", loginInfo).then(() => {
@@ -178,7 +175,6 @@ export function userGuestbookLogin(loginInfo, callback) {
 
 export function fetchLoginUserGuestbooks() {
   const request = axios.get("/loginGuestbooks");
-
   return {
     type: FETCH_LOGIN_GUESTBOOK,
     payload: request

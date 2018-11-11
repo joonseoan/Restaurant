@@ -16,9 +16,7 @@ class CreditCard extends Component {
   }
 
   handleOnClick = e => {
-    alert(
-      "In a while of the test mode, the credit card number is '4242 4242 4242 4242'."
-    );
+    this.props.setDisable();
     this.props.handleTotalAmount(this.props.totalPayment);
     this.props.storeMenuOrders();
   };
@@ -27,7 +25,7 @@ class CreditCard extends Component {
     return (
       <StripeCheckout
         name="KOREAN RESTAURANT"
-        description="PAY FOR YOUR FOODS"
+        description="TEST CARD#: 4242 4242 4242 4242"
         amount={this.props.totalPayment * 100}
         token={token => {
           this.props.handleToken(token);

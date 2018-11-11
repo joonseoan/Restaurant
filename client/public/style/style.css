@@ -258,3 +258,106 @@ div.slide-left p {
   );
   background: linear-gradient(-152deg, rgb(221, 226, 219), rgb(3, 17, 2));
 }
+
+/* list colum */
+.orderList {
+  overflow: hidden;
+}
+
+.list-item {
+  line-height: 1.5em;
+  float: left;
+  display: inline;
+}
+
+.orderList li {
+  width: 33.333%;
+}
+
+/*survey*/
+
+/* .survey-icons {
+  font-size: 24px;
+}
+
+.survey-inputs {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  box-shadow: none;
+  outline: none;
+  border-radius: 0%;
+} */
+
+/* guestbook title/header */
+
+/* 
+
+<div class="plate">
+  <p class="script"><span>The Real</span></p>
+  <p class="shadow text1">AMERICAN</p>
+  <p class="shadow text2">BBQ</p>
+  <p class="shadow text3">SAUCE</p>
+  <p class="script"><span>by Ibrahim</span></p>
+</div>
+*/
+
+@import url(https://fonts.googleapis.com/css?family=EB+Garamond|Cardo:400italic);
+
+/* body {
+  margin: 0;
+  background-color: #5774b8;
+} */
+
+/* .sandbox-correct-pronounciation {
+  padding: 5em 0 10em 0;
+} */
+
+/* .heading-correct-pronounciation {
+  margin: auto;
+  text-align: center;
+  position: relative;
+} */
+
+/* h1 {
+  color: #fff;
+  font-family: "Cardo", serif;
+  font-size: 24pxem;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  line-height: 2.2em;
+} */
+
+em {
+  font-family: "EB Garamond", serif;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  font-style: normal;
+  padding-top: 0.1em;
+  text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+  /* 
+  &::before,
+  &::after {
+    content: "§";
+    display: inline-block;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    opacity: 0.2;
+    margin: 0 0.6em;
+    font-size: 0.5em;
+  }
+} */
+}
+
+/* .bottom {
+  font-size: 24px;
+  letter-spacing: 0.07em;
+  font-size: 24px;
+  display: block;
+} */

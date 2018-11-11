@@ -137,6 +137,8 @@ module.exports = app => {
           GuestLogin.insertMany(guest);
         });
 
+        console.log("guest: ", guest);
+
         res.send(guest);
       })
       .catch(err => res.status(400).send());
@@ -145,6 +147,8 @@ module.exports = app => {
   app.get("/loginGuestbooks", (req, res) => {
     GuestLogin.find({})
       .then(guestbooks => {
+        console.log("guestbooks(loginGuestbooks): ", guestbooks);
+
         res.send({ guestbooks });
       })
       .catch(err => res.status(400).send(err));

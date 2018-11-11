@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import { fetchGuesbookLists } from "../../actions";
+import { removeSpace, insertSpaces } from "../../utils/uIControl";
 
 class MainDescriptions extends Component {
   state = {
@@ -81,12 +82,17 @@ class MainDescriptions extends Component {
   }
 
   foodGuestbooks(guestbooks) {
-    const { name } = this.state.menuItem;
+    let { name } = this.state.menuItem;
     const guestbookList = _.map(guestbooks);
+
+    // name = removeSpace(name);
 
     const getGuestbooks = _.filter(
       guestbookList,
-      guestbook => guestbook.food === name && guestbook.like
+      guestbook =>
+        (guestbook.food === removeSpace(name) ||
+          guestbook.food === insertSpaces(name)) &&
+        guestbook.like
     );
 
     let countNumber = 0;
@@ -101,7 +107,10 @@ class MainDescriptions extends Component {
       return (
         <div id="accordion">
           {getGuestbooks.reverse().map(guestbook => {
-            if (guestbook.food === name) {
+            if (
+              guestbook.food === removeSpace(name) ||
+              guestbook.food === insertSpaces(name)
+            ) {
               countNumber++;
               if (countNumber < 4) {
                 return (

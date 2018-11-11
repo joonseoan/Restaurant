@@ -3,12 +3,23 @@ import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
 class ThankYou extends Component {
-  handleReset(e) {
-    window.location.reload();
+  state = {
+    reset: false
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.reset) {
+      window.location.reload();
+    }
   }
+
+  handleReset = e => {
+    this.setState({ reset: true });
+    //window.location.reload();
+  };
+
   render() {
     if (!this.props.fromWhere) return <div />;
-    console.log(this.props.fromWhere);
     const waitPerson =
       this.props.fromWhere === "cash" ? (
         <div>

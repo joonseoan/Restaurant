@@ -114,8 +114,8 @@ class MenuOrders extends Component {
     return _.map(menuOrdered, orders => {
       const { name, number } = orders;
       return (
-        <div key={count++} className="text-center mt-3">
-          <div>
+        <div key={count++} className="mt-3 text-center">
+          <div className="justify-content-center">
             <div>
               {count}. <strong>{insertSpaces(name)}</strong>
             </div>
