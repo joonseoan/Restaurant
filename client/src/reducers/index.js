@@ -7,7 +7,7 @@ import menu from "./menu";
 import guestbooks from "./guestbooks";
 import orderedMenu from "./menu_ordered";
 import login from "./user_login";
-import loginUserGuestbook from "./login_user_guestbooks";
+//import loginUserGuestbook from "./login_user_guestbooks";
 import recommendedMenus from "./recommended_menu";
 import refreshMenu from "./refresh_menu";
 import refreshButton from "./refresh_button";
@@ -28,7 +28,7 @@ const reducers = combineReducers({
   form: guestbookForm,
   orderedMenu,
   auth: login,
-  loginUserGuestbook,
+  // loginUserGuestbook,
   recommendedMenus,
   refreshMenu,
   refreshButton,

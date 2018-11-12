@@ -5,35 +5,78 @@ import { Link } from "react-router-dom";
 import _ from "lodash";
 
 import {
-  fetchGuesbookLists,
-  userGuestbookLogin,
-  fetchLoginUserGuestbooks
+  //fetchGuesbookLists,
+  userGuestbookLogin
+  //fetchLoginUserGuestbooks
 } from "../actions/index";
 
+import GuestbookAllPosted from "./guestbook_all_posted";
+
 class EmailPasswordInput extends Component {
-  state = {
-    message: null,
-    loginsucess: false
-  };
+  state = { login: false };
 
-  componentDidMount() {
-    this.props.fetchGuesbookLists();
-    this.props.fetchLoginUserGuestbooks();
-  }
+  componentDidUpdate(prevProps, prevState) {
+    const { auth } = this.props;
+    let sumCurrentIds = "";
+    let sumPrevIds = "";
+    if (!prevProps.auth) {
+      if (auth && auth.data.length > 0) {
+        this.setState({ login: true });
+      }
+    }
 
-  componentWillReceiveProps(nextProps) {
-    const { auth } = nextProps;
+    if (prevProps.auth) {
+      if (auth.data.length > 0) {
+        _.each(auth, guest => {
+          sumCurrentIds += guest._id;
+        });
+        _.each(prevProps.auth, guest => {
+          sumPrevIds += guest.id;
+        });
 
-    if (auth && auth !== true) {
-      const strAuth = auth.toString();
-      const patt = /400/gi;
-
-      const verification = strAuth.match(patt);
-
-      if (verification)
-        this.setState({ message: "You enterned a wrong password." });
+        if (sumCurrentIds !== sumPrevIds) {
+          this.setState({ login: true });
+        }
+      }
     }
   }
+
+  // componentDidMount() {
+  //   this.props.fetchGuesbookLists();
+  //   // this.props.fetchLoginUserGuestbooks();
+  // }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log
+  //   //const verification = strAuth.match(patt);
+  //   if(this.props.auth.data)
+  //   return null;
+  // }
+
+  //-----------------------------------------------------
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.auth !== this.props.auth) {
+  //     if (this.props.auth.response.status === 400) {
+  //       console.log("dddddddddddddddddddddddddddddddddd");
+  //       this.setState({ message: "You enterned a wrong password" });
+  //     }
+  //   }
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   const { auth } = nextProps;
+  //   console.log("auth: ", auth);
+  //   if (auth && auth !== true) {
+  //     const strAuth = auth.toString();
+  //     const patt = /400/gi;
+
+  //     const verification = strAuth.match(patt);
+
+  //     if (verification)
+  //       this.setState({ message: "You enterned a wrong password." });
+  //   }
+  // }
 
   renderInputField(fields) {
     const {
@@ -55,137 +98,82 @@ class EmailPasswordInput extends Component {
     );
   }
 
-  userGuestbookPosted(userGuestbooks) {
-    let countNumber = 1;
-
-    if (!userGuestbooks || userGuestbooks.length === 0) {
-      return (
-        <div>
-          <h1>
-            <center>All of your postings are deleted.</center>
-          </h1>
-          <h2>
-            <center>Thank you for joining survey</center>
-          </h2>
-        </div>
-      );
-    }
-
-    if (userGuestbooks) {
-      let sortedGuestbooks;
-
-      _.each(userGuestbooks, time => {
-        time.visitedAt = time.visitedAt.slice(7, 35).replace(", Time:", "");
-
-        sortedGuestbooks = userGuestbooks.sort((a, b) => {
-          const preDate = new Date(a.visitedAt).getTime();
-          const postDate = new Date(b.visitedAt).getTime();
-
-          return postDate - preDate;
-        });
-      });
-
-      return sortedGuestbooks.map(post => {
-        return (
-          <div key={post._id} style={{ marginBottom: "30px" }}>
-            <div>
-              {" "}
-              {countNumber++}. Customer: {post.email.substring(0, 3)}
-              xxx@Owl Korean Restaurant at {post.visitedAt}
-            </div>
-
-            <Link
-              to={{
-                pathname: `/guestbookPosted/${post._id}`,
-                state: this.props.history.location.pathname
-              }}
-            >
-              <li className="list-group-item">{post.title}</li>
-            </Link>
-          </div>
-        );
-      });
-    }
-  }
-
   onSubmit = values => {
-    let emailVerification = false;
+    // console.log(values);
 
-    const guestbooks = _.map(this.props.guestbooks, guestbook => guestbook);
+    this.props.userGuestbookLogin(values);
 
-    _.each(guestbooks, guestbook => {
-      if (guestbook.email === values.email) {
-        emailVerification = true;
-      }
-    });
+    // let emailVerification = false;
 
-    if (emailVerification) {
-      this.props
-        .userGuestbookLogin(values, () => {
-          this.setState({
-            message: "You successfully logged in!!!",
-            loginsucess: true
-          });
-        })
-        .then(() => {
-          this.props.fetchLoginUserGuestbooks();
-        });
-    } else {
-      this.setState({ message: this.props.errMsg });
-    }
+    // const guestbooks = _.map(this.props.guestbooks, guestbook => guestbook);
+
+    // _.each(guestbooks, guestbook => {
+    //   if (guestbook.email === values.email) {
+    //     emailVerification = true;
+    //   }
+    // });
+
+    // if (emailVerification) {
+    //   this.props
+    //     .userGuestbookLogin(values, () => {
+    //       this.setState({
+    //         message: "You successfully logged in!!!"
+    //         //login: true
+    //       });
+    //     })
+    //     .then(() => {
+    //       this.props.fetchLoginUserGuestbooks();
+    //     });
+    // } else {
+    //   this.setState({ message: this.props.errMsg });
+    // }
+  };
+
+  handleLogout = () => {
+    this.setState({ login: false });
   };
 
   render() {
-    const { handleSubmit, loginUserGuestbook } = this.props;
+    // console.log("guestbooks: ", this.props.guestbooks);
+    console.log("auth: ", this.props.auth);
 
-    console.log(loginUserGuestbook, "loginUserGuestbook");
-    const { state } = this.props.history.location;
+    const { auth } = this.props;
+    let message = "";
 
-    console.log(this.state.loginsucess, "loginsuccess");
+    if (auth) {
+      console.log(auth.data);
 
-    if (
-      (this.state.loginsucess && this.state.message !== this.props.errMsg) ||
-      state === "false"
-    ) {
-      return (
-        <div>
-          <div>
-            <h3>Your Posts</h3>
-          </div>
+      if (auth.data === "no_email") {
+        message = "The email is not availalbe.";
+      } else if (auth.data === "no_password") {
+        message = "The password is wrong.";
+      }
 
-          <div>
-            <ul>{this.userGuestbookPosted(loginUserGuestbook)}</ul>
-          </div>
+      //else if (auth.data.length > 0 && this.state.login) {
+      // return (
+      //   <div>
+      //     <GuestbookAllPosted loginGuestbooks={auth.data} />
+      //   </div>
+      // );
 
-          <Link to="/">Logout</Link>
-          <Link to="/guestbookAllPosted">
-            Guestbook Lists
-            <i
-              className="small material-icons"
-              style={{ verticalAlign: "middle", marginLeft: "10px" }}
-            >
-              format_list_bulleted
-            </i>
-          </Link>
-        </div>
-      );
+      // console.log("dddddd");
+      //}
     }
 
+    if (this.state.login) {
+      <div>
+        <GuestbookAllPosted
+          loginStatus={this.state.login}
+          loginGuestbooks={auth.data}
+        />
+      </div>;
+    }
+
+    const { handleSubmit } = this.props;
     return (
       <div className="card center-align">
         <div>
-          <h3
-            style={{
-              marginBottom: "30px",
-              fontFamily: "monospace",
-              fontStyle: "italic",
-              color: "fuchsia"
-            }}
-          >
-            {" "}
-            Find Your Posts{" "}
-          </h3>
-
+          <h3> Find Your Posts </h3>
           <h5> Enter Your email and password </h5>
         </div>
 
@@ -207,10 +195,10 @@ class EmailPasswordInput extends Component {
             </label>
           </div>
 
-          <div> {this.state.message} </div>
+          {<div> {message} </div>}
 
           <div>
-            <Link to="/" className="btn btn-sm btn-primary">
+            <Link to="/guestbookAllPosted" className="btn btn-sm btn-primary">
               CANCEL
             </Link>
             <Field
@@ -257,7 +245,7 @@ function mapStateToProps({ guestbooks, auth, loginUserGuestbook }) {
   return {
     guestbooks,
     auth,
-    loginUserGuestbook,
+    // loginUserGuestbook,
     errMsg: "You enterd a wrong email or your post is not availalbe.."
   };
 }
@@ -269,7 +257,7 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { fetchGuesbookLists, userGuestbookLogin, fetchLoginUserGuestbooks }
+    { userGuestbookLogin } //fetchGuesbookLists,  , fetchLoginUserGuestbooks
   )(EmailPasswordInput)
 );
 

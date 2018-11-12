@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import {
   fetchGuestbook,
   fetchGuesbookLists,
-  deleteLoginUserGuestbook,
-  fetchLoginUserGuestbooks
+  deleteLoginUserGuestbook
+  // fetchLoginUserGuestbooks
 } from "../actions/index";
 
 class GuestbookPosted extends Component {
@@ -110,8 +110,8 @@ export default connect(
   {
     fetchGuestbook,
     fetchGuesbookLists,
-    deleteLoginUserGuestbook,
-    fetchLoginUserGuestbooks
+    deleteLoginUserGuestbook
+    //fetchLoginUserGuestbooks
   }
 )(GuestbookPosted);
 

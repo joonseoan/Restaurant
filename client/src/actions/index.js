@@ -20,7 +20,7 @@ import {
   FETCH_GUESTBOOK,
   DELETE_GUESTBOOK,
   USER_LOGIN,
-  FETCH_LOGIN_GUESTBOOK,
+  //FETCH_LOGIN_GUESTBOOK,
   GUEST_PAY,
   GENERAL_GUEST
 } from "./fetch_guestbooks";
@@ -145,11 +145,11 @@ export function fetchGuesbookLists() {
 }
 
 export function createGuestbook(guestbook) {
-  const request = axios.post("/guests", guestbook);
+  const response = axios.post("/guests", guestbook);
 
   return {
     type: CREATE_GUESTBOOK,
-    payload: request
+    payload: response
   };
 }
 
@@ -162,24 +162,23 @@ export function fetchGuestbook(id) {
   };
 }
 
-export function userGuestbookLogin(loginInfo, callback) {
-  console.log("loginInfo: ", loginInfo);
+export function userGuestbookLogin(loginInfo) {
+  // console.log("loginInfo: ", loginInfo);
+  const response = axios.post("/guests/login", loginInfo);
 
   return {
     type: USER_LOGIN,
-    payload: axios.post("/guests/login", loginInfo).then(() => {
-      callback();
-    })
+    payload: response
   };
 }
 
-export function fetchLoginUserGuestbooks() {
-  const request = axios.get("/loginGuestbooks");
-  return {
-    type: FETCH_LOGIN_GUESTBOOK,
-    payload: request
-  };
-}
+// export function fetchLoginUserGuestbooks() {
+//   const request = axios.get("/loginGuestbooks");
+//   return {
+//     type: FETCH_LOGIN_GUESTBOOK,
+//     payload: request
+//   };
+// }
 
 export function deleteLoginUserGuestbook(id, callback) {
   axios.delete(`/guests/${id}`).then(() => {

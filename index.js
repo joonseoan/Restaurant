@@ -1,4 +1,3 @@
-// const cors = require('cors');
 const express = require("express");
 const bodyParser = require("body-parser");
 
@@ -6,8 +5,6 @@ require("./restaurant_configs/config"); // because of PORT.
 
 const app = express();
 app.use(bodyParser.json());
-
-// app.use(cors());
 
 require("./routes/guestbookRoutes")(app);
 require("./routes/paymentRoutes")(app);

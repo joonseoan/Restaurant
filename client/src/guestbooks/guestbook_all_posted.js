@@ -17,8 +17,6 @@ class GuestbookAllPosted extends Component {
     const guestbooks = _.map(this.props.guestbooks, guestbook => guestbook);
 
     return guestbooks.reverse().map(guestbook => {
-      console.log(this.props);
-
       if (guestbook && guestbook.like && countNumber < 11) {
         return (
           <li
@@ -77,6 +75,8 @@ class GuestbookAllPosted extends Component {
   }
 
   render() {
+    console.log(this.props.loginGuestbooks, "loginGuestbook");
+
     return (
       <div
         className="container jumbotron text-center"
