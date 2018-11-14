@@ -29,6 +29,10 @@ class RecommendationMenu extends Component {
   //   return true;
   // }
 
+  handleButton = () => {
+    console.log(this.props);
+  };
+
   render() {
     const { menu, additionalTodayWeather } = this.props;
 
@@ -64,7 +68,7 @@ class RecommendationMenu extends Component {
         >
           <Link
             className="btn btn-info btn-sm mt-5 font-weight-bold"
-            to="/guestbookAllPosted"
+            to={sessionStorage.id ? "/guestbookList" : "/guestbookAllPosted"}
           >
             REVIEW CUSTOMER'S BEST CHOICE
             <i className="fa fa-clipboard ml-3 align-middle" />

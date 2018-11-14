@@ -12,6 +12,7 @@ import GuestbookNewCreated from "./guestbooks/guestbook_new_created";
 //import ThankYouAndGuestbook from "./components/Thankyou/Thank_you_and_guestbook";
 import GuestbookPosted from "./guestbooks/guestbook_posted";
 import EmailPasswordInput from "./guestbooks/email_password_input";
+import GuestbookList from "./guestbooks/geustbook_list";
 
 import reducers from "./reducers";
 
@@ -30,6 +31,7 @@ ReactDOM.render(
             path="/guestbookAllPosted"
             component={GuestbookAllPosted}
           />
+          <Route exact path="/guestbookList" component={GuestbookList} />
           <Route
             exact
             path="/guestbookNewCreated"

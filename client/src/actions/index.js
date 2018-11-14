@@ -22,7 +22,8 @@ import {
   USER_LOGIN,
   //FETCH_LOGIN_GUESTBOOK,
   GUEST_PAY,
-  GENERAL_GUEST
+  GENERAL_GUEST,
+  SEND_GUESTBOOKS
 } from "./fetch_guestbooks";
 
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
@@ -32,6 +33,8 @@ const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
 const GoogleURL = "https://maps.googleapis.com/maps/api/geocode/json?address";
 
 export function setLocation(branch_city) {
+  console.log("branch_city: ", branch_city);
+
   const url = `${GoogleURL}=${branch_city}&key=${
     process.env.REACT_APP_GMAP_API_KEY
   }`;
@@ -172,13 +175,12 @@ export function userGuestbookLogin(loginInfo) {
   };
 }
 
-// export function fetchLoginUserGuestbooks() {
-//   const request = axios.get("/loginGuestbooks");
-//   return {
-//     type: FETCH_LOGIN_GUESTBOOK,
-//     payload: request
-//   };
-// }
+export function setGuestbook(guestbooks) {
+  return {
+    type: SEND_GUESTBOOKS,
+    payload: guestbooks
+  };
+}
 
 export function deleteLoginUserGuestbook(id, callback) {
   axios.delete(`/guests/${id}`).then(() => {

@@ -48,31 +48,32 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { menu_ordered, count, isZero } = this.state;
+    if (this._isMounted) {
+      if (
+        count !== prevState.count ||
+        isZero !== prevState.isZero ||
+        menu_ordered.length !== prevState.menu_ordered.length
+      ) {
+        let counter = 0;
+        _.each(menu_ordered, menu => {
+          if (menu.number === 0) this.setState({ isZero: true });
 
-    if (
-      count !== prevState.count ||
-      isZero !== prevState.isZero ||
-      menu_ordered.length !== prevState.menu_ordered.length
-    ) {
-      let counter = 0;
-      _.each(menu_ordered, menu => {
-        if (menu.number === 0) this.setState({ isZero: true });
+          counter += menu.number;
+        });
 
-        counter += menu.number;
-      });
+        this.setState({ count: counter });
 
-      this.setState({ count: counter });
-
-      if (menu_ordered.length > 0) {
-        if (!isZero && count > 0) {
-          this.setState({ orderButton: "block" });
-        } else if (isZero && count > 0) {
-          this.setState({ orderButton: "none" });
-        } else if (isZero) {
+        if (menu_ordered.length > 0) {
+          if (!isZero && count > 0) {
+            this.setState({ orderButton: "block" });
+          } else if (isZero && count > 0) {
+            this.setState({ orderButton: "none" });
+          } else if (isZero) {
+            this.setState({ orderButton: "none" });
+          }
+        } else {
           this.setState({ orderButton: "none" });
         }
-      } else {
-        this.setState({ orderButton: "none" });
       }
     }
   }

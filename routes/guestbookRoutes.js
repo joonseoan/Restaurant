@@ -26,6 +26,7 @@ module.exports = app => {
       const vancouverTime = new Date(date.getTime() - 10800000);
 
       if (req.body.city !== "Vancouver") {
+        console.log("date.getTime: ", date.getTime());
         body.visitedAt = `(Date: ${date.toDateString()}, Time: ${date.toLocaleTimeString()})`;
       } else {
         body.visitedAt = `(Date: ${vancouverTime.toDateString()}, Time: ${vancouverTime.toLocaleTimeString()})`;

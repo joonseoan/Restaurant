@@ -3,35 +3,58 @@ import React, { Component } from "react";
 export default class DateTimeDisplay extends Component {
   startInverval;
 
-  _isMounted = false;
+  _isMounted = true;
 
   state = {
     date: new Date()
   };
 
-  componentDidMount() {
-    this._isMounted = true;
+  // componentDidMount() {
+  //   this._isMounted = true;
+  //   // if (this._isMounted) {
+  //   //   this.startInverval = setInterval(() => {
+  //   //     const dateTime = new Date();
+  //   //     this.setState({ date: new Date(dateTime) });
+  //   //   }, 1000);
+  //   // }
+  // }
 
-    this.startInverval = setInterval(() => {
-      const dateTime = new Date();
-      this.setState({ date: new Date(dateTime) });
-    }, 1000);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    clearInterval(this.startInverval);
-
-    const { city } = nextProps;
+  componentDidUpdate(prevProps, prevState) {
     if (this._isMounted) {
-      this.startInverval = setInterval(() => {
-        const dateTime = new Date();
-        const vancouverTime = dateTime.getTime() - 10800000;
+      const a = this.state.date;
+      const b = prevState.date;
+      console.log(a.getTime().valueOf());
+      console.log(b.getTime().valueOf());
 
-        city !== "Vancouver"
-          ? this.setState({ date: dateTime })
-          : this.setState({ date: new Date(vancouverTime) });
-      }, 1000);
+      if (prevState.date.getTime() !== this.state.date.getTime()) {
+        if (prevProps.city !== this.props.city) {
+          clearInterval(this.startInverval);
+        }
+
+        this.startInverval = setInterval(() => {
+          const dateTime = new Date();
+          const vancouverTime = dateTime.getTime() - 10800000;
+
+          this.props.city !== "Vancouver"
+            ? this.setState({ date: new Date(dateTime) })
+            : this.setState({ date: new Date(vancouverTime) });
+        }, 1000);
+      }
     }
+
+    // clearInterval(this.startInverval);
+
+    //   const { city } = nextProps;
+    // if (this._isMounted) {
+    //   this.startInverval = setInterval(() => {
+    //     const dateTime = new Date();
+    //     const vancouverTime = dateTime.getTime() - 10800000;
+
+    //     city !== "Vancouver"
+    //       ? this.setState({ date: dateTime })
+    //       : this.setState({ date: new Date(vancouverTime) });
+    //   }, 1000);
+    // }
   }
 
   componentWillUnmount() {
@@ -41,6 +64,8 @@ export default class DateTimeDisplay extends Component {
   }
 
   render() {
+    // console.log(this.state.date.getTime());
+
     const hours =
       this.state.date.getHours() > 12
         ? this.state.date.getHours() - 12

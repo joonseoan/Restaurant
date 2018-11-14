@@ -8,9 +8,10 @@ import { options } from "../../utils/cities";
 class BranchList extends Component {
   startInterval;
 
+  _isMounted = false;
+
   state = {
-    city: "",
-    _isMounted: false
+    city: ""
   };
 
   // setTodayWeatherInfo = city => {
@@ -28,9 +29,9 @@ class BranchList extends Component {
   componentDidMount() {
     const city = sessionStorage.branch_city || options[0].value;
 
+    this._isMounted = true;
     this.setState({
-      city,
-      _isMounted: true
+      city
     });
 
     // this.setTodayWeatherInfo(city);
@@ -38,7 +39,8 @@ class BranchList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { city } = this.state;
-    if (prevState.city !== city && this.state._isMounted) {
+
+    if (prevState.city !== city && this._isMounted) {
       this.props.setLocation(city);
       this.props.additionalTodayWeatherInfo(city);
 
@@ -54,7 +56,7 @@ class BranchList extends Component {
   }
 
   componentWillUnmount() {
-    this.setState({ _isMounted: false });
+    this._isMounted = false;
     clearInterval(this.startInterval);
     this.startInterval = false;
   }
@@ -73,7 +75,6 @@ class BranchList extends Component {
             <SelectCity
               setCity={city => {
                 this.setState({ city: city });
-                //this.setTodayWeatherInfo(city);
               }}
               refreshStatus={this.props.refreshStatus}
             />
