@@ -9,8 +9,9 @@ import {
   FETCH_SELECTED_MENU,
   // FETCH_MATCHED_MENU,
   // RESET_CANCEL,
-  FETCH_CANCEL_MENU
+  FETCH_CANCEL_MENU,
   // FETCH_ITEMS_CHECKEDIN
+  ORDER_STATE
 } from "./fetch_weather";
 
 import {
@@ -40,7 +41,6 @@ export function setLocation(branch_city) {
   }`;
 
   const request = axios.get(url);
-
   return {
     type: FETCH_LOCATION,
     payload: request
@@ -138,6 +138,14 @@ export function handleToken(token) {
   };
 }
 
+export function orderState(states) {
+  console.log("ssssssss");
+  return {
+    type: ORDER_STATE,
+    payload: states
+  };
+}
+
 export function fetchGuesbookLists() {
   const request = axios.get("/guests");
 
@@ -176,6 +184,7 @@ export function userGuestbookLogin(loginInfo) {
 }
 
 export function setGuestbook(guestbooks) {
+  console.log("guestbooks : ", guestbooks);
   return {
     type: SEND_GUESTBOOKS,
     payload: guestbooks

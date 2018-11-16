@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import SetCurrentRecommendation from "./Set_current_recommendation";
+import ModalGuestbookAllPosted from "../Show_guestbook/Modal_ guestbook_all_posted";
 import { roundData } from "../../utils/other_weathers";
+import { orderState, fetchGuesbookLists } from "../../actions";
 
 class RecommendationMenu extends Component {
   // shouldComponentUpdate(nextProps, nextState) {
@@ -29,9 +31,16 @@ class RecommendationMenu extends Component {
   //   return true;
   // }
 
-  handleButton = () => {
-    console.log(this.props);
-  };
+  // handleButton = () => {
+  //   console.log(this.props);
+  //   const direction =
+
+  //   //className="text-center" show={props.thankyou}
+  // };
+
+  componentDidMount() {
+    this.props.fetchGuesbookLists();
+  }
 
   render() {
     const { menu, additionalTodayWeather } = this.props;
@@ -61,26 +70,22 @@ class RecommendationMenu extends Component {
             menuOrdered={this.props.menuOrdered}
           />
         </div>
-
         <div
           className="container text-center mb-4"
           style={{ fontFamily: "ubuntu" }}
         >
-          <Link
-            className="btn btn-info btn-sm mt-5 font-weight-bold"
-            to={sessionStorage.id ? "/guestbookList" : "/guestbookAllPosted"}
-          >
-            REVIEW CUSTOMER'S BEST CHOICE
-            <i className="fa fa-clipboard ml-3 align-middle" />
-          </Link>
+          <ModalGuestbookAllPosted guestbooks={this.props.guestbooks} />
         </div>
       </div>
     );
   }
 }
 
-function mapsPropsToState({ menu, additionalTodayWeather }) {
-  return { menu, additionalTodayWeather };
+function mapsPropsToState({ menu, additionalTodayWeather, guestbooks }) {
+  return { menu, additionalTodayWeather, guestbooks };
 }
 
-export default connect(mapsPropsToState)(RecommendationMenu);
+export default connect(
+  mapsPropsToState,
+  { orderState, fetchGuesbookLists }
+)(RecommendationMenu);

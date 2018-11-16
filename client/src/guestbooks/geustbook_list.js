@@ -9,6 +9,7 @@ const GuestbookList = props => {
     sessionStorage.id = "";
     window.reload();
   };
+
   return (
     <div
       className="container jumbotron text-center"

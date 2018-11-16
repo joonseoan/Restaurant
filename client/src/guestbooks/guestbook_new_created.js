@@ -386,7 +386,7 @@ class GuestbookNewCreated extends Component {
               </div>
             </div>
           </div>
-          {/* 
+          {/*
             <h5>Thank you for joining survey!</h5>
            */}
         </form>

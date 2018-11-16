@@ -26,6 +26,7 @@ ReactDOM.render(
           {/* 
                         <Route exact path = '/description/:id' component = { RecommendationDescriptions } />
                      */}
+
           <Route
             exact
             path="/guestbookAllPosted"
@@ -47,6 +48,7 @@ ReactDOM.render(
             path="/emailPasswordInput"
             component={EmailPasswordInput}
           />
+
           <Route path="/" component={App} />
         </Switch>
       </div>

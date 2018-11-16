@@ -5,12 +5,22 @@ import { Link } from "react-router-dom";
 import _ from "lodash";
 import { Modal } from "react-bootstrap";
 
-import { userGuestbookLogin, setGuestbook } from "../actions/index";
+import { userGuestbookLogin, setGuestbook } from "../actions";
+import GuestbookList from "./geustbook_list";
 
 class EmailPasswordInput extends Component {
   state = {
+    showModal: false,
     message: ""
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    // if(prevProps.showModal !== this.props.showModal) {
+    //   if (this.props.showModa) {
+    //     this.setState({ showP })
+    //   }
+    // }
+  }
 
   renderInputField(fields) {
     const {
@@ -36,6 +46,8 @@ class EmailPasswordInput extends Component {
     const response = await this.props.userGuestbookLogin(values);
     const { data } = response.payload;
 
+    // console.log(data);
+
     try {
       if (data) {
         if (data === "no_email") {
@@ -49,14 +61,10 @@ class EmailPasswordInput extends Component {
         }
 
         if (data.length > 0) {
-          const {
-            history: { push },
-            setGuestbook
-          } = this.props;
-
-          sessionStorage.id = data[0]._id;
+          //          console.log("data: ", data);
           setGuestbook(data);
-          push("/guestbookList");
+          this.props.closeModal();
+          this.setState({ showModal: true });
 
           return;
         }
@@ -70,7 +78,7 @@ class EmailPasswordInput extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="card center-align">
-        <Modal className="text-center" show={this.props.location.state}>
+        <Modal className="text-center" show={this.props.showModal}>
           <Modal.Header className="bg-success">
             <div>
               <h3 className="heading heading-correct-pronounciation">
@@ -87,7 +95,6 @@ class EmailPasswordInput extends Component {
                   <Field name="email" component={this.renderInputField} />
                 </label>
               </div>
-
               <div>
                 <label style={{ fontSize: "1.2em" }}>
                   Your password:
@@ -119,6 +126,7 @@ class EmailPasswordInput extends Component {
             </form>
           </Modal.Body>
         </Modal>
+        <GuestbookList showModal={this.state.showModal} />
       </div>
     );
   }

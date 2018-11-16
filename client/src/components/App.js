@@ -7,7 +7,6 @@ import BranchList from "./Branch/Branch_list";
 import LocationCoordinate from "./Weather/Location_coordinate";
 import RecommendationMenu from "./MenuRecommendation/Recommendation_menu";
 import MenuAndOrder from "./Menu_order/Menu_and_order";
-//import { setLocation } from "../actions/index";
 //import { options } from "../utils/cities";
 
 class App extends Component {
@@ -20,26 +19,10 @@ class App extends Component {
       orderButton: "none",
       count: 0,
       isZero: false
-      // forcedRefresh: true
-      // city: ""
     };
-
-    //this._isMounted = false;
-    // need to make a decision to refresh policy
-    // if (this.state.forcedRefresh) sessionStorage.clear();
   }
 
   componentDidMount = () => {
-    // this.props.location(this.state.city);
-
-    // const city = sessionStorage.branch_city || options[0].value;
-
-    // this.setState({
-    //   city
-    // });
-
-    // this.props.setLocation(city);
-
     if (typeof window !== "undefined") {
       const wow = new WOW();
       wow.init();
@@ -48,34 +31,46 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { menu_ordered, count, isZero } = this.state;
-    if (this._isMounted) {
-      if (
-        count !== prevState.count ||
-        isZero !== prevState.isZero ||
-        menu_ordered.length !== prevState.menu_ordered.length
-      ) {
-        let counter = 0;
-        _.each(menu_ordered, menu => {
-          if (menu.number === 0) this.setState({ isZero: true });
 
-          counter += menu.number;
-        });
+    if (
+      count !== prevState.count ||
+      isZero !== prevState.isZero ||
+      menu_ordered.length !== prevState.menu_ordered.length
+    ) {
+      let counter = 0;
+      _.each(menu_ordered, menu => {
+        if (menu.number === 0) this.setState({ isZero: true });
 
-        this.setState({ count: counter });
+        counter += menu.number;
+      });
 
-        if (menu_ordered.length > 0) {
-          if (!isZero && count > 0) {
-            this.setState({ orderButton: "block" });
-          } else if (isZero && count > 0) {
-            this.setState({ orderButton: "none" });
-          } else if (isZero) {
-            this.setState({ orderButton: "none" });
-          }
-        } else {
+      this.setState({ count: counter });
+
+      if (menu_ordered.length > 0) {
+        if (!isZero && count > 0) {
+          this.setState({ orderButton: "block" });
+        } else if (isZero && count > 0) {
+          this.setState({ orderButton: "none" });
+        } else if (isZero) {
           this.setState({ orderButton: "none" });
         }
+      } else {
+        this.setState({ orderButton: "none" });
       }
     }
+
+    // console.log(this.props.currentStates);
+
+    // if (
+    //   this.props.currentStates &&
+    //   this.props.currentStates.menu_ordered.length > 0
+    // ) {
+    //   console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+    //   //const prevNumber = _.map(prevState.menu_ordered.numbe)
+    //   //if (this.props.currentStates.menu_ordered.length > 0) {
+    //   this.state = this.props.currentStates;
+    //   //}
+    // }
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -85,6 +80,7 @@ class App extends Component {
   // }
 
   render() {
+    //console.log(this.props.currentStates, "dddddddddddddddddddddd");
     return (
       <div>
         <div className="mt-5">
@@ -96,10 +92,6 @@ class App extends Component {
                 orderButton: "none"
               });
             }}
-            // city={this.state.city}
-            // setCity={city => {
-            //   this.setState({ city: city });
-            // }}
           />
         </div>
 
@@ -111,6 +103,7 @@ class App extends Component {
           <RecommendationMenu
             menuOrdered={this.state.menu_ordered}
             newZeroStatus={this.state.newZero}
+            currentStatus={this.state}
           />
         </div>
 
@@ -140,10 +133,6 @@ class App extends Component {
                 this.setState({ isZero: status });
               }
             }}
-            // need to make a decision for refresh policy
-            // isForcedRefresh={() => {
-            //   this.setState({ forcedRefresh: false });
-            // }}
           />
         </div>
       </div>
@@ -151,8 +140,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ selectedMenu }) {
-  return { selectedMenu };
+function mapStateToProps({ selectedMenu, orderStates }) {
+  return { selectedMenu, currentStates: orderStates };
 }
 
-export default connect(mapStateToProps)(App); //{ setLocation }
+export default connect(mapStateToProps)(App);

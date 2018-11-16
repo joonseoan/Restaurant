@@ -25,6 +25,7 @@
     "file-system": "^2.2.2",
     "form": "^0.2.4",
     "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",

@@ -1,14 +1,13 @@
 import React from "react";
-import { removeSpace, insertSpaces } from "../utils/uIControl";
+import { removeSpace, insertSpaces } from "../../utils/uIControl";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import moment from "moment";
 
 const Display = ({ guestbooks }) => {
+  //  console.log("guestbooks: ", guestbooks);
+
   let countNumber = 1;
-  const guestbookStored = guestbooks.sort(
-    (date1, date2) => date1.visitedAt - date2.visitedAt
-  );
 
   const timeInfo = timeStamp => {
     const visitTime = moment(Number(timeStamp));
@@ -17,7 +16,7 @@ const Display = ({ guestbooks }) => {
 
   return (
     <ul className="list-group list-group-flush">
-      {guestbookStored.reverse().map(guestbook => {
+      {guestbooks.map(guestbook => {
         if (countNumber > 10) return;
         return (
           <li

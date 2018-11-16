@@ -20,6 +20,7 @@ import selectedMenu from "./selectedMenu";
 import canceledMenu from "./fetch_cancel_menu";
 import finishCreditPay from "./finishCreditCard";
 import userGuestBooks from "./user_guestbooks";
+import orderStates from "./order_states";
 
 const reducers = combineReducers({
   branchLocation,
@@ -41,7 +42,8 @@ const reducers = combineReducers({
   // resetClickedMenuButton,
   // itemsCheckedIn
   canceledMenu,
-  finishCreditPay
+  finishCreditPay,
+  orderStates
 });
 
 export default reducers;

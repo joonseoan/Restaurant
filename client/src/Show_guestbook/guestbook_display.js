@@ -5,10 +5,12 @@ import _ from "lodash";
 import moment from "moment";
 
 const Display = ({ guestbooks }) => {
+  //  console.log("guestbooks: ", guestbooks);
+
   let countNumber = 1;
-  const guestbookStored = guestbooks.sort(
-    (date1, date2) => date1.visitedAt - date2.visitedAt
-  );
+  const guestbookStored = guestbooks.sort((date1, date2) => {
+    date1.visitedAt - date2.visitedAt;
+  });
 
   const timeInfo = timeStamp => {
     const visitTime = moment(Number(timeStamp));

@@ -23,13 +23,17 @@ module.exports = app => {
 
     if (body.title && body.comments && body.email && body.password) {
       const date = new Date();
-      const vancouverTime = new Date(date.getTime() - 10800000);
+      const vancouverTime = new Date(date.getTime() - 10800000).valueOf();
 
       if (req.body.city !== "Vancouver") {
-        console.log("date.getTime: ", date.getTime());
-        body.visitedAt = `(Date: ${date.toDateString()}, Time: ${date.toLocaleTimeString()})`;
+        // console.log("date.getTime: ", date.getTime());
+        // body.visitedAt = `(Date: ${date.toDateString()}, Time: ${date.toLocaleTimeString()})`;
+
+        // console.log(date.getTime(), date.getTime().valueOf());
+        body.visitedAt = date.getTime();
       } else {
-        body.visitedAt = `(Date: ${vancouverTime.toDateString()}, Time: ${vancouverTime.toLocaleTimeString()})`;
+        //  body.visitedAt = `(Date: ${vancouverTime.toDateString()}, Time: ${vancouverTime.toLocaleTimeString()})`;
+        body.visitedAt = vancouverTime;
       }
 
       body.city = req.body.city;
