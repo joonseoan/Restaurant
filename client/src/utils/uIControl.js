@@ -1,5 +1,9 @@
 import _ from "lodash";
 
+export function sortGuestbooks(guestbooks) {
+  return guestbooks.sort((date1, date2) => date2.visitedAt - date1.visitedAt);
+}
+
 export function removeSpace(name) {
   return name.replace(/\s/g, "");
 }

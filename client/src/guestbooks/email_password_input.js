@@ -114,6 +114,7 @@ class EmailPasswordInput extends Component {
                   type="submit"
                 >
                   SUBMIT
+                  <i class="fa fa-sign-in-alt" />
                 </Field>
               </div>
             </form>

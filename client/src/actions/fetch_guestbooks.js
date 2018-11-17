@@ -8,3 +8,4 @@ export const USER_LOGIN = "USER_LOGIN";
 export const GUEST_PAY = "GUEST_PAY";
 export const GENERAL_GUEST = "GENERAL_GUEST";
 export const SEND_GUESTBOOKS = "SEND_GUESTBOOKS";
+export const MODAL_CONTROL = "MODAL_CONTROL";

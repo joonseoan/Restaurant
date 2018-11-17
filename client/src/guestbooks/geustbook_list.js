@@ -7,7 +7,7 @@ import Display from "./guestbook_display";
 const GuestbookList = props => {
   const handleLogout = () => {
     sessionStorage.id = "";
-    window.reload();
+    window.location.reload();
   };
 
   return (

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import SetCurrentRecommendation from "./Set_current_recommendation";
-import ModalGuestbookAllPosted from "../Show_guestbook/Modal_ guestbook_all_posted";
+import ReviewButton from "./Show_guestbook/Review_button";
 import { roundData } from "../../utils/other_weathers";
-import { orderState, fetchGuesbookLists } from "../../actions";
+import { orderState } from "../../actions";
 
 class RecommendationMenu extends Component {
   // shouldComponentUpdate(nextProps, nextState) {
@@ -38,9 +37,9 @@ class RecommendationMenu extends Component {
   //   //className="text-center" show={props.thankyou}
   // };
 
-  componentDidMount() {
-    this.props.fetchGuesbookLists();
-  }
+  // componentDidMount() {
+  //   this.props.fetchGuesbookLists();
+  // }
 
   render() {
     const { menu, additionalTodayWeather } = this.props;
@@ -56,7 +55,7 @@ class RecommendationMenu extends Component {
           Present Special Menu
         </h2>
         <div className="slide-left neon-background border-top mt-5 mb-1 mx-auto card-title w-75">
-          <p className="text-danger">
+          <p className="text-danger pb-4">
             Hi customers. It is{" "}
             <strong className="blink text-success">{description}</strong>. In
             this weather, you might enjoy the followings.
@@ -70,22 +69,19 @@ class RecommendationMenu extends Component {
             menuOrdered={this.props.menuOrdered}
           />
         </div>
-        <div
-          className="container text-center mb-4"
-          style={{ fontFamily: "ubuntu" }}
-        >
-          <ModalGuestbookAllPosted guestbooks={this.props.guestbooks} />
+        <div className="text-center mb-4" style={{ fontFamily: "ubuntu" }}>
+          <ReviewButton />
         </div>
       </div>
     );
   }
 }
 
-function mapsPropsToState({ menu, additionalTodayWeather, guestbooks }) {
-  return { menu, additionalTodayWeather, guestbooks };
+function mapsPropsToState({ menu, additionalTodayWeather }) {
+  return { menu, additionalTodayWeather };
 }
 
 export default connect(
   mapsPropsToState,
-  { orderState, fetchGuesbookLists }
+  { orderState }
 )(RecommendationMenu);

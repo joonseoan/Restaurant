@@ -83,7 +83,7 @@ class GuestbookAllPosted extends Component {
           onClick={this.handleFindPost}
         >
           FIND YOUR POST
-          <i className="fa fa-eraser ml-2" />
+          <i className="fa fa-hand-point-right" />
         </button>
       </div>
     );

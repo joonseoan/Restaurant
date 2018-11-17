@@ -24,7 +24,8 @@ import {
   //FETCH_LOGIN_GUESTBOOK,
   GUEST_PAY,
   GENERAL_GUEST,
-  SEND_GUESTBOOKS
+  SEND_GUESTBOOKS,
+  MODAL_CONTROL
 } from "./fetch_guestbooks";
 
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
@@ -174,7 +175,6 @@ export function fetchGuestbook(id) {
 }
 
 export function userGuestbookLogin(loginInfo) {
-  // console.log("loginInfo: ", loginInfo);
   const response = axios.post("/guests/login", loginInfo);
 
   return {
@@ -183,11 +183,17 @@ export function userGuestbookLogin(loginInfo) {
   };
 }
 
-export function setGuestbook(guestbooks) {
-  console.log("guestbooks : ", guestbooks);
+export function setGuestbook(userGuestbooks) {
   return {
     type: SEND_GUESTBOOKS,
-    payload: guestbooks
+    payload: userGuestbooks
+  };
+}
+
+export function modalControl(setModal) {
+  return {
+    type: MODAL_CONTROL,
+    payload: setModal
   };
 }
 

@@ -302,7 +302,6 @@ class GuestbookNewCreated extends Component {
                   {_.map(names_titles, name_title => {
                     return (
                       <Field
-                        className="form-control"
                         key={name_title.name}
                         name={name_title.name}
                         component={this.renderInputField}

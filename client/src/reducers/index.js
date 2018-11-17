@@ -19,15 +19,16 @@ import selectedMenu from "./selectedMenu";
 // import itemsCheckedIn from "./fetchItemsCheckedIn";
 import canceledMenu from "./fetch_cancel_menu";
 import finishCreditPay from "./finishCreditCard";
-import userGuestBooks from "./user_guestbooks";
+import userGuestbooks from "./userGuestbooks";
 import orderStates from "./order_states";
+import modalControl from "./modalControl";
 
 const reducers = combineReducers({
   branchLocation,
   additionalTodayWeather,
   menu,
   guestbooks,
-  userGuestBooks,
+  userGuestbooks,
   form: guestbookForm,
   orderedMenu,
   // auth: login,
@@ -36,6 +37,7 @@ const reducers = combineReducers({
   refreshMenu,
   refreshButton,
   selectedMenu,
+  modalControl,
   // matchedMenu,
   //makeMatchedMenu,
   // resetCancel,
