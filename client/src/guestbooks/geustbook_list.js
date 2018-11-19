@@ -4,6 +4,11 @@ import { connect } from "react-redux";
 
 import Display from "./guestbook_display";
 
+import {
+  commonGroup,
+  guestbookDisplay
+} from "../utils/guestbookUtilities/guestbook_list";
+
 const GuestbookList = props => {
   const handleLogout = () => {
     sessionStorage.id = "";
@@ -16,15 +21,13 @@ const GuestbookList = props => {
       style={{ fontFamily: "ubuntu" }}
     >
       <hr className="border border-secondary" />
-      <div>
-        <h1 className="heading heading-correct-pronounciation">
-          <em>Your Posts</em>
-        </h1>
-        Please, click a title to view customer's recommendation.
-      </div>
+      {commonGroup()}
       <hr className="border border-secondary" />
 
-      <Display guestbooks={props.userGuestBooks} />
+      {guestbookDisplay(props.userGuestbooks)}
+      {/* 
+          <Display guestbooks={props.userGuestbooks} />
+         */}
 
       <Link
         className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
@@ -45,8 +48,8 @@ const GuestbookList = props => {
   );
 };
 
-function mapStateToProps({ userGuestBooks }) {
-  return { userGuestBooks };
+function mapStateToProps({ userGuestbooks }) {
+  return { userGuestbooks };
 }
 
 export default connect(mapStateToProps)(GuestbookList);

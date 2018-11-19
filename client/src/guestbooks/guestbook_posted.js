@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
-  fetchGuestbook,
+  // fetchGuestbook,
   fetchGuesbookLists,
   deleteLoginUserGuestbook
   // fetchLoginUserGuestbooks
@@ -108,7 +108,7 @@ function mapStateToProps({ guestbooks }, ownProps) {
 export default connect(
   mapStateToProps,
   {
-    fetchGuestbook,
+    //fetchGuestbook,
     fetchGuesbookLists,
     deleteLoginUserGuestbook
     //fetchLoginUserGuestbooks

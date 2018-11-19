@@ -262,13 +262,16 @@ class MenuOrders extends Component {
             {this.state.showYourOrder === "none"
               ? "SHOW YOUR CART"
               : "HIDE YOUR CART"}
+            <i className="fa fa-eye ml-2" />
           </button>
           <button
             id={this.props.id}
-            className="btn btn-sm btn-danger"
+            className="btn btn-sm text-white responsive"
+            style={{ backgroundColor: "#CC0000" }}
             onClick={this.props.openModalControl}
           >
             PLACE AN ORDER
+            <i className="fa fa-shopping-cart ml-2" />
           </button>
         </div>
       </div>

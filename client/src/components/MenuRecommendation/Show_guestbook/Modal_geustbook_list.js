@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
-import { connect } from "react-redux";
 
-import ModalGuestbookDisplay from "./Modal_guestbook_display";
-import { sortGuestbooks } from "../../../utils/uIControl";
+import {
+  commonGroup,
+  modalGuestbookDisplay
+} from "../../../utils/guestbookUtilities/guestbook_list";
 
 class ModalGuestbookList extends Component {
   handleLogout = () => {
@@ -12,8 +13,6 @@ class ModalGuestbookList extends Component {
   };
 
   render() {
-    //if (!this.props.userGuestbooks.length === 0) return <div />;
-
     return (
       <div>
         <Modal
@@ -26,23 +25,14 @@ class ModalGuestbookList extends Component {
             className="jumbotron text-center"
             style={{ fontFamily: "ubuntu" }}
           >
-            <Modal.Header>
-              <div>
-                <h1 className="heading heading-correct-pronounciation">
-                  <em>Your Posts</em>
-                </h1>
-                Please, click a title to view customer's recommendation.
-              </div>
-            </Modal.Header>
-            <div>
-              {this.props.userGuestbooks.length === 0 ? (
-                <h3>Your posts are not available.</h3>
-              ) : (
-                <ModalGuestbookDisplay
-                  guestbooks={sortGuestbooks(this.props.userGuestbooks)}
-                />
+            <Modal.Header>{commonGroup()}</Modal.Header>
+            <Modal.Body>
+              {modalGuestbookDisplay(
+                this.props.userGuestbooks,
+                this.props.deleteModal,
+                this.props.postManage
               )}
-            </div>
+            </Modal.Body>
             <Modal.Footer>
               <div className="mx-auto">
                 <button
@@ -70,8 +60,4 @@ class ModalGuestbookList extends Component {
   }
 }
 
-function mapStateToProps({ userGuestbooks }) {
-  return { userGuestbooks };
-}
-
-export default connect(mapStateToProps)(ModalGuestbookList);
+export default ModalGuestbookList;

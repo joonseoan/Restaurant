@@ -1,4 +1,10 @@
 import _ from "lodash";
+import moment from "moment";
+
+export function timeInfo(timeStamp) {
+  const visitTime = moment(Number(timeStamp));
+  return visitTime.format("h:mm a in MMM Do YYYY");
+}
 
 export function sortGuestbooks(guestbooks) {
   return guestbooks.sort((date1, date2) => date2.visitedAt - date1.visitedAt);

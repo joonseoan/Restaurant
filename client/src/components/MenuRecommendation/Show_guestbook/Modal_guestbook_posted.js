@@ -1,115 +1,132 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Modal } from "react-bootstrap";
+import _ from "lodash";
+
+import { timeInfo } from "../../../utils/uIControl";
 
 import {
-  fetchGuestbook,
+  setGuestbook,
   fetchGuesbookLists,
   deleteLoginUserGuestbook
-  // fetchLoginUserGuestbooks
-} from "../actions/index";
+} from "../../../actions";
 
 class ModalGuestbookPosted extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    authenticated: false,
+    id: ""
+  };
 
-    this.state = {
-      authenticated: false
-    };
-  }
-
-  componentDidMount() {
-    const prePath = "/emailPasswordInput";
-
-    if (this.props.history.location.state === prePath) {
-      this.setState({ authenticated: true });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.id !== nextProps.postStateControl) {
+      return {
+        id: nextProps.postStateControl
+      };
     }
+
+    return null;
   }
 
-  deleteButton() {
-    return (
-      <div onClick={this.deletePost.bind(this)} className="btn red right">
-        Delete this post
-        <i
-          className="small material-icons"
-          style={{
-            verticalAlign: "middle",
-            marginLeft: "10px"
-          }}
-        >
-          delete
-        </i>
-      </div>
-    );
-  }
+  deleteButton = () => {
+    if (window.sessionStorage.id) {
+      return (
+        <button onClick={this.deletePost} className="btn btn-sm btn-danger">
+          Delete this post
+        </button>
+      );
+    } else {
+      return <div />;
+    }
+  };
 
-  deletePost() {
-    const { _id } = this.props.guestbook;
+  deletePost = async e => {
+    const { id } = this.state;
+    const response = await this.props.deleteLoginUserGuestbook(id);
+    const { data } = response.payload;
+    const { userGuestbooks } = this.props;
 
-    this.props.deleteLoginUserGuestbook(_id, () => {
-      this.props.history.push({
-        pathname: "/emailPasswordInput",
-        state: "false"
-      });
-    });
-  }
+    try {
+      if (data) {
+        const newUserGuestbooks = _.filter(
+          userGuestbooks,
+          guestbook => guestbook._id !== data.post._id
+        );
+
+        this.props.setGuestbook(newUserGuestbooks);
+        this.props.postManage(false);
+        this.props.displayModal();
+      }
+    } catch (e) {
+      console.log("Unexpected error occurred.");
+    }
+  };
 
   render() {
-    const { food, title, comments, visitedAt } = this.props.guestbook;
+    const { showPost, guestbooks, userGuestbooks } = this.props;
 
-    if (!this.props) return <div>Loading....</div>;
+    let books;
+    if (!this.state.authenticated) {
+      books = guestbooks;
+    } else {
+      this.books = userGuestbooks;
+    }
+
+    if (!books || !this.state.id || books.length === 0) return <div />;
+
+    const post = _.filter(books, guestbook => guestbook._id === this.state.id);
+
+    if (post.length === 0) return <div />;
+
+    const { food, title, comments, visitedAt } = post[0];
 
     return (
-      <div>
-        <div className="card card-content">
-          <h3 className="card-title blue lighten-2 white-text">
-            <center>I ate {food}!</center>
-          </h3>
-          <h5 style={{ marginLeft: "10px" }}>{title}</h5>
-          <p style={{ marginLeft: "10px" }}>{comments}</p>
-          <p
-            style={{
-              textAlign: "right",
-              fontStyle: "italic",
-              marginRight: "10px"
+      <Modal
+        show={showPost}
+        style={{ fontFamily: "ubuntu", fontSize: "24px" }}
+        className="font-italic"
+      >
+        <Modal.Header>
+          <div className="float-left text-left d-inline">{title}</div>
+          <div
+            className="btn btn-sm btn-danger float-right d-inline"
+            onClick={() => {
+              this.props.postManage(false);
+              this.props.displayModal();
             }}
           >
-            {visitedAt}
-          </p>
-        </div>
+            x
+          </div>
+        </Modal.Header>
 
-        <Link
-          to={{
-            pathname: this.state.authenticated
-              ? "/emailPasswordInput"
-              : "/guestbookAllPosted",
-            state: "false"
-          }}
-          className="btn pink"
-        >
-          {this.state.authenticated
-            ? "Back to YOUR Guestbook List"
-            : "Back to Guestbook List"}
-        </Link>
-
-        {this.state.authenticated ? this.deleteButton() : null}
-      </div>
+        <Modal.Body>
+          <div>
+            {" "}
+            <div>I ate {food}. </div>
+            {comments}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="float-left d-inline">{this.deleteButton()}</div>
+          <div className="text-right d-inline">
+            @{timeInfo(Number(visitedAt))}
+          </div>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
 
-function mapStateToProps({ guestbooks }, ownProps) {
+function mapStateToProps({ postStateControl }) {
   return {
-    guestbook: guestbooks[ownProps.match.params.id]
+    postStateControl
   };
 }
 
 export default connect(
   mapStateToProps,
   {
-    fetchGuestbook,
+    setGuestbook,
     fetchGuesbookLists,
     deleteLoginUserGuestbook
-    //fetchLoginUserGuestbooks
   }
 )(ModalGuestbookPosted);

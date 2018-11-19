@@ -4,12 +4,32 @@ import { connect } from "react-redux";
 
 import ModalGuestbookAllPosted from "./Modal_ guestbook_all_posted";
 import ModalGuestbookList from "./Modal_geustbook_list";
+import ModalGuestbookPosted from "./Modal_guestbook_posted";
+
 import { modalControl, fetchGuesbookLists } from "../../../actions";
 
 class ReviewButton extends Component {
   state = {
-    showModal: false
+    showModal: false,
+    showPost: false,
+    userGuestbooks: []
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.userGuestbooks.length !== nextProps.userGuestbooks.length) {
+      return {
+        userGuestbooks: nextProps.userGuestbooks
+      };
+    }
+
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.showModal !== this.state.showModal) {
+      this.props.fetchGuesbookLists();
+    }
+  }
 
   handleOpenModal = () => {
     this.props.fetchGuesbookLists();
@@ -27,22 +47,6 @@ class ReviewButton extends Component {
   };
 
   render() {
-    //if (!this.props.allGuestbooks) return <div />;
-
-    //sessionStorage.id = "";
-
-    let guestbookStored = [];
-    //    if (this.props.guestbook.length > 0) {
-    const guestbooks = _.filter(
-      this.props.guestbooks,
-      guestbook => guestbook.like
-    );
-
-    guestbookStored = guestbooks.sort((date1, date2) => {
-      Number(date2.visitedAt) - Number(date1.visitedAt);
-    });
-    //  }
-
     const name = !window.sessionStorage.id
       ? "REVIEW CUSTOMER'S BEST CHOICE"
       : "YOUR POSTS";
@@ -65,6 +69,10 @@ class ReviewButton extends Component {
             displayModal={() => {
               this.setState({ showModal: true });
             }}
+            postManage={control => {
+              this.setState({ showPost: control });
+            }}
+            guestbooks={this.props.guestbooks}
           />
         ) : (
           <ModalGuestbookList
@@ -72,15 +80,39 @@ class ReviewButton extends Component {
             deleteModal={() => {
               this.setState({ showModal: false });
             }}
-            guestbooks={guestbookStored}
+            displayModal={() => {
+              this.setState({ showModal: true });
+            }}
+            postManage={control => {
+              this.setState({ showPost: control });
+            }}
+            userGuestbooks={this.state.userGuestbooks}
           />
         )}
+        <ModalGuestbookPosted
+          showPost={this.state.showPost}
+          postManage={control => {
+            this.setState({ showPost: control });
+          }}
+          guestbooks={this.props.guestbooks}
+          userGuestbooks={this.props.userGuestbooks}
+          displayModal={() => {
+            this.setState({ showModal: true });
+          }}
+          isUpdated={control => {
+            this.setState({ isUpdated: control });
+          }}
+        />
       </div>
     );
   }
 }
 
+function mapStateToProps({ guestbooks, userGuestbooks }) {
+  return { guestbooks, userGuestbooks };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { modalControl, fetchGuesbookLists }
 )(ReviewButton);

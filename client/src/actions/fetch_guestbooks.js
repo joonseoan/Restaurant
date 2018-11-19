@@ -9,3 +9,4 @@ export const GUEST_PAY = "GUEST_PAY";
 export const GENERAL_GUEST = "GENERAL_GUEST";
 export const SEND_GUESTBOOKS = "SEND_GUESTBOOKS";
 export const MODAL_CONTROL = "MODAL_CONTROL";
+export const POST_CONTROL = "POST_CONTROL";

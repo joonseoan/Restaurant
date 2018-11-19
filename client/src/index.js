@@ -48,8 +48,7 @@ ReactDOM.render(
             path="/emailPasswordInput"
             component={EmailPasswordInput}
           />
-
-          <Route path="/" component={App} />
+          <Route exact path="/" component={App} />
         </Switch>
       </div>
     </BrowserRouter>

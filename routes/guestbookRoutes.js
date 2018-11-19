@@ -57,19 +57,19 @@ module.exports = app => {
       .catch(err => res.status(400).send(err));
   });
 
-  app.get("/guests/:id", (req, res) => {
-    const id = req.params.id;
+  // app.get("/guests/:id", (req, res) => {
+  //   const id = req.params.id;
 
-    if (!ObjectID.isValid(id)) return res.status(404).send();
+  //   if (!ObjectID.isValid(id)) return res.status(404).send();
 
-    Guests.findById(id)
-      .then(post => {
-        if (!post) return res.status(404).send();
+  //   Guests.findById(id)
+  //     .then(post => {
+  //       if (!post) return res.status(404).send();
 
-        res.send({ post });
-      })
-      .catch(err => res.status(400).send("post_fail"));
-  });
+  //       res.send({ post });
+  //     })
+  //     .catch(err => res.status(400).send("post_fail"));
+  // });
 
   app.delete("/guests/:id", (req, res) => {
     const id = req.params.id;
@@ -85,16 +85,6 @@ module.exports = app => {
       .catch(err => {
         res.status(400).send(err);
       });
-
-    // GuestLogin.findByIdAndRemove(id)
-    //   .then(post => {
-    //     if (!post) return res.status(404).send();
-
-    //     res.send({ post });
-    //   })
-    //   .catch(err => {
-    //     res.status(400).send(err);
-    //   });
   });
 
   /* Try on this after 2nd project
@@ -130,21 +120,7 @@ module.exports = app => {
       */
 
   app.post("/guests/login", async (req, res) => {
-    // const { email, password } = req.body;
-
-    // const guest = await Guests.findByCredentials(email, password);
-
-    // console.log("guest", guest);
-
-    // if (guest === "no_email") {
-    //   res.send(guest);
-    //   return;
-    // }
-
-    // if (!guest) return res.send("no_email"); // Promise.reject();
-
-    // res.send(guest);
-
+   
     try {
       const body = _.pick(req.body, ["email", "password"]);
 
@@ -153,38 +129,11 @@ module.exports = app => {
       console.log(guest);
 
       res.send(guest);
-      // const token = await user.generateAuthToken();
-
-      // res.header('x-auth', token).send(user);
+     
     } catch (e) {
       res.status(400).send();
     }
 
-    // GuestLogin.remove()
-
-    // .then(guest => {
-    //   console.log("guest: ", guest);
-
-    // if (!guest) return Promise.reject();
-
-    // GuestLogin.remove({}).then(() => {
-    //   GuestLogin.insertMany(guest);
-    // });
-
-    // // console.log("guest: ", guest);
-
-    // res.send(guest);
-    //     })
-    //     .catch(err => res.status(400).send());
   });
 
-  // app.get("/loginGuestbooks", (req, res) => {
-  //   GuestLogin.find({})
-  //     .then(guestbooks => {
-  //       //if (guestbooks.length === 0) return;
-  //       console.log("guestbooks(loginGuestbooks): ", guestbooks);
-  //       res.send({ guestbooks });
-  //     })
-  //     .catch(err => res.status(400).send(err));
-  // });
 };

@@ -25,7 +25,8 @@ import {
   GUEST_PAY,
   GENERAL_GUEST,
   SEND_GUESTBOOKS,
-  MODAL_CONTROL
+  MODAL_CONTROL,
+  POST_CONTROL
 } from "./fetch_guestbooks";
 
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
@@ -165,14 +166,14 @@ export function createGuestbook(guestbook) {
   };
 }
 
-export function fetchGuestbook(id) {
-  const request = axios.get(`/guests/${id}`);
+// export function fetchGuestbook(id) {
+//   const request = axios.get(`/guests/${id}`);
 
-  return {
-    type: FETCH_GUESTBOOK,
-    payload: request
-  };
-}
+//   return {
+//     type: FETCH_GUESTBOOK,
+//     payload: request
+//   };
+// }
 
 export function userGuestbookLogin(loginInfo) {
   const response = axios.post("/guests/login", loginInfo);
@@ -197,13 +198,23 @@ export function modalControl(setModal) {
   };
 }
 
-export function deleteLoginUserGuestbook(id, callback) {
-  axios.delete(`/guests/${id}`).then(() => {
-    callback();
-  });
+export function postControl(post) {
+  console.log("post", post);
+  return {
+    type: POST_CONTROL,
+    payload: post
+  };
+}
+
+export function deleteLoginUserGuestbook(id) {
+  // axios.delete(`/guests/${id}`).then(() => {
+  //   callback();
+  // });
+
+  const response = axios.delete(`/guests/${id}`);
 
   return {
     type: DELETE_GUESTBOOK,
-    payload: id
+    payload: response
   };
 }

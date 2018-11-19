@@ -22,6 +22,7 @@ import finishCreditPay from "./finishCreditCard";
 import userGuestbooks from "./userGuestbooks";
 import orderStates from "./order_states";
 import modalControl from "./modalControl";
+import postStateControl from "./postControl";
 
 const reducers = combineReducers({
   branchLocation,
@@ -45,7 +46,8 @@ const reducers = combineReducers({
   // itemsCheckedIn
   canceledMenu,
   finishCreditPay,
-  orderStates
+  orderStates,
+  postStateControl
 });
 
 export default reducers;

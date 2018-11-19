@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import { Modal } from "react-bootstrap";
-import { connect } from "react-redux";
 
-import ModalGuestbookDisplay from "./Modal_guestbook_display";
 import ModalEmailPasswordInput from "./Modal_email_password_input";
-import { sortGuestbooks } from "../../../utils/uIControl";
+import {
+  modalGuestbookAllPosted,
+  commonGroup
+} from "../../../utils/guestbookUtilities/guestbookAllPosted";
 
 class ModalGuestbookAllPosted extends Component {
   state = {
@@ -29,10 +30,6 @@ class ModalGuestbookAllPosted extends Component {
       guestbook => guestbook.like
     );
 
-    // const guestbookStored = guestbooks.sort(
-    //   (date1, date2) => date2.visitedAt - date1.visitedAt
-    // );
-
     return (
       <div>
         <Modal
@@ -44,18 +41,15 @@ class ModalGuestbookAllPosted extends Component {
             className="jumbotron text-center"
             style={{ fontFamily: "ubuntu" }}
           >
-            <Modal.Header>
-              <div>
-                <h1 className="heading heading-correct-pronounciation">
-                  <em>Customer's Best Choices</em>
-                </h1>
-                Please, click a title to view customer's recommendation.
-              </div>
-            </Modal.Header>
-
-            <div>
-              <ModalGuestbookDisplay guestbooks={sortGuestbooks(guestbooks)} />
-            </div>
+            <Modal.Header>{commonGroup()}</Modal.Header>
+            <Modal.Body>
+              {/* css should be changed */}
+              {modalGuestbookAllPosted(
+                guestbooks,
+                this.props.deleteModal,
+                this.props.postManage
+              )}
+            </Modal.Body>
 
             <Modal.Footer>
               <div className="mx-auto">
@@ -83,17 +77,10 @@ class ModalGuestbookAllPosted extends Component {
             this.setState({ showEmailPasswordInput: false });
           }}
           displayModal={this.props.displayModal}
-          // showCustomerReview={() => {
-          //   this.setState({ showModal: true });
-          // }}
         />
       </div>
     );
   }
 }
 
-function mapStateToProps({ guestbooks }) {
-  return { guestbooks };
-}
-
-export default connect(mapStateToProps)(ModalGuestbookAllPosted);
+export default ModalGuestbookAllPosted;

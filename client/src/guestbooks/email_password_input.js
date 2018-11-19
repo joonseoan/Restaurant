@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import { Modal } from "react-bootstrap";
 
 import { userGuestbookLogin, setGuestbook } from "../actions/index";
+import {
+  renderInputField,
+  header,
+  body,
+  getValidate
+} from "../utils/guestbookUtilities/emailPasswordInput";
 
 class EmailPasswordInput extends Component {
   state = {
@@ -17,22 +23,12 @@ class EmailPasswordInput extends Component {
       meta: { touched, error }
     } = fields;
 
-    const className = `form-group ${touched && error ? "has-danger" : ""}`;
+    const className = `${touched && error ? "text-warning blink" : ""}`;
 
-    return (
-      <div className={className}>
-        <input
-          type={fields.input.name === "email" ? "email" : "password"}
-          className="form-control"
-          {...fields.input}
-        />
-
-        <div className="text-help">{touched ? error : ""}</div>
-      </div>
-    );
+    return renderInputField(className, fields, touched, error);
   }
 
-  onSubmit = async values => {
+  sendSubmit = async values => {
     const response = await this.props.userGuestbookLogin(values);
     const { data } = response.payload;
 
@@ -70,54 +66,32 @@ class EmailPasswordInput extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="card center-align">
-        <Modal className="text-center" show={this.props.location.state}>
-          <Modal.Header className="bg-success">
-            <div>
-              <h3 className="heading heading-correct-pronounciation">
-                <em>FIND YOUR POST</em>
-              </h3>
-              Enter Your email and password
-            </div>
-          </Modal.Header>
+        <Modal
+          className="text-center"
+          show={this.props.location.state}
+          style={{ top: "5%" }}
+        >
+          <Modal.Header className="bg-success">{header()}</Modal.Header>
           <Modal.Body>
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-              <div>
-                <label style={{ fontSize: "1.2em" }}>
-                  Your email:
-                  <Field name="email" component={this.renderInputField} />
-                </label>
-              </div>
+            {body(
+              handleSubmit,
+              this.sendSubmit,
+              this.renderInputField,
+              this.state.message
+            )}
 
-              <div>
-                <label style={{ fontSize: "1.2em" }}>
-                  Your password:
-                  <Field name="password" component={this.renderInputField} />
-                </label>
-              </div>
+            <Link to="/" className="btn-sm btn-outline-success float-left">
+              BACK TO MAIN MENU
+              <i className="fa fa-th-list mt-1 ml-2" />
+            </Link>
 
-              {<div> {this.state.message} </div>}
-
-              <div>
-                <Link
-                  to="/guestbookAllPosted"
-                  className="btn btn-sm btn-primary"
-                >
-                  BACK TO CUSTOMER REVIEW
-                </Link>
-                <Link to="/" className="btn btn-sm btn-success ml-5">
-                  BACK TO MAIN MENU
-                </Link>
-                <Field
-                  className="btn btn-sm btn-danger ml-5"
-                  name="submit"
-                  component="button"
-                  type="submit"
-                >
-                  SUBMIT
-                  <i class="fa fa-sign-in-alt" />
-                </Field>
-              </div>
-            </form>
+            <Link
+              to="/guestbookAllPosted"
+              className="btn-sm btn-outline-primary float-right"
+            >
+              BACK TO CUST. REVIEW
+              <i className="fa fa-list-ul mt-1 ml-2" />
+            </Link>
           </Modal.Body>
         </Modal>
       </div>
@@ -127,27 +101,7 @@ class EmailPasswordInput extends Component {
 
 function validate(values) {
   let err = {};
-
-  if (!values.email) {
-    err.email = "Please enter your email. It must be an email format.";
-  } else {
-    const emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
-
-    if (!emailPattern.test(values.email)) {
-      err.email = "You enterned a wrong email. Please, enter again.";
-    }
-  }
-
-  if (!values.password) {
-    err.password =
-      "Please enter your password. It must be more than 8 letters.";
-  } else {
-    if (values.password.length < 8) {
-      err.password = "Your password must be more than 8 letters.";
-    }
-  }
-
-  return err;
+  return getValidate(values, err);
 }
 
 export default reduxForm({
