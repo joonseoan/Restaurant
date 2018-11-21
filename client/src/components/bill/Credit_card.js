@@ -1,22 +1,12 @@
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { handleToken, handleTotalAmount } from "../../actions";
 
 class CreditCard extends Component {
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.finishCreditPay &&
-      prevProps.finishCreditPay !== this.props.finishCreditPay &&
-      this.props.finishCreditPay.data === "success"
-    ) {
-      this.props.thankYouControl();
-    }
-  }
-
-  handleOnClick = e => {
-    this.props.setDisable();
+  handleOnClick = () => {
     this.props.handleTotalAmount(this.props.totalPayment);
     this.props.storeMenuOrders();
   };
@@ -32,25 +22,20 @@ class CreditCard extends Component {
         }}
         stripeKey={process.env.REACT_APP_STRIPE_KEY}
       >
-        <button
-          type="submit"
+        <Link
           className="btn btn-sm btn-warning font-weight-bold text-secondary"
           onClick={this.handleOnClick}
-          disabled={this.props.disable}
+          to={{ pathname: "background", state: "credit" }}
         >
           CREDIT CARD
           <i className="ml-2 fa fa-cc-visa" />
-        </button>
+        </Link>
       </StripeCheckout>
     );
   }
 }
 
-function mapStateToProps({ finishCreditPay }) {
-  return { finishCreditPay };
-}
-
 export default connect(
-  mapStateToProps,
+  null,
   { handleToken, handleTotalAmount }
 )(CreditCard);

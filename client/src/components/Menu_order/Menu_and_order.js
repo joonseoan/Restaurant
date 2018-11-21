@@ -5,10 +5,16 @@ import Bill from "../Bill/Bill";
 import MenuOrders from "./Menu_orders";
 
 class MenuAndOrder extends Component {
+  _isMounted = false;
+
   state = {
     showModal: false,
     clicked_name: ""
   };
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
 
   handleOpenModal = () => {
     this.setState({
@@ -35,6 +41,10 @@ class MenuAndOrder extends Component {
     if (this.state.showModal === nextState.showModal) return false;
 
     return true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -96,7 +106,7 @@ class MenuAndOrder extends Component {
         </div>
         <div>
           <Bill
-            openStatus={this.state.showModal}
+            openStatus={this._isMounted ? this.state.showModal : false}
             menuChecked={this.props.menuOrdered}
             // newPageStatus={() => {
             //   this.setState({ newPage: true });

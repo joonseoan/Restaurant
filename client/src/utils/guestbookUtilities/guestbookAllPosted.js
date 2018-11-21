@@ -15,22 +15,32 @@ export function commonGroup() {
   return contents;
 }
 
-export function guestbookAllPosted(guestbooks) {
+export function guestbookAllPosted(guestbooks, postManage, path) {
   const contents = (
     <div>
-      <Display guestbooks={sortGuestbooks(guestbooks)} />
+      <Display
+        guestbooks={sortGuestbooks(guestbooks)}
+        postManage={postManage}
+        path={path}
+      />
     </div>
   );
   return contents;
 }
 
-export function modalGuestbookAllPosted(guestbooks, deleteModal, postManage) {
+export function modalGuestbookAllPosted(
+  guestbooks,
+  postManage,
+  path,
+  deleteModal
+) {
   const contents = (
     <div>
       <ModalGuestbookDisplay
         guestbooks={sortGuestbooks(guestbooks)}
-        deleteModal={deleteModal}
         postManage={postManage}
+        path={path}
+        deleteModal={deleteModal}
       />
     </div>
   );

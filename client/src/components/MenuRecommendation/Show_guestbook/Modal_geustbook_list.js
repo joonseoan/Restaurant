@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 
 import {
   commonGroup,
-  modalGuestbookDisplay
+  modalGuestbookList
 } from "../../../utils/guestbookUtilities/guestbook_list";
 
 class ModalGuestbookList extends Component {
@@ -13,6 +13,7 @@ class ModalGuestbookList extends Component {
   };
 
   render() {
+    const path = "/";
     return (
       <div>
         <Modal
@@ -27,10 +28,11 @@ class ModalGuestbookList extends Component {
           >
             <Modal.Header>{commonGroup()}</Modal.Header>
             <Modal.Body>
-              {modalGuestbookDisplay(
+              {modalGuestbookList(
                 this.props.userGuestbooks,
-                this.props.deleteModal,
-                this.props.postManage
+                this.props.postManage,
+                path,
+                this.props.deleteModal
               )}
             </Modal.Body>
             <Modal.Footer>

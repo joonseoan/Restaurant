@@ -55,7 +55,7 @@ class RecommendationMenu extends Component {
           Present Special Menu
         </h2>
         <div className="slide-left neon-background border-top mt-5 mb-1 mx-auto card-title w-75">
-          <p className="text-danger pb-4">
+          <p className="text-danger" style={{ bottom: "3px" }}>
             Hi customers. It is{" "}
             <strong className="blink text-success">{description}</strong>. In
             this weather, you might enjoy the followings.

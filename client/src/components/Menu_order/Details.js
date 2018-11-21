@@ -11,6 +11,12 @@ class Details extends Component {
       price: 0,
       showModal: false
     };
+
+    this._isMounted = false;
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
   }
 
   handleDetailButton = e => {
@@ -26,6 +32,10 @@ class Details extends Component {
       showModal: false
     });
   };
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   render() {
     const { name, price } = this.props.namePrice;
 
@@ -42,7 +52,7 @@ class Details extends Component {
 
         <Modal
           className="text-center"
-          show={this.state.showModal}
+          show={this._isMounted ? this.state.showModal : false}
           onHide={this.handleModalClose}
         >
           <Modal.Header>

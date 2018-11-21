@@ -23,6 +23,7 @@ import userGuestbooks from "./userGuestbooks";
 import orderStates from "./order_states";
 import modalControl from "./modalControl";
 import postStateControl from "./postControl";
+// import showPostController from "./showPostControl";
 
 const reducers = combineReducers({
   branchLocation,
@@ -48,6 +49,7 @@ const reducers = combineReducers({
   finishCreditPay,
   orderStates,
   postStateControl
+  // showPostController
 });
 
 export default reducers;

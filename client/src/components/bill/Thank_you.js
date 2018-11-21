@@ -7,19 +7,15 @@ class ThankYou extends Component {
     reset: false
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.reset) {
-      window.location.reload();
-    }
-  }
-
   handleReset = e => {
     this.setState({ reset: true });
-    //window.location.reload();
   };
 
   render() {
-    if (!this.props.fromWhere) return <div />;
+    if (this.state.reset) {
+      window.location.reload();
+    }
+
     const waitPerson =
       this.props.fromWhere === "cash" ? (
         <div>
@@ -34,7 +30,11 @@ class ThankYou extends Component {
 
     return (
       <div className="mt-3">
-        <Modal className="text-center" show={this.props.showThankYou}>
+        <Modal
+          className="text-center"
+          show={this.props.showThankYou}
+          style={{ top: "10%" }}
+        >
           <Modal.Body>
             {waitPerson}
             <h3 className="text-info blink">Thank you for your order!!!</h3>
@@ -43,12 +43,13 @@ class ThankYou extends Component {
                 Would you like to join our survey?
               </h3>
               <div className="mt-3">
-                <button
+                <Link
                   className="btn border border-warning mr-5"
                   onClick={this.handleReset}
+                  to="/"
                 >
                   SKIP
-                </button>
+                </Link>
                 <Link
                   className="btn btn-primary ml-5"
                   to="/guestbookNewCreated"

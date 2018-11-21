@@ -1,34 +1,23 @@
 import React from "react";
-import { removeSpace, insertSpaces, timeInfo } from "../uIControl";
 import { Link } from "react-router-dom";
+import _ from "lodash";
 
-// display(
-//     countNumber,
-//     this.props.guestbooks,
-//     this.props.deleteModal,
-//     this.props.postManage,
-//     this.props.postControl,
-//     "/"
-//   );
+import { removeSpace, insertSpaces, timeInfo } from "../uIControl";
 
 export function display(
   countNumber,
   guestbooks,
-  deleteModal,
   postManage,
   postControl,
-  direction
+  path,
+  deleteModal
 ) {
-  let routing = "";
-  if (direction === "/") {
-    routing = "/";
-  } else {
-    routing = "/guestbookPosted/";
-  }
-
+  //  console.log("guestbooks-----------", guestbooks);
   const contents = (
     <ul className="list-group list-group-flush">
       {guestbooks.map(guestbook => {
+        // const upAndDown = guestbook.like ? "up" : "down";
+        // const color = guestbook.like ? "primary" : "danger;";
         if (countNumber > 10) return;
         return (
           <li
@@ -36,7 +25,6 @@ export function display(
             className={`list-group-item bg-${
               countNumber % 2 === 0 ? "light" : ""
             }`}
-            key={guestbook._id}
             style={{
               paddingBottom: "0px",
               marginBottom: "0px"
@@ -46,7 +34,21 @@ export function display(
               className="text-left font-weight-bold mt-3"
               style={{ fontSize: "18px" }}
             >
-              <Link to={routing + routing !== "/" ? `${guestbook._id}` : ""}>
+              <Link
+                to={path}
+                onClick={() => {
+                  if (path === "/") {
+                    deleteModal();
+                    postManage(true);
+                    postControl(guestbook._id);
+                    return;
+                  } else {
+                    postManage(true);
+                    postControl(guestbook._id);
+                    return;
+                  }
+                }}
+              >
                 <span className="text-primary"> {guestbook.title} </span>
                 <span>
                   {" "}
@@ -63,7 +65,13 @@ export function display(
                     >
                       {insertSpaces(guestbook.food)}
                     </span>
-                    <i className="fa fa-thumbs-up bg-primary text-white border border-muted rounded" />
+                    <i
+                      className={`fa fa-thumbs-${
+                        guestbook.like ? "up" : "down"
+                      } bg-${
+                        guestbook.like ? "primary" : "danger"
+                      } text-white border border-muted rounded`}
+                    />
                   </span>
                 </span>
               </Link>

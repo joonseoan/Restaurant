@@ -1,52 +1,71 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 
-import Display from "./guestbook_display";
+import GuestbookPosted from "../utils/guestbookUtilities/guestbook_posted";
 
 import {
   commonGroup,
-  guestbookDisplay
+  guestbookList
 } from "../utils/guestbookUtilities/guestbook_list";
 
-const GuestbookList = props => {
-  const handleLogout = () => {
-    sessionStorage.id = "";
-    window.location.reload();
+class GuestbookList extends Component {
+  state = { showPost: false };
+
+  handleLogout = () => {
+    window.sessionStorage.id = "";
+    //window.location.reload();
   };
 
-  return (
-    <div
-      className="container jumbotron text-center"
-      style={{ fontFamily: "ubuntu" }}
-    >
-      <hr className="border border-secondary" />
-      {commonGroup()}
-      <hr className="border border-secondary" />
+  render() {
+    const {
+      match: { path },
+      userGuestbooks
+    } = this.props;
 
-      {guestbookDisplay(props.userGuestbooks)}
-      {/* 
-          <Display guestbooks={props.userGuestbooks} />
-         */}
+    const postManage = control => {
+      this.setState({ showPost: control });
+    };
 
-      <Link
-        className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
-        to="/"
-      >
-        BACK TO MAIN MENU
-        <i className="fa fa-arrow-left ml-2" />
-      </Link>
-      <Link
-        className="btn btn-sm btn-outline-danger border-danger rounded"
-        onClick={handleLogout}
-        to="/guestbookAllPosted"
-      >
-        LOGOUT
-        <i className="fa fa-eraser ml-2" />
-      </Link>
-    </div>
-  );
-};
+    return (
+      <div>
+        <div
+          className="container jumbotron text-center"
+          style={{ fontFamily: "ubuntu" }}
+        >
+          <hr className="border border-secondary" />
+          {commonGroup()}
+          <hr className="border border-secondary" />
+
+          {guestbookList(userGuestbooks, postManage, path)}
+
+          <Link
+            className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
+            to="/"
+          >
+            BACK TO MAIN MENU
+            <i className="fa fa-arrow-left ml-2" />
+          </Link>
+          <Link
+            className="btn btn-sm btn-outline-danger border-danger rounded"
+            onClick={this.handleLogout}
+            to="/guestbookAllPosted"
+          >
+            LOGOUT
+            <i className="fa fa-eraser ml-2" />
+          </Link>
+        </div>
+        <GuestbookPosted
+          userGuestbooks={userGuestbooks}
+          showPost={this.state.showPost}
+          postManage={postManage}
+          path={path}
+        />
+      </div>
+    );
+  }
+}
 
 function mapStateToProps({ userGuestbooks }) {
   return { userGuestbooks };

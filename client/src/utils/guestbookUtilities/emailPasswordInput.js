@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field } from "redux-form";
 
 export function renderInputField(className, fields, touched, error) {
   const contents = (
@@ -13,7 +13,6 @@ export function renderInputField(className, fields, touched, error) {
         style={{ width: "70%" }}
         {...fields.input}
       />
-
       <div className="text-danger" style={{ fontSize: "12px" }}>
         {touched ? error : ""}
       </div>

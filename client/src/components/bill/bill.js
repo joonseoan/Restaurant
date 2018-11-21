@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 import _ from "lodash";
 import { connect } from "react-redux";
-// import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { storeOrders } from "../../actions";
 import { rounding, insertSpaces } from "../../utils/uIControl";
 import CreditCard from "./Credit_card";
-import ThankYou from "./Thank_you";
 
 Modal.setAppElement("#root");
 
@@ -15,9 +14,6 @@ class Bill extends Component {
   state = {
     tipRate: 0,
     tip: 0,
-    //newPage: false,
-    fromWhere: "",
-    disable: false,
     showThankYou: false
   };
 
@@ -72,25 +68,16 @@ class Bill extends Component {
     });
   };
 
-  eventClick = e => {
+  eventClick = () => {
     // will send this data to DB later on.
+
     const { menuChecked } = this.props;
     this.props.storeOrders(menuChecked);
-
-    this.setState({
-      newPage: true,
-      fromWhere: e.target.name,
-      disable: true,
-      showThankYou: true
-    });
-
     // this.props.children._self.handleCloseModal();
   };
 
   render() {
     if (!this.props) return <div>Loading...</div>;
-
-    // if (this.state.newPage) return this.handleNewPage();
 
     const tipRate = [0.0, 0.1, 0.15, 0.2];
     let count = 0;
@@ -172,16 +159,14 @@ class Bill extends Component {
           </h5>
           <ol className="list-unstyled text-monospace bg-transparent justify-content-center">
             <li className="d-inline">
-              <button
+              <Link
                 className="btn btn-sm btn-warning font-weight-bold text-secondary"
-                type="submit"
-                name="cash"
                 onClick={this.eventClick}
-                disabled={this.state.disable}
+                to={{ pathname: "/background", state: "cash" }}
               >
                 CASH
                 <i className="ml-2 fa fa-dollar" />
-              </button>{" "}
+              </Link>{" "}
             </li>
             <li className="d-inline">
               <CreditCard
@@ -192,25 +177,9 @@ class Bill extends Component {
                   const { menuChecked, storeOrders } = this.props;
                   storeOrders(menuChecked);
                 }}
-                thankYouControl={() => {
-                  this.setState({
-                    showThankYou: true,
-                    fromWhere: "credit"
-                  });
-                }}
-                setDisable={() => {
-                  this.setState({ disable: true });
-                }}
-                disable={this.state.disable}
               />
             </li>
           </ol>
-          <div>
-            <ThankYou
-              showThankYou={this.state.showThankYou}
-              fromWhere={this.state.fromWhere}
-            />
-          </div>
         </div>
       </Modal>
     );

@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import _ from "lodash";
 
 import { fetchGuesbookLists } from "../actions/index";
-// import Display from "./guestbook_display";
 import {
   guestbookAllPosted,
   commonGroup
 } from "../utils/guestbookUtilities/guestbookAllPosted";
 
+import GuestbookPosted from "../utils/guestbookUtilities/guestbook_posted";
+
 class GuestbookAllPosted extends Component {
-  state = { showLogin: false };
+  state = { showLogin: false, showPost: false };
   componentDidMount() {
     this.props.fetchGuesbookLists();
   }
@@ -30,30 +31,45 @@ class GuestbookAllPosted extends Component {
       this.props.guestbooks,
       guestbook => guestbook.like
     );
-    return (
-      <div
-        className="container jumbotron text-center"
-        style={{ fontFamily: "ubuntu" }}
-      >
-        <hr className="border border-secondary" />
-        {commonGroup()}
-        <hr className="border border-secondary" />
-        {guestbookAllPosted(guestbooks)}
-        <Link
-          className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
-          to="/"
-        >
-          BACK TO MAIN MENU
-          <i className="fa fa-arrow-left ml-2" />
-        </Link>
 
-        <button
-          className="btn btn-sm btn-outline-danger border-danger rounded"
-          onClick={this.handleFindPost}
+    const postManage = control => {
+      this.setState({ showPost: control });
+    };
+
+    const { path } = this.props.match;
+    // console.log("path in allPosted: ", path);
+    return (
+      <div>
+        <div
+          className="container jumbotron text-center"
+          style={{ fontFamily: "ubuntu" }}
         >
-          FIND YOUR POST
-          <i className="fa fa-list-ol ml-2 mt-1" />
-        </button>
+          <hr className="border border-secondary" />
+          {commonGroup()}
+          <hr className="border border-secondary" />
+          {guestbookAllPosted(guestbooks, postManage, path)}
+          <Link
+            className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
+            to="/"
+          >
+            BACK TO MAIN MENU
+            <i className="fa fa-arrow-left ml-2" />
+          </Link>
+
+          <button
+            className="btn btn-sm btn-outline-danger border-danger rounded"
+            onClick={this.handleFindPost}
+          >
+            FIND YOUR POST
+            <i className="fa fa-list-ol ml-2 mt-1" />
+          </button>
+        </div>
+        <GuestbookPosted
+          guestbooks={this.props.guestbooks}
+          showPost={this.state.showPost}
+          postManage={postManage}
+          path={path}
+        />
       </div>
     );
     // return (

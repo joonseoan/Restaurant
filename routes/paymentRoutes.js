@@ -9,6 +9,7 @@ module.exports = app => {
   app.post("/billing", async (req, res) => {
     totalAmount = req.body.amount * 100;
 
+    console.log("success");
     res.send("success");
   });
 
@@ -19,6 +20,8 @@ module.exports = app => {
       description: "pay for korean restaurant",
       source: req.body.id
     });
+
+    console.log("charge", charge);
 
     // Setup after google OAuth login
     // from "passport" m/w

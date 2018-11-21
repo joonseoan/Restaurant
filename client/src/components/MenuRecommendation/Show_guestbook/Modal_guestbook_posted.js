@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Modal } from "react-bootstrap";
 import _ from "lodash";
-
-import { timeInfo } from "../../../utils/uIControl";
 
 import {
   setGuestbook,
   fetchGuesbookLists,
   deleteLoginUserGuestbook
 } from "../../../actions";
+
+import { guestbookPosted } from "../../../utils/guestbookUtilities/guestbook_posted";
 
 class ModalGuestbookPosted extends Component {
   state = {
@@ -31,7 +30,7 @@ class ModalGuestbookPosted extends Component {
     if (window.sessionStorage.id) {
       return (
         <button onClick={this.deletePost} className="btn btn-sm btn-danger">
-          Delete this post
+          DELETE THIS POST
         </button>
       );
     } else {
@@ -79,39 +78,15 @@ class ModalGuestbookPosted extends Component {
 
     const { food, title, comments, visitedAt } = post[0];
 
-    return (
-      <Modal
-        show={showPost}
-        style={{ fontFamily: "ubuntu", fontSize: "24px" }}
-        className="font-italic"
-      >
-        <Modal.Header>
-          <div className="float-left text-left d-inline">{title}</div>
-          <div
-            className="btn btn-sm btn-danger float-right d-inline"
-            onClick={() => {
-              this.props.postManage(false);
-              this.props.displayModal();
-            }}
-          >
-            x
-          </div>
-        </Modal.Header>
-
-        <Modal.Body>
-          <div>
-            {" "}
-            <div>I ate {food}. </div>
-            {comments}
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="float-left d-inline">{this.deleteButton()}</div>
-          <div className="text-right d-inline">
-            @{timeInfo(Number(visitedAt))}
-          </div>
-        </Modal.Footer>
-      </Modal>
+    return guestbookPosted(
+      showPost,
+      food,
+      title,
+      comments,
+      visitedAt,
+      this.props.postManage,
+      this.props.displayModal,
+      this.deleteButton
     );
   }
 }

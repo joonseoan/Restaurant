@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import { createGuestbook } from "../actions/index";
+import {
+  createGuestbook,
+  fetchGuesbookLists,
+  setGuestbook
+} from "../actions/index";
 import { insertSpaces } from "../utils/uIControl";
 import Tradition from "./tradition";
 import ThankYou from "./thankyou";
@@ -203,8 +207,6 @@ class GuestbookNewCreated extends Component {
 
     const className = `${touched && error ? "blink text-warning" : ""}`;
 
-    // let count = 0;
-
     return (
       <div className="mb-5">
         <i
@@ -216,9 +218,6 @@ class GuestbookNewCreated extends Component {
         <div className="border-bottom border-dark mt-3">
           {options.map(option => {
             input.value = option;
-
-            // count++;
-
             return (
               <label key={option} className="font-weight-normal ml-5">
                 I {option} this menu
@@ -259,20 +258,12 @@ class GuestbookNewCreated extends Component {
     }
 
     values.city = this.props.additionalTodayWeather.name;
-
     this.props.createGuestbook(values);
-
-    // () => {
-    // console.log("testing...............");
-    //   const {
-    //     history: { push }
-    //   } = this.props;
-
-    //   push("/guestbookAllPosted");
-    // });
-    //});
+    this.props.fetchGuesbookLists();
 
     this.setState({ showThankYou: true });
+
+    window.sessionStorage.id = ''
   };
 
   render() {
@@ -385,9 +376,6 @@ class GuestbookNewCreated extends Component {
               </div>
             </div>
           </div>
-          {/*
-            <h5>Thank you for joining survey!</h5>
-           */}
         </form>
         <ThankYou thankyou={this.state.showThankYou} />
       </div>
@@ -451,8 +439,12 @@ function validate(values) {
   return err;
 }
 
-const mapStateToProps = ({ orderedMenu, additionalTodayWeather }) => {
-  return { orderedMenu, additionalTodayWeather };
+const mapStateToProps = ({
+  orderedMenu,
+  additionalTodayWeather,
+  userGuestbooks
+}) => {
+  return { orderedMenu, additionalTodayWeather, userGuestbooks };
 };
 
 export default reduxForm({
@@ -463,6 +455,6 @@ export default reduxForm({
 })(
   connect(
     mapStateToProps,
-    { createGuestbook }
+    { createGuestbook, fetchGuesbookLists, setGuestbook }
   )(GuestbookNewCreated)
 );

@@ -10,9 +10,10 @@ import GuestbookAllPosted from "./guestbooks/guestbook_all_posted";
 import GuestbookNewCreated from "./guestbooks/guestbook_new_created";
 //import RecommendationDescriptions from './components/Current_recommendations/Recommendation_descriptions';
 //import ThankYouAndGuestbook from "./components/Thankyou/Thank_you_and_guestbook";
-import GuestbookPosted from "./guestbooks/guestbook_posted";
+// import GuestbookPosted from "./guestbooks/guestbook_posted";
 import EmailPasswordInput from "./guestbooks/email_password_input";
 import GuestbookList from "./guestbooks/geustbook_list";
+import Background from "./components/Bill/Background";
 
 import reducers from "./reducers";
 
@@ -38,16 +39,19 @@ ReactDOM.render(
             path="/guestbookNewCreated"
             component={GuestbookNewCreated}
           />
-          <Route
-            exact
-            path="/guestbookPosted/:id"
-            component={GuestbookPosted}
-          />
+          {/* 
+            <Route
+              exact
+              path="/guestbookPosted/:id"
+              component={GuestbookPosted}
+            />
+           */}
           <Route
             exact
             path="/emailPasswordInput"
             component={EmailPasswordInput}
           />
+          <Route exact path="/background" component={Background} />
           <Route exact path="/" component={App} />
         </Switch>
       </div>

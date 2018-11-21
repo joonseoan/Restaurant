@@ -4,9 +4,14 @@ import { connect } from "react-redux";
 
 import ModalGuestbookAllPosted from "./Modal_ guestbook_all_posted";
 import ModalGuestbookList from "./Modal_geustbook_list";
-import ModalGuestbookPosted from "./Modal_guestbook_posted";
+import GuestbookPosted from "../../../utils/guestbookUtilities/guestbook_posted";
+// import ModalGuestbookPosted from "./Modal_guestbook_posted";
 
-import { modalControl, fetchGuesbookLists } from "../../../actions";
+import {
+  modalControl,
+  fetchGuesbookLists
+  //showPostControl
+} from "../../../actions";
 
 class ReviewButton extends Component {
   state = {
@@ -24,6 +29,15 @@ class ReviewButton extends Component {
 
     return null;
   }
+
+  // componentDidMount() {
+  //   this.props.showPostControl({
+  //     showPost: this.state.showPost,
+  //     setShowPost: control => {
+  //       this.setState({ showPost: control });
+  //     }
+  //   });
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.showModal !== this.state.showModal) {
@@ -89,7 +103,7 @@ class ReviewButton extends Component {
             userGuestbooks={this.state.userGuestbooks}
           />
         )}
-        <ModalGuestbookPosted
+        <GuestbookPosted
           showPost={this.state.showPost}
           postManage={control => {
             this.setState({ showPost: control });
@@ -99,9 +113,7 @@ class ReviewButton extends Component {
           displayModal={() => {
             this.setState({ showModal: true });
           }}
-          isUpdated={control => {
-            this.setState({ isUpdated: control });
-          }}
+          path="/"
         />
       </div>
     );
@@ -114,5 +126,5 @@ function mapStateToProps({ guestbooks, userGuestbooks }) {
 
 export default connect(
   mapStateToProps,
-  { modalControl, fetchGuesbookLists }
+  { modalControl, fetchGuesbookLists } //  showPostControl
 )(ReviewButton);

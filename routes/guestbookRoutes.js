@@ -120,20 +120,13 @@ module.exports = app => {
       */
 
   app.post("/guests/login", async (req, res) => {
-   
     try {
       const body = _.pick(req.body, ["email", "password"]);
-
       const guest = await Guests.findByCredentials(body.email, body.password);
 
-      console.log(guest);
-
       res.send(guest);
-     
     } catch (e) {
       res.status(400).send();
     }
-
   });
-
 };

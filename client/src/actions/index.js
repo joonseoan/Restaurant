@@ -26,7 +26,8 @@ import {
   GENERAL_GUEST,
   SEND_GUESTBOOKS,
   MODAL_CONTROL,
-  POST_CONTROL
+  POST_CONTROL,
+  SHOW_POST_CONTROL
 } from "./fetch_guestbooks";
 
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
@@ -205,6 +206,13 @@ export function postControl(post) {
     payload: post
   };
 }
+
+// export function showPostControl(control) {
+//   return {
+//     type: SHOW_POST_CONTROL,
+//     payload: control
+//   };
+// }
 
 export function deleteLoginUserGuestbook(id) {
   // axios.delete(`/guests/${id}`).then(() => {

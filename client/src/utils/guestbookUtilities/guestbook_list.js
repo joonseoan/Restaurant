@@ -15,7 +15,12 @@ export function commonGroup() {
   return contents;
 }
 
-export function modalGuestbookDisplay(userGuestbooks, deleteModal, postManage) {
+export function modalGuestbookList(
+  userGuestbooks,
+  postManage,
+  path,
+  deleteModal
+) {
   const contents = (
     <div>
       {userGuestbooks.length === 0 ? (
@@ -25,6 +30,7 @@ export function modalGuestbookDisplay(userGuestbooks, deleteModal, postManage) {
           guestbooks={sortGuestbooks(userGuestbooks)}
           deleteModal={deleteModal}
           postManage={postManage}
+          path={path}
         />
       )}
     </div>
@@ -32,7 +38,13 @@ export function modalGuestbookDisplay(userGuestbooks, deleteModal, postManage) {
   return contents;
 }
 
-export function guestbookDisplay(userGuestbooks) {
-  const contents = <Display guestbooks={sortGuestbooks(userGuestbooks)} />;
+export function guestbookList(userGuestbooks, postManage, path) {
+  const contents = (
+    <Display
+      guestbooks={sortGuestbooks(userGuestbooks)}
+      postManage={postManage}
+      path={path}
+    />
+  );
   return contents;
 }

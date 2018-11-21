@@ -30,6 +30,8 @@ class ModalGuestbookAllPosted extends Component {
       guestbook => guestbook.like
     );
 
+    const path = "/";
+
     return (
       <div>
         <Modal
@@ -46,8 +48,9 @@ class ModalGuestbookAllPosted extends Component {
               {/* css should be changed */}
               {modalGuestbookAllPosted(
                 guestbooks,
-                this.props.deleteModal,
-                this.props.postManage
+                this.props.postManage,
+                path,
+                this.props.deleteModal
               )}
             </Modal.Body>
 
