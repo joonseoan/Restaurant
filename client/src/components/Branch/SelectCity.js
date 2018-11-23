@@ -7,7 +7,7 @@ const SelectCity = props => {
 
     refreshStatus();
     const { value } = e.target;
-    sessionStorage.setItem("branch_city", value);
+    window.sessionStorage.setItem("branch_city", value);
     setCity(value);
   };
 

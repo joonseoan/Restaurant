@@ -30,17 +30,6 @@ class RecommendationMenu extends Component {
   //   return true;
   // }
 
-  // handleButton = () => {
-  //   console.log(this.props);
-  //   const direction =
-
-  //   //className="text-center" show={props.thankyou}
-  // };
-
-  // componentDidMount() {
-  //   this.props.fetchGuesbookLists();
-  // }
-
   render() {
     const { menu, additionalTodayWeather } = this.props;
 

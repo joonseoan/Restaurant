@@ -5,12 +5,16 @@ import { insertSpaces } from "../../utils/uIControl";
 
 function SetNextArrow(props) {
   const { className, style } = props;
-  return <div className={className} style={{ ...style, display: "none" }} />;
+  return (
+    <div className={className} style={{ ...style, visibility: "hidden" }} />
+  );
 }
 
 function SetPrevArrow(props) {
   const { className, style } = props;
-  return <div className={className} style={{ ...style, display: "none" }} />;
+  return (
+    <div className={className} style={{ ...style, visibility: "hidden" }} />
+  );
 }
 
 class MenuOrders extends Component {
@@ -21,7 +25,7 @@ class MenuOrders extends Component {
       isLastSlide: true,
       isFirstSlide: true,
       lastSlide: 0,
-      showYourOrder: "none",
+      showYourOrder: "hidden",
       windowWidth: 0,
       slidesToShow: 0
     };
@@ -37,6 +41,8 @@ class MenuOrders extends Component {
     this.update();
   }
 
+  menu_length = 0;
+
   componentDidUpdate(prevProps, prevState) {
     const { menuOrdered } = this.props;
     const {
@@ -45,11 +51,13 @@ class MenuOrders extends Component {
     const { windowWidth, currentSlide, lastSlide } = this.state;
 
     if (
-      prevState.windowWidth !== this.state.windowWidth ||
-      prevProps.menuOrdered.length !== this.props.menuOrdered.length
+      prevState.windowWidth !== windowWidth ||
+      prevProps.menuOrdered.length !== menuOrdered.length ||
+      menuOrdered.length < this.menu_length
     ) {
       const setLastSlide = (menuLength, slidesToDisplay) => {
         this.setState({ slidesToShow: slidesToDisplay });
+
         if (menuLength > slidesToDisplay) {
           this.setState({ lastSlide: menuLength - slidesToDisplay });
         } else {
@@ -66,7 +74,6 @@ class MenuOrders extends Component {
       } else {
         setLastSlide(menuOrdered.length, responsive[2].settings.slidesToShow);
       }
-
       if (menuOrdered.length > this.state.slidesToShow) {
         this.setState({ isLastSlide: false });
       } else {
@@ -100,12 +107,16 @@ class MenuOrders extends Component {
     if (this.state.currentSlide !== prevState.currentSlide) {
       if (currentSlide === lastSlide) {
         this.setState({ isLastSlide: true });
+      } else {
+        this.setState({ isLastSlide: false });
       }
-
       if (currentSlide === initialSlide) {
         this.setState({ isFirstSlide: true });
+      } else {
+        this.setState({ isFirstSlide: false });
       }
     }
+    this.menu_length = menuOrdered.length;
   }
 
   handleOrderList = menuOrdered => {
@@ -117,24 +128,34 @@ class MenuOrders extends Component {
         <div key={count++} className="mt-3 text-center">
           <div className="justify-content-center">
             <div>
-              {count}. <strong>{insertSpaces(name)}</strong>
+              <p>
+                {count}. <strong>{insertSpaces(name)}</strong>
+              </p>
             </div>
             <div>
               <img
-                className="img img-fluid img-thumbnail mx-auto mt-2 d-inline"
-                style={{ width: "80px", height: "50px" }}
+                className="img img-fluid mx-auto d-inline"
+                style={{
+                  width: "80px",
+                  height: "50px"
+                }}
                 alt={name}
                 src={`./images/${name}.PNG`}
               />
               <img
-                className="img img-fluid mx-auto mt-2 rounded d-inline"
-                style={{ width: "20px", height: "50px" }}
+                className="img img-fluid mx-auto rounded d-inline"
+                style={{
+                  width: "20px",
+                  height: "50px"
+                }}
                 alt="spoonSticks"
                 src={`./images/spoon.png`}
               />
             </div>
           </div>
-          <div className="mt-2">{number} orders(s)</div>
+          <div className="mt-2">
+            <p>{number} orders(s)</p>
+          </div>
         </div>
       );
     });
@@ -142,7 +163,8 @@ class MenuOrders extends Component {
 
   handleCart = () => {
     this.setState({
-      showYourOrder: this.state.showYourOrder === "none" ? "block" : "none",
+      showYourOrder:
+        this.state.showYourOrder === "hidden" ? "visible" : "hidden",
       currentSlide: 0
     });
   };
@@ -164,8 +186,8 @@ class MenuOrders extends Component {
 
   render() {
     if (!this.props) return <div />;
-
     const { menuOrdered, orderButton } = this.props;
+    const newOrderButton = orderButton === "none" ? "hidden" : "visible";
 
     const settings = {
       dots: false,
@@ -209,70 +231,133 @@ class MenuOrders extends Component {
       }
     };
 
+    const prevDisplay = this.state.isFirstSlide ? "hidden" : "visible";
+    const nextDisplay = this.state.isLastSlide ? "hidden" : "visible";
+
+    const fixed_bottom =
+      this.state.showYourOrder === "visible" && newOrderButton === "visible"
+        ? "fixed-bottom"
+        : "";
+
+    let fixed_bottom_button;
+
+    if (newOrderButton === "visible" && this.state.showYourOrder === "hidden") {
+      fixed_bottom_button = "fixed-bottom";
+    } else if (
+      newOrderButton === "visible" &&
+      this.state.showYourOrder === "visible"
+    ) {
+      fixed_bottom_button = "";
+    } else {
+      fixed_bottom_button = "";
+    }
+
     if (this.slider) {
       const { slickGoTo } = this.slider;
       if (
-        this.state.showYourOrder === "block" &&
-        this.props.orderButton === "block"
+        this.state.showYourOrder === "visible" &&
+        newOrderButton === "visible"
       ) {
         slickGoTo(this.state.currentSlide);
       }
     }
 
-    const prevDisplay = this.state.isFirstSlide ? "hidden" : "visible";
-    const nextDisplay = this.state.isLastSlide ? "hidden" : "visible";
-
     return (
-      <div className="fixed-bottom">
+      <div>
         <div
-          style={{
-            display:
-              orderButton === "block" ? this.state.showYourOrder : orderButton,
-            backgroundImage: "url(./images/table.PNG)"
-          }}
-          className="container-fluid w-50 mx-auto rounded"
+          className={`mt-3 text-center rounded ${fixed_bottom}`}
+          style={{ visibility: newOrderButton }}
         >
-          <Slider ref={c => (this.slider = c)} {...settings}>
-            {this.handleOrderList(menuOrdered)}
-          </Slider>
-          <div className="row text-center bg-success">
-            <i
-              className="col fa fa-caret-left text-white d-inline"
-              style={{ visibility: prevDisplay }}
-              onClick={this.previous}
-            />
-            <strong className="align-items-top">
-              {this.state.currentSlide + 1} / {this.state.lastSlide + 1}
-            </strong>
-            <i
-              className="col fa fa-caret-right text-white d-inline"
-              style={{ visibility: nextDisplay }}
-              onClick={this.next}
-            />
+          <div
+            className={`container-fluid w-50 mb-2`}
+            style={{
+              visibility:
+                newOrderButton === "visible"
+                  ? this.state.showYourOrder
+                  : newOrderButton,
+              backgroundImage: "url(./images/table.PNG)"
+            }}
+          >
+            <Slider ref={c => (this.slider = c)} {...settings}>
+              {this.handleOrderList(menuOrdered)}
+            </Slider>
+            <div
+              className="row text-center bg-success"
+              style={{
+                visibility:
+                  this.state.showYourOrder === "visible" &&
+                  newOrderButton === "visible"
+                    ? "visible"
+                    : "hidden"
+              }}
+            >
+              <span
+                className="col text-white mt-2"
+                style={{
+                  visibility:
+                    this.state.showYourOrder === "visible" &&
+                    newOrderButton === "visible"
+                      ? prevDisplay
+                      : "hidden"
+                }}
+                onClick={this.previous}
+              >
+                <label>
+                  <i className="fa fa-caret-left" />
+                </label>
+              </span>
+              <span className="mt-2">
+                <strong className="align-items-top">
+                  {this.state.currentSlide + 1} / {this.state.lastSlide + 1}
+                </strong>
+              </span>
+              <span
+                className="col text-white mt-2"
+                style={{
+                  visibility:
+                    this.state.showYourOrder === "visible" &&
+                    newOrderButton === "visible"
+                      ? nextDisplay
+                      : "hidden"
+                }}
+                onClick={this.next}
+              >
+                <label>
+                  <i className="fa fa-caret-right" />
+                </label>
+              </span>
+            </div>
           </div>
-        </div>
-        <div
-          className="mt-3 text-center rounded"
-          style={{ display: orderButton }}
-        >
-          <button
-            className="btn btn-sm btn-success mr-5"
-            onClick={this.handleCart}
-          >
-            {this.state.showYourOrder === "none"
-              ? "SHOW YOUR CART"
-              : "HIDE YOUR CART"}
-            <i className="fa fa-eye ml-2" />
-          </button>
-          <button
-            id={this.props.id}
-            className="btn btn-sm text-white responsive"
-            style={{ backgroundColor: "#CC0000" }}
-            onClick={this.props.openModalControl}
-          >
-            PLACE AN ORDER
-            <i className="fa fa-shopping-cart ml-2" />
-          </button>
+          <div className={`${fixed_bottom_button}`}>
+            <button
+              className="btn btn-sm btn-success"
+              onClick={this.handleCart}
+            >
+              {this.state.showYourOrder === "hidden"
+                ? "SHOW MY CART"
+                : "HIDE MY CART"}
+              <i className="fa fa-eye ml-2" />
+            </button>
+            <button
+              id={this.props.id}
+              className={`btn btn-sm text-white responsive ${
+                this.state.windowWidth > 440 ? "ml-5" : "mt-2"
+              }`}
+              style={{ backgroundColor: "#CC0000", width: "300px" }}
+              onClick={() => {
+                const setShowControl = () => {
+                  this.setState({ showYourOrder: "visible" });
+                };
+                const showControl = this.state.showYourOrder;
+                this.props.setOrderStatus({ setShowControl, showControl });
+                this.setState({ showYourOrder: "hidden" });
+                this.props.openModalControl();
+              }}
+            >
+              PLACE AN ORDER
+              <i className="fa fa-shopping-cart ml-2" />
+            </button>
+          </div>
         </div>
       </div>
     );

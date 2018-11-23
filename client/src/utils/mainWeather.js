@@ -35,8 +35,6 @@ const weatherCategories = [
 ];
 
 export function regexFilter(weather) {
-  console.log("weather in main: ", weather);
-
   let result;
 
   _.each(weatherCategories, data => {

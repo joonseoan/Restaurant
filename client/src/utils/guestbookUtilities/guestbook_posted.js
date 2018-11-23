@@ -58,13 +58,7 @@ class GuestbookPosted extends Component {
 
   render() {
     const { showPost, guestbooks, userGuestbooks, path } = this.props;
-
     const books = window.sessionStorage.id ? userGuestbooks : guestbooks;
-
-    // const books = guestbooks || userGuestbooks;
-    console.log("path", path);
-    console.log("showPost: ", showPost);
-    console.log("books", books);
 
     if (!books || !this.state.id || books.length === 0) return <div />;
 

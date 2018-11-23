@@ -12,6 +12,7 @@ export default class DateTimeDisplay extends Component {
 
   componentDidMount() {
     this._isMounted = true;
+
     if (this._isMounted) {
       this.startInterval = setInterval(() => {
         const dateTime = new Date();

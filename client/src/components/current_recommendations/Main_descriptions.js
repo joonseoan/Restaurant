@@ -84,9 +84,6 @@ class MainDescriptions extends Component {
   foodGuestbooks(guestbooks) {
     let { name } = this.state.menuItem;
     const guestbookList = _.map(guestbooks);
-
-    // name = removeSpace(name);
-
     const getGuestbooks = _.filter(
       guestbookList,
       guestbook =>

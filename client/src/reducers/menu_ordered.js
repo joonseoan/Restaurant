@@ -1,17 +1,11 @@
-import { MENU_ORDERED } from '../actions/fetch_guestbooks';
+import { MENU_ORDERED } from "../actions/fetch_guestbooks";
 
-export default function (state = [], action) {
+export default function(state = [], action) {
+  switch (action.type) {
+    case MENU_ORDERED:
+      return action.payload;
 
-    switch (action.type) {
-
-        case MENU_ORDERED:
-            
-            return action.payload;
-        
-        default:
-            
-            return state;
-    
-    }
-  
+    default:
+      return state;
+  }
 }

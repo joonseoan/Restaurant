@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import _ from "lodash";
 
 import { removeSpace, insertSpaces, timeInfo } from "../uIControl";
 
@@ -12,13 +11,10 @@ export function display(
   path,
   deleteModal
 ) {
-  //  console.log("guestbooks-----------", guestbooks);
   const contents = (
     <ul className="list-group list-group-flush">
       {guestbooks.map(guestbook => {
-        // const upAndDown = guestbook.like ? "up" : "down";
-        // const color = guestbook.like ? "primary" : "danger;";
-        if (countNumber > 10) return;
+        if (countNumber > 10) return null;
         return (
           <li
             key={guestbook._id}

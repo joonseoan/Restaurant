@@ -14,13 +14,7 @@ class LocationCoordinate extends Component {
     } = this.props.branchLocation.results[0];
 
     return (
-      <div
-        className="container weather-background card wow wobble"
-        // style={{
-        //   backgroundImage: "url(./images/morning.PNG)",
-        //   backgroundSize: "cover"
-        // }}
-      >
+      <div className="container weather-background card wow wobble">
         <div>
           <Displayweather area={geometry.location} />
         </div>

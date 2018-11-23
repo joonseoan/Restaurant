@@ -25,8 +25,6 @@ export function rounding(number) {
 }
 
 export const initUI = CurrentMenuName => {
-  console.log(removeSpace(CurrentMenuName));
-
   document.querySelector(
     `input[name="${removeSpace(CurrentMenuName)}"]`
   ).checked = false;

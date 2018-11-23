@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
-import _ from "lodash";
 import { Modal } from "react-bootstrap";
 
 import { userGuestbookLogin, setGuestbook } from "../../../actions";

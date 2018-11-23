@@ -7,10 +7,7 @@ import {
   REFRESH_MENU,
   REFRESH_BUTTON,
   FETCH_SELECTED_MENU,
-  // FETCH_MATCHED_MENU,
-  // RESET_CANCEL,
   FETCH_CANCEL_MENU,
-  // FETCH_ITEMS_CHECKEDIN
   ORDER_STATE
 } from "./fetch_weather";
 
@@ -18,16 +15,13 @@ import {
   FETCH_GUESTBOOKS,
   CREATE_GUESTBOOK,
   MENU_ORDERED,
-  FETCH_GUESTBOOK,
   DELETE_GUESTBOOK,
   USER_LOGIN,
-  //FETCH_LOGIN_GUESTBOOK,
   GUEST_PAY,
   GENERAL_GUEST,
   SEND_GUESTBOOKS,
   MODAL_CONTROL,
-  POST_CONTROL,
-  SHOW_POST_CONTROL
+  POST_CONTROL
 } from "./fetch_guestbooks";
 
 const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
@@ -37,8 +31,6 @@ const TodayURL = `https://api.openweathermap.org/data/2.5/weather?appid=${
 const GoogleURL = "https://maps.googleapis.com/maps/api/geocode/json?address";
 
 export function setLocation(branch_city) {
-  console.log("branch_city: ", branch_city);
-
   const url = `${GoogleURL}=${branch_city}&key=${
     process.env.REACT_APP_GMAP_API_KEY
   }`;
@@ -74,13 +66,6 @@ export function selectedReco(menu) {
   };
 }
 
-// export function resetCancel(reset) {
-//   return {
-//     type: RESET_CANCEL,
-//     payload: reset
-//   };
-// }
-
 export function fetchCancelMenu(menu) {
   return {
     type: FETCH_CANCEL_MENU,
@@ -101,20 +86,6 @@ export function refreshButton(number) {
     payload: number
   };
 }
-
-// export function fetchMatchedMenu(name) {
-//   return {
-//     type: FETCH_MATCHED_MENU,
-//     payload: name
-//   };
-// }
-
-// export function fetchItemsCheckedIn(name_price) {
-//   return {
-//     type: FETCH_ITEMS_CHECKEDIN,
-//     payload: name_price
-//   };
-// }
 
 export function storeOrders(orders) {
   return {
@@ -142,7 +113,6 @@ export function handleToken(token) {
 }
 
 export function orderState(states) {
-  console.log("ssssssss");
   return {
     type: ORDER_STATE,
     payload: states
@@ -166,15 +136,6 @@ export function createGuestbook(guestbook) {
     payload: response
   };
 }
-
-// export function fetchGuestbook(id) {
-//   const request = axios.get(`/guests/${id}`);
-
-//   return {
-//     type: FETCH_GUESTBOOK,
-//     payload: request
-//   };
-// }
 
 export function userGuestbookLogin(loginInfo) {
   const response = axios.post("/guests/login", loginInfo);
@@ -200,25 +161,13 @@ export function modalControl(setModal) {
 }
 
 export function postControl(post) {
-  console.log("post", post);
   return {
     type: POST_CONTROL,
     payload: post
   };
 }
 
-// export function showPostControl(control) {
-//   return {
-//     type: SHOW_POST_CONTROL,
-//     payload: control
-//   };
-// }
-
 export function deleteLoginUserGuestbook(id) {
-  // axios.delete(`/guests/${id}`).then(() => {
-  //   callback();
-  // });
-
   const response = axios.delete(`/guests/${id}`);
 
   return {

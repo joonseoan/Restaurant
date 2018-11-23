@@ -15,7 +15,6 @@ class GuestbookList extends Component {
 
   handleLogout = () => {
     window.sessionStorage.id = "";
-    //window.location.reload();
   };
 
   render() {

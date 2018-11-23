@@ -7,7 +7,6 @@ import BranchList from "./Branch/Branch_list";
 import LocationCoordinate from "./Weather/Location_coordinate";
 import RecommendationMenu from "./MenuRecommendation/Recommendation_menu";
 import MenuAndOrder from "./Menu_order/Menu_and_order";
-//import { options } from "../utils/cities";
 
 class App extends Component {
   constructor(props) {
@@ -58,19 +57,6 @@ class App extends Component {
         this.setState({ orderButton: "none" });
       }
     }
-
-    // console.log(this.props.currentStates);
-
-    // if (
-    //   this.props.currentStates &&
-    //   this.props.currentStates.menu_ordered.length > 0
-    // ) {
-    //   console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-    //   //const prevNumber = _.map(prevState.menu_ordered.numbe)
-    //   //if (this.props.currentStates.menu_ordered.length > 0) {
-    //   this.state = this.props.currentStates;
-    //   //}
-    // }
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -80,7 +66,6 @@ class App extends Component {
   // }
 
   render() {
-    //console.log(this.props.currentStates, "dddddddddddddddddddddd");
     return (
       <div>
         <div className="mt-5">

@@ -14,18 +14,6 @@ class BranchList extends Component {
     city: ""
   };
 
-  // setTodayWeatherInfo = city => {
-  //   //    if (this.state._isMounted === true) {
-  //   this.props.setLocation(city);
-  //   this.props.additionalTodayWeatherInfo(city);
-
-  //   if (this.startInterval) clearInterval(this.startInterval);
-  //   this.startInterval = setInterval(() => {
-  //     this.props.additionalTodayWeatherInfo(city);
-  //   }, 300000);
-  //   //  }
-  // };
-
   componentDidMount() {
     const city = sessionStorage.branch_city || options[0].value;
 
@@ -33,8 +21,6 @@ class BranchList extends Component {
     this.setState({
       city
     });
-
-    // this.setTodayWeatherInfo(city);
   }
 
   componentDidUpdate(prevProps, prevState) {

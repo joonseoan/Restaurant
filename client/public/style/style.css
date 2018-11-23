@@ -12,21 +12,11 @@ body {
 a.orderStart {
   position: absolute;
   margin-top: 20px;
-  /* top:50%;
-    left:50%; */
-  /* background: lightblue; */
   transform: translate(-50%, -50%);
   font: 20px "Gloria Hallelujah";
   width: 150px;
-  /* height:50px; */
-  /* padding:0 1rem; */
-  /* line-height:60px; */
   text-align: center;
-  /* border: 2px solid lightblue; */
-  /* font-size: 15px; */
-  /* text-decoration: none; */
   text-transform: uppercase;
-  /* font-family: sans-serif; */
   color: lightcoral;
   overflow: hidden;
   padding-bottom: 10px;
@@ -146,7 +136,7 @@ div.slide-left p {
 }
 #weather {
   font-family: "Ubuntu", sans-serif;
-  font-size: 40px;
+  font-size: 35px;
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
@@ -177,7 +167,6 @@ div.slide-left p {
   padding: 10px;
   border: none;
   font: 30px "Gloria Hallelujah";
-  /* font: italic normal normal 27px / normal "Warnes", Helvetica, sans-serif; */
   text-align: center;
   margin-bottom: 20px;
   margin-right: 20px;
@@ -213,10 +202,7 @@ div.slide-left p {
 
 /* menuBoard */
 .menuBoard {
-  /* background-image: url(../images/menuBoard.PNG); */
   background-size: cover;
-  /* border: 4px solid brown;
-  border-radius: 3%; */
   margin-top: 5px;
   font: 20px "Gloria Hallelujah";
 }
@@ -225,8 +211,6 @@ div.slide-left p {
 .btn-circle {
   width: 24px;
   height: 24px;
-  /* text-align: center; */
-  /* padding: 6px 0; */
   font-size: 14px;
   line-height: 1.428571429;
   border-radius: 15px;

@@ -9,6 +9,7 @@ class CreditCard extends Component {
   handleOnClick = () => {
     this.props.handleTotalAmount(this.props.totalPayment);
     this.props.storeMenuOrders();
+    this.props.setShowThankYou;
   };
 
   render() {
@@ -22,14 +23,13 @@ class CreditCard extends Component {
         }}
         stripeKey={process.env.REACT_APP_STRIPE_KEY}
       >
-        <Link
+        <button
           className="btn btn-sm btn-warning font-weight-bold text-secondary"
           onClick={this.handleOnClick}
-          to={{ pathname: "background", state: "credit" }}
         >
           CREDIT CARD
           <i className="ml-2 fa fa-cc-visa" />
-        </Link>
+        </button>
       </StripeCheckout>
     );
   }

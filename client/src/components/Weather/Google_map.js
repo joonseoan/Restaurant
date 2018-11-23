@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-///* global google */
+/* global google */
 
 function loadJS(src) {
   var ref = window.document.getElementsByTagName("script")[0];

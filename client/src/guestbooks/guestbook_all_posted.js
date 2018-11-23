@@ -21,7 +21,6 @@ class GuestbookAllPosted extends Component {
     const { push } = this.props.history;
 
     push("/emailPasswordInput", true);
-    // this.setState({ showLogin: true });
   };
 
   render() {
@@ -37,7 +36,6 @@ class GuestbookAllPosted extends Component {
     };
 
     const { path } = this.props.match;
-    // console.log("path in allPosted: ", path);
     return (
       <div>
         <div

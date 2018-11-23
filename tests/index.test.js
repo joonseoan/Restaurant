@@ -58,7 +58,7 @@ describe("POST /guests", () => {
       .end((err, res) => {
         if (err) return done(err);
 
-        console.log("data sent from the server to the user: ", res.body);
+        // console.log("data sent from the server to the user: ", res.body);
         // findById => an document, not collection which is an array.
         Guests.findById(res.body._id)
           .then(guest => {

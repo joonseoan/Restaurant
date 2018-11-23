@@ -15,9 +15,10 @@ class ThankYou extends Component {
     if (this.state.reset) {
       window.location.reload();
     }
+    const { showThankYou, how } = this.props.thankYou;
 
     const waitPerson =
-      this.props.fromWhere === "cash" ? (
+      how === "cash" ? (
         <div>
           <h4>Waitor / Waitress is comming soon</h4>
           <img
@@ -32,7 +33,7 @@ class ThankYou extends Component {
       <div className="mt-3">
         <Modal
           className="text-center"
-          show={this.props.showThankYou}
+          show={showThankYou}
           style={{ top: "10%" }}
         >
           <Modal.Body>
