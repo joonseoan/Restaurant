@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { handleToken, handleTotalAmount } from "../../actions";
 
@@ -9,7 +8,7 @@ class CreditCard extends Component {
   handleOnClick = () => {
     this.props.handleTotalAmount(this.props.totalPayment);
     this.props.storeMenuOrders();
-    this.props.setShowThankYou;
+    this.props.setShowThankyou();
   };
 
   render() {

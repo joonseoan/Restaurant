@@ -15,7 +15,7 @@ class ThankYou extends Component {
     if (this.state.reset) {
       window.location.reload();
     }
-    const { showThankYou, how } = this.props.thankYou;
+    const { showThankYou, how } = this.props;
 
     const waitPerson =
       how === "cash" ? (

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 import _ from "lodash";
 import { connect } from "react-redux";
-// import { Link } from "react-router-dom";
 
 import { storeOrders } from "../../actions";
 import { rounding, insertSpaces } from "../../utils/uIControl";
@@ -171,7 +170,6 @@ class Bill extends Component {
                   className="btn btn-sm btn-warning font-weight-bold text-secondary"
                   onClick={this.eventClick}
                   value="cash"
-                  //to={{ pathname: "/background", state: "cash" }}
                 >
                   CASH
                   <i className="ml-2 fa fa-dollar" />
@@ -188,7 +186,6 @@ class Bill extends Component {
                   }}
                   setShowThankyou={() => {
                     this.setState({
-                      showThankYou: true,
                       how: "credit"
                     });
                   }}
