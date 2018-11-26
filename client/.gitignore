@@ -24,3 +24,6 @@ process.env
 
 recommendation_engine.js
 cities.js
+
+env.development
+env.production
