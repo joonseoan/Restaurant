@@ -13,7 +13,7 @@ const SelectCity = props => {
 
   return (
     <div className="w-50">
-      <div className="dropdown">
+      <div className="dropdown mr-3">
         <button
           className="btn btn-success dropdown-toggle"
           type="button"

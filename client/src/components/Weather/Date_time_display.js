@@ -53,7 +53,7 @@ export default class DateTimeDisplay extends Component {
 
     return (
       <div
-        className="text-right my-3 font-weight-bold"
+        className="text-right text-light my-3 font-weight-bold"
         style={{ fontFamily: "Ubuntu" }}
       >
         {currentTime.format("hh:mm:ss a in MMM Do YYYY")}

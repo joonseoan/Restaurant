@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import { fetchGuesbookLists } from "../../actions";
-import { removeSpace, insertSpaces } from "../../utils/uIControl";
+import {
+  removeSpace,
+  insertSpaces,
+  timeInfo,
+  sortGuestbooks
+} from "../../utils/uIControl";
 
 class MainDescriptions extends Component {
   state = {
@@ -92,6 +97,8 @@ class MainDescriptions extends Component {
         guestbook.like
     );
 
+    const sortedGuestbooks = sortGuestbooks(getGuestbooks);
+
     let countNumber = 0;
 
     if (getGuestbooks.length === 0) {
@@ -103,7 +110,7 @@ class MainDescriptions extends Component {
     } else {
       return (
         <div id="accordion">
-          {getGuestbooks.reverse().map(guestbook => {
+          {sortedGuestbooks.map(guestbook => {
             if (
               guestbook.food === removeSpace(name) ||
               guestbook.food === insertSpaces(name)
@@ -127,7 +134,7 @@ class MainDescriptions extends Component {
                       <div className="card-body">
                         <p className="text-left">{guestbook.comments}</p>
                         <p className="text-right">
-                          --- at {guestbook.visitedAt}
+                          --- at {timeInfo(guestbook.visitedAt)}
                         </p>
                       </div>
                     </div>

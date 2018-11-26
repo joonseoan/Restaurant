@@ -94,7 +94,7 @@ class Bill extends Component {
           isOpen={this.props.openStatus}
           style={{
             content: {
-              width: "50%",
+              width: "260px",
               margin: "auto",
               backgroundImage: "url(./images/receipt.PNG)"
             }

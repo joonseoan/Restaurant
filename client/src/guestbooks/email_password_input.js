@@ -79,18 +79,23 @@ class EmailPasswordInput extends Component {
               this.state.message
             )}
 
-            <Link to="/" className="btn-sm btn-outline-success float-left">
-              BACK TO MAIN MENU
-              <i className="fa fa-th-list mt-1 ml-2" />
-            </Link>
-
-            <Link
-              to="/guestbookAllPosted"
-              className="btn-sm btn-outline-primary float-right"
-            >
-              BACK TO CUST. REVIEW
-              <i className="fa fa-list-ul mt-1 ml-2" />
-            </Link>
+            <div className="row">
+              <div className="col">
+                <Link to="/" className="btn-sm btn-outline-success float-left">
+                  BACK TO MAIN MENU
+                  <i className="fa fa-th-list mt-1 ml-2" />
+                </Link>
+              </div>
+              <div className="col">
+                <Link
+                  to="/guestbookAllPosted"
+                  className="btn-sm btn-outline-primary float-right"
+                >
+                  BACK TO CUST. REVIEW
+                  <i className="fa fa-list-ul mt-1 ml-2" />
+                </Link>
+              </div>
+            </div>
           </Modal.Body>
         </Modal>
       </div>

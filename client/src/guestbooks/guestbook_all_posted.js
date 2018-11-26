@@ -46,21 +46,27 @@ class GuestbookAllPosted extends Component {
           {commonGroup()}
           <hr className="border border-secondary" />
           {guestbookAllPosted(guestbooks, postManage, path)}
-          <Link
-            className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
-            to="/"
-          >
-            BACK TO MAIN MENU
-            <i className="fa fa-arrow-left ml-2" />
-          </Link>
 
-          <button
-            className="btn btn-sm btn-outline-danger border-danger rounded"
-            onClick={this.handleFindPost}
-          >
-            FIND YOUR POST
-            <i className="fa fa-list-ol ml-2 mt-1" />
-          </button>
+          <div className="row mx-auto">
+            <div className="col">
+              <Link
+                className="btn btn-sm btn-outline-primary border-primary rounded"
+                to="/"
+              >
+                BACK TO MAIN MENU
+                <i className="fa fa-arrow-left ml-2" />
+              </Link>
+            </div>
+            <div className="col">
+              <button
+                className="btn btn-sm btn-outline-danger border-danger rounded"
+                onClick={this.handleFindPost}
+              >
+                FIND YOUR POST
+                <i className="fa fa-list-ol ml-2 mt-1" />
+              </button>
+            </div>
+          </div>
         </div>
         <GuestbookPosted
           guestbooks={this.props.guestbooks}

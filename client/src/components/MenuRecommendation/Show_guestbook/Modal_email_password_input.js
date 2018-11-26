@@ -75,23 +75,25 @@ class ModalEmailPasswordInput extends Component {
               this.renderInputField,
               this.state.message
             )}
-            <button
-              className="btn-sm btn-outline-success float-left"
-              onClick={() => {
-                this.props.closeModal();
-              }}
-            >
-              BACK TO MAIN MENU
-              <i className="fa fa-th-list mt-1 ml-2" />
-            </button>
+            <div className="row">
+              <button
+                className="col btn-sm btn-outline-success float-left ml-2 mr-2"
+                onClick={() => {
+                  this.props.closeModal();
+                }}
+              >
+                BACK TO MAIN MENU
+                <i className="fa fa-th-list mt-1 ml-2" />
+              </button>
 
-            <button
-              className="btn-sm btn-outline-primary float-right"
-              onClick={this.backToCustomerReview}
-            >
-              BACK TO CUST. REVIEW
-              <i className="fa fa-list-ul mt-1 ml-2" />
-            </button>
+              <button
+                className="col btn-sm btn-outline-primary float-right mr-2 ml-2"
+                onClick={this.backToCustomerReview}
+              >
+                BACK TO CUST. REVIEW
+                <i className="fa fa-list-ul mt-1 ml-2" />
+              </button>
+            </div>
           </Modal.Body>
         </Modal>
       </div>

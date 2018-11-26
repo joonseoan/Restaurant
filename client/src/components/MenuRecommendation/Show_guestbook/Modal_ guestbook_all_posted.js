@@ -55,21 +55,26 @@ class ModalGuestbookAllPosted extends Component {
             </Modal.Body>
 
             <Modal.Footer>
-              <div className="mx-auto">
-                <button
-                  className="btn btn-sm btn-outline-primary border-primary rounded mr-5"
-                  onClick={this.handleCloseModal}
-                >
-                  BACK TO MAIN MENU
-                  <i className="fa fa-arrow-left ml-2" />
-                </button>
-                <button
-                  className="btn btn-sm btn-outline-danger border-danger rounded"
-                  onClick={this.handleFindPost}
-                >
-                  FIND YOUR POST
-                  <i className="fa fa-list-ol ml-2 mt-1" />
-                </button>
+              <div className="row mx-auto text-center">
+                <div className="col">
+                  <button
+                    className="btn btn-sm btn-outline-primary border-primary rounded"
+                    onClick={this.handleCloseModal}
+                  >
+                    BACK TO MAIN MENU
+                    <i className="fa fa-arrow-left ml-2" />
+                  </button>
+                </div>
+
+                <div className="col">
+                  <button
+                    className="btn btn-sm btn-outline-danger border-danger rounded"
+                    onClick={this.handleFindPost}
+                  >
+                    FIND YOUR POST
+                    <i className="fa fa-list-ol ml-2 mt-1" />
+                  </button>
+                </div>
               </div>
             </Modal.Footer>
           </div>

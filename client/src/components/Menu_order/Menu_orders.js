@@ -136,17 +136,18 @@ class MenuOrders extends Component {
               <img
                 className="img img-fluid mx-auto d-inline"
                 style={{
-                  width: "80px",
-                  height: "50px"
+                  width: "65px",
+                  height: "45px"
                 }}
                 alt={name}
                 src={`./images/${name}.PNG`}
               />
+
               <img
                 className="img img-fluid mx-auto rounded d-inline"
                 style={{
-                  width: "20px",
-                  height: "50px"
+                  width: "15px",
+                  height: "45px"
                 }}
                 alt="spoonSticks"
                 src={`./images/spoon.png`}
