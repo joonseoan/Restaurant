@@ -12,10 +12,10 @@ const { mongoURI, stripeSecretKey } = require("./dev");
 if (env === "production") {
   process.env.MONGODB_URI = require("./prod");
 } else if (env === "development") {
-  process.env.PORT = 5000;
+  process.env.PORT = 9000;
   process.env.MONGODB_URI = mongoURI;
   process.env.STRIPE = stripeSecretKey;
 } else if (env === "test") {
-  process.env.PORT = 5000;
+  process.env.PORT = 9000;
   process.env.MONGODB_URI = "mongodb://localhost:27017/guestsTest";
 }

@@ -4,19 +4,19 @@
   "private": true,
   "proxy": {
     "/guests": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:9000"
     },
     "/loginGuestbooks": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:9000"
     },
     "/guests/*": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:9000"
     },
     "/billing": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:9000"
     },
     "/billing/*": {
-      "target": "http://localhost:5000"
+      "target": "http://localhost:9000"
     }
   },
   "dependencies": {
