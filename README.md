@@ -24,7 +24,7 @@
 ####      - updating weather information every 5 minutes 
 ####      - and utilizing OpenWeatherMap and GoogleMap modules
 ##### [Toronto Restaurant]
-##### ![Main Page1](/client/public/images/Soju.PNG)
+##### ![Main Page1](/client/public/images/git_readme/location.PNG)
 ##### [Vancouver Restaurant]
 ##### ![Main_Page2](weather_v.PNG)
 #### 2. Recommendatiion Menus  
