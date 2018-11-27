@@ -22,9 +22,9 @@
 #### 1. Restaurant Location and Weather Information
 ####      - displaying local weather information 
 ####      - updating weather information every 5 minutes 
-####      - and utilizing OpenWeatherMap, DarkSky, and GoogleMap modules
+####      - and utilizing OpenWeatherMap and GoogleMap modules
 ##### [Toronto Restaurant]
-##### ![Main Page1](weather_t.PNG)
+##### ![Main Page1](/client/public/images/Soju.PNG)
 ##### [Vancouver Restaurant]
 ##### ![Main_Page2](weather_v.PNG)
 #### 2. Recommendatiion Menus  
