@@ -2,54 +2,45 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": {
-    "/guests": {
-      "target": "http://localhost:9000"
-    },
-    "/loginGuestbooks": {
-      "target": "http://localhost:9000"
-    },
-    "/guests/*": {
-      "target": "http://localhost:9000"
-    },
-    "/billing": {
-      "target": "http://localhost:9000"
-    },
-    "/billing/*": {
-      "target": "http://localhost:9000"
-    }
-  },
   "dependencies": {
     "axios": "^0.18.0",
-    "dark-sky-api": "^0.6.31",
     "file-system": "^2.2.2",
     "form": "^0.2.4",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
-    "react": "^16.5.2",
-    "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.5.2",
+    "react": "^16.6.3",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.6.3",
     "react-google-maps": "^9.4.5",
-    "react-modal": "^3.5.1",
-    "react-redux": "^5.0.7",
+    "react-modal": "^3.6.1",
+    "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^1.1.5",
-    "react-select-me": "^1.0.1",
+    "react-scripts": "2.1.1",
+    "react-select-me": "^1.1.0",
     "react-slick": "^0.23.2",
     "react-stripe-checkout": "^2.6.3",
-    "redux": "^4.0.0",
+    "redux": "^4.0.1",
     "redux-form": "^7.4.2",
     "redux-promise": "^0.6.0",
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
-    "validator": "^10.7.1",
+    "validator": "^10.9.0",
     "wow.js": "^1.2.2",
     "write-json-file": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
-  }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -3,12 +3,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import { fetchGuesbookLists } from "../../actions";
-import {
-  removeSpace,
-  insertSpaces,
-  timeInfo,
-  sortGuestbooks
-} from "../../utils/uIControl";
+import {sortGuestbooks,  removeSpace, insertSpaces, timeInfo } from "../../utils/uIControl";
 
 class MainDescriptions extends Component {
   state = {
@@ -97,9 +92,9 @@ class MainDescriptions extends Component {
         guestbook.like
     );
 
-    const sortedGuestbooks = sortGuestbooks(getGuestbooks);
-
     let countNumber = 0;
+
+    const sortedGuestbooks = sortGuestbooks(getGuestbooks);
 
     if (getGuestbooks.length === 0) {
       return (

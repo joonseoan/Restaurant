@@ -52,7 +52,7 @@ class GuestbookPosted extends Component {
         this.props.displayModal();
       }
     } catch (e) {
-      console.log("Unexpected error occurred.");
+     // console.log("Unexpected error occurred.");
     }
   };
 
