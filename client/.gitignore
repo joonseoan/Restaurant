@@ -22,6 +22,6 @@
 
 npm-debug.log*
 
-recommendation_engine
-cities
+recommendation_engine.js
+cities.js
 
